@@ -2667,3 +2667,61 @@ img, svg { max-width:100%; height:auto; }
   .wema-brand-logo { width: 74px !important; }
 }
 /* END MOBILE UX FINAL REAL IMPLEMENTED */
+
+
+/* === MOBILE UX ITERATION 3 FINAL === */
+@media (max-width: 768px) {
+
+  /* Prozess horizontal */
+  .prozess, .process, [class*="prozess"] {
+    display: flex !important;
+    overflow-x: auto;
+    gap: 16px;
+    padding: 0 16px;
+    scroll-snap-type: x mandatory;
+  }
+
+  .prozess > *, .process > *, [class*="prozess"] > * {
+    flex: 0 0 85%;
+    scroll-snap-align: start;
+  }
+
+  /* Immobilien kompakter */
+  .immobilien-card, [class*="immobilien"] {
+    padding: 12px !important;
+  }
+
+  .immobilien-card img, [class*="immobilien"] img {
+    height: 180px !important;
+    object-fit: cover;
+  }
+
+  .immobilien-card h3 {
+    font-size: 16px;
+  }
+
+  /* Marktsegmente sauberer Swipe */
+  .marktsegmente, [class*="markt"] {
+    display: flex;
+    overflow-x: auto;
+    gap: 16px;
+    padding: 0 16px;
+    scroll-snap-type: x mandatory;
+  }
+
+  .marktsegmente > *, [class*="markt"] > * {
+    flex: 0 0 80%;
+    scroll-snap-align: start;
+  }
+
+  /* WEMA wieder vertikal */
+  .wema, [class*="wema"] {
+    display: block !important;
+  }
+
+  /* Global spacing */
+  section {
+    padding: 50px 20px !important;
+  }
+
+}
