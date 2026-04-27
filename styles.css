@@ -2514,251 +2514,156 @@ img, svg { max-width:100%; height:auto; }
   }
 }
 
-/* =========================================================
-   Technische Optimierung ohne Designänderung
-   - bessere Accessibility bei reduzierter Bewegung
-   - stabileres Rendering für dynamische Bildinhalte
-   ========================================================= */
+/* MOBILE UX FINAL REAL IMPLEMENTED
+   Ziel: Mobile Ansicht professionell verdichten, Desktop unverändert lassen.
+   - Leistungsportfolio: horizontaler Swipe
+   - Marktsegmente: 2 Karten übereinander, dann horizontal wischen
+   - WEMA: kompakt vertikal, kein Swipe
+   - Integrierte Immobilienkompetenz/Netzwerk: horizontaler Swipe
+   - Über uns + Immobilien: mobil weniger massiv
+*/
+@media (max-width: 760px) {
+  html,
+  body { overflow-x: hidden; }
 
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    scroll-behavior: auto !important;
-    transition-duration: 0.01ms !important;
-  }
+  section,
+  #fokus { padding: 3.8rem 1.15rem !important; }
 
-  .reveal {
-    opacity: 1 !important;
-    transform: none !important;
-  }
-}
-
-img {
-  max-width: 100%;
-}
-
-/* =========================================================
-   Mobile Optimierung ohne sichtbaren Desktop-Designbruch
-   ========================================================= */
-html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; scroll-padding-top: 88px; }
-button, a, [role="button"] { -webkit-tap-highlight-color: rgba(200,164,107,0.18); touch-action: manipulation; }
-
-@media (max-width: 900px) {
-  nav { min-height: 64px; padding-left: max(1.25rem, env(safe-area-inset-left)); padding-right: max(1.25rem, env(safe-area-inset-right)); }
-  .nav-logo svg { width: clamp(158px, 52vw, 200px) !important; height: auto !important; }
-  section { overflow-x: clip; }
-  #hero { min-height: 100svh; }
-  .hero-content { width: 100%; box-sizing: border-box; }
-  .hero-title { text-wrap: balance; }
-  .hero-subtitle { text-wrap: pretty; }
-  .btn-primary, .btn-ghost, .nav-cta, .immo-filter-btn, .immo-modal-cta { min-height: 46px; display: inline-flex; align-items: center; justify-content: center; }
-  .immo-filter { flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch; scroll-snap-type: x proximity; padding-bottom: .35rem; margin-left: -1.35rem; margin-right: -1.35rem; padding-left: 1.35rem; padding-right: 1.35rem; scrollbar-width: none; }
-  .immo-filter::-webkit-scrollbar { display: none; }
-  .immo-filter-btn { flex: 0 0 auto; scroll-snap-align: start; white-space: nowrap; }
-  .immo-grid { scroll-padding-left: 0; overscroll-behavior-inline: contain; }
-  .immo-card { flex-basis: min(88vw, 390px) !important; }
-  .immo-premium-price-overlay { right: .85rem !important; bottom: .85rem !important; min-width: 7.6rem !important; padding: .72rem .82rem .76rem !important; }
-  .immo-premium-price-overlay strong { font-size: clamp(1.18rem, 7vw, 1.45rem) !important; }
-  .immo-premium-status, .immo-premium-image-count { max-width: calc(100% - 2rem); }
-  .immo-modal { align-items: flex-start !important; padding-top: max(.85rem, env(safe-area-inset-top)) !important; padding-bottom: max(.85rem, env(safe-area-inset-bottom)) !important; }
-  .immo-modal-inner { max-height: calc(100svh - 1.7rem - env(safe-area-inset-top) - env(safe-area-inset-bottom)) !important; overflow: auto !important; -webkit-overflow-scrolling: touch; }
-  .immo-modal-close { width: 44px !important; height: 44px !important; top: .75rem !important; right: .75rem !important; z-index: 20 !important; }
-  .immo-premium-gallery-nav { width: 44px !important; height: 44px !important; }
-  .immo-premium-gallery-dots { max-width: calc(100% - 2rem); overflow-x: auto; scrollbar-width: none; }
-  .immo-premium-gallery-dots::-webkit-scrollbar { display: none; }
-  .immo-premium-modal-body h3, .immo-premium-description { overflow-wrap: anywhere; }
-}
-
-@media (max-width: 560px) {
-  html { scroll-padding-top: 74px; }
-  nav { padding-top: .85rem !important; padding-bottom: .85rem !important; }
-  .hero-content { padding-top: 6.25rem !important; padding-bottom: 3.25rem !important; }
-  .hero-actions { max-width: none !important; }
-  .immo-card { flex-basis: calc(100vw - 2.3rem) !important; }
-  .immo-premium-body { padding: 1.35rem 1.25rem 1.45rem !important; }
-  .immo-premium-card-facts { grid-template-columns: repeat(3, minmax(0,1fr)) !important; gap: .7rem !important; }
-  .immo-premium-fact-item span { font-size: .52rem !important; letter-spacing: .1em !important; }
-  .immo-premium-fact-item strong { font-size: 1rem !important; }
-  .immo-premium-gallery { height: clamp(220px, 34svh, 300px) !important; }
-  .immo-premium-modal-body { padding: 1.35rem 1.25rem 1.55rem !important; }
-  .immo-premium-modal-facts { grid-template-columns: repeat(2, minmax(0,1fr)) !important; gap: 0 !important; }
-  .immo-premium-modal-fact { padding: .95rem !important; }
-  .immo-premium-modal-fact span { font-size: .53rem !important; letter-spacing: .1em !important; }
-  .immo-premium-modal-fact strong { font-size: 1.12rem !important; }
-  .immo-premium-description { font-size: .96rem !important; line-height: 1.78 !important; }
-  .immo-premium-cta-wrap .immo-modal-cta { width: 100%; }
-}
-
-@media (max-width: 380px) {
-  .immo-premium-card-facts, .immo-premium-modal-facts { grid-template-columns: 1fr !important; }
-  .immo-premium-price-overlay { max-width: calc(100% - 1.7rem); }
-}
-
-/* =========================================================
-   MOBILE UX PROFESSIONAL – kompakter Flow ohne Desktop-Änderung
-   Ziel: Wiederholende Kartenbereiche mobil horizontal wischbar machen,
-   Hauptstory aber vertikal lesbar lassen.
-   ========================================================= */
-@media (max-width: 700px) {
-  section {
-    padding-top: 3.6rem !important;
-    padding-bottom: 3.6rem !important;
-  }
+  .section-inner { width: 100%; max-width: 100%; }
+  .section-label { margin-bottom: 0.75rem !important; }
+  .section-title { font-size: clamp(2rem, 10vw, 2.75rem) !important; line-height: 1.04 !important; margin-bottom: 1rem !important; }
+  .section-lead { font-size: 0.94rem !important; line-height: 1.65 !important; margin-bottom: 1.45rem !important; }
 
   .leistungen-header,
   .fokus-header,
   .prozess-header,
   .wema-header,
   .netzwerk-header,
-  .immobilien-header {
-    gap: 1.35rem !important;
-    margin-bottom: 1.8rem !important;
+  .immobilien-header { gap: 1.25rem !important; margin-bottom: 1.8rem !important; }
+
+  /* ÜBER UNS: weniger massiv, ohne Inhalte zu entfernen */
+  #ueber { padding-top: 3.6rem !important; padding-bottom: 3.6rem !important; }
+  .ueber-grid { gap: 1.65rem !important; }
+  .ueber-logo-box { padding: 1.55rem 1.35rem !important; max-width: 260px; margin-inline: auto; }
+  .ueber-logo-box svg,
+  .ueber-logo-box img { max-height: 150px; width: auto; }
+  .ueber-stats { display: grid !important; grid-template-columns: repeat(2, minmax(0, 1fr)) !important; gap: 0 !important; margin-top: 1.05rem !important; padding: 0.75rem 0 !important; }
+  .ueber-stat { padding: 0.65rem 0.55rem !important; border-right: none !important; }
+  .ueber-stat:nth-child(odd) { border-right: 1px solid rgba(0,66,74,0.12) !important; }
+  .ueber-stat .num { font-size: 1.55rem !important; }
+  .ueber-stat .label { font-size: 0.56rem !important; letter-spacing: 0.1em !important; }
+  .ueber-text .section-lead { margin-bottom: 1.15rem !important; }
+  .ueber-points { gap: 0.72rem !important; }
+  .ueber-points li { gap: 0.75rem !important; }
+  .ueber-points li span { font-size: 0.9rem !important; line-height: 1.55 !important; }
+
+  /* LEISTUNGSPORTFOLIO: mobil als ruhiger horizontaler Swipe */
+  #leistungen .leistungen-grid {
+    display: flex !important; grid-template-columns: none !important;
+    overflow-x: auto !important; overflow-y: hidden !important;
+    gap: 1rem !important; background: transparent !important;
+    padding: 0 1.15rem 0.9rem !important; margin-left: -1.15rem !important; margin-right: -1.15rem !important;
+    scroll-snap-type: x mandatory !important; -webkit-overflow-scrolling: touch; scrollbar-width: none;
   }
+  #leistungen .leistungen-grid::-webkit-scrollbar { display: none; }
+  #leistungen .leistung-card { flex: 0 0 82% !important; scroll-snap-align: start !important; padding: 1.65rem 1.45rem !important; min-height: 255px; border: 1px solid rgba(0,66,74,0.08); }
+  #leistungen .leistung-num { font-size: 2.65rem !important; margin-bottom: 1rem !important; }
+  #leistungen .leistung-title { font-size: 1.52rem !important; margin-bottom: 0.65rem !important; }
+  #leistungen .leistung-text { font-size: 0.9rem !important; line-height: 1.62 !important; }
 
-  .section-label { margin-bottom: 0.85rem; }
-  .section-title { margin-bottom: 1rem !important; }
-  .section-lead { line-height: 1.65 !important; margin-bottom: 0 !important; }
-
-  /* Einheitliche Swipe-Basics */
-  .leistungen-grid,
-  .fokus-grid,
-  .wema-grid,
-  .netzwerk-grid {
-    width: calc(100% + 1.15rem);
-    margin-right: -1.15rem;
-    overflow-x: auto !important;
-    overflow-y: hidden;
-    scroll-snap-type: x mandatory;
-    scroll-padding-left: 0;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-    padding: 0.15rem 1.15rem 0.9rem 0;
-  }
-
-  .leistungen-grid::-webkit-scrollbar,
-  .fokus-grid::-webkit-scrollbar,
-  .wema-grid::-webkit-scrollbar,
-  .netzwerk-grid::-webkit-scrollbar { display: none; }
-
-  /* Leistungsportfolio: einzelne hochwertige Cards zum Durchwischen */
-  .leistungen-grid {
-    display: flex !important;
-    gap: 1rem !important;
-    background: transparent !important;
-  }
-
-  .leistung-card {
-    flex: 0 0 82%;
-    scroll-snap-align: start;
-    padding: 1.75rem !important;
-    min-height: 270px;
-    border: 1px solid rgba(0,66,74,0.08);
-  }
-
-  .leistung-num { font-size: 2.7rem !important; margin-bottom: 1.1rem !important; }
-  .leistung-title { font-size: 1.55rem !important; }
-  .leistung-text { font-size: 0.9rem !important; line-height: 1.65 !important; }
-
-  /* Marktsegmente: immer 2 Karten übereinander, dann zur nächsten Spalte wischen */
-  .fokus-grid {
+  /* MARKTSEGMENTE: 2 Karten übereinander pro Swipe-Seite, sauberer Abstand statt kaputtem Cut */
+  #fokus .fokus-grid {
     display: grid !important;
-    grid-auto-flow: column;
-    grid-auto-columns: 82%;
-    grid-template-rows: repeat(2, 210px);
+    grid-auto-flow: column !important;
+    grid-template-rows: repeat(2, minmax(190px, auto)) !important;
     grid-template-columns: none !important;
+    grid-auto-columns: minmax(255px, 82%) !important;
+    overflow-x: auto !important; overflow-y: hidden !important;
     gap: 1rem !important;
+    padding: 0 1.15rem 1rem !important; margin-left: -1.15rem !important; margin-right: -1.15rem !important;
+    scroll-snap-type: x mandatory !important; -webkit-overflow-scrolling: touch; scrollbar-width: none;
   }
+  #fokus .fokus-grid::-webkit-scrollbar { display: none; }
+  #fokus .fokus-card { min-height: 190px !important; aspect-ratio: auto !important; scroll-snap-align: start !important; border-radius: 0; }
+  #fokus .fokus-card-content { padding: 1.15rem !important; }
+  #fokus .fokus-title { font-size: 1.28rem !important; line-height: 1.16 !important; }
+  #fokus .fokus-card-tag,
+  #fokus .fokus-card-line,
+  #fokus .fokus-text { opacity: 1 !important; transform: none !important; }
+  #fokus .fokus-card-line { width: 2rem !important; }
+  #fokus .fokus-text { max-height: none !important; overflow: visible !important; margin-top: 0.45rem !important; font-size: 0.84rem !important; line-height: 1.45 !important; color: rgba(255,255,255,0.78) !important; }
 
-  .fokus-card {
-    min-height: 0 !important;
-    height: 210px !important;
-    aspect-ratio: auto !important;
-    scroll-snap-align: start;
-  }
-
-  .fokus-card-content { padding: 1.15rem !important; }
-  .fokus-title { font-size: 1.25rem !important; }
-  .fokus-text { font-size: 0.82rem !important; line-height: 1.45 !important; }
-
-  /* WEMA: kompakter 2er-Stack statt langer Kartenwand */
-  .wema-grid {
-    display: grid !important;
-    grid-auto-flow: column;
-    grid-auto-columns: 84%;
-    grid-template-rows: repeat(2, auto);
-    grid-template-columns: none !important;
-    gap: 1rem !important;
-  }
-
-  .wema-card {
-    scroll-snap-align: start;
-    padding: 1.45rem !important;
-    min-height: 220px;
-  }
-
-  .wema-card-icon { width: 2.35rem !important; height: 2.35rem !important; margin-bottom: 0.95rem !important; }
-  .wema-card-title { font-size: 1.2rem !important; margin-bottom: 0.45rem !important; }
-  .wema-card-text { font-size: 0.86rem !important; line-height: 1.55 !important; }
-  .wema-advantages { gap: 0.7rem !important; }
-  .wema-advantages li span { line-height: 1.35 !important; }
-
-  .wema-brand-cta {
-    margin-top: 1.6rem !important;
-    justify-content: flex-start !important;
-  }
-
-  .wema-brand-left {
-    width: 100%;
-    gap: 1rem !important;
-    padding: 1rem 0;
-  }
-
-  .wema-brand-logo { width: 78px !important; }
+  /* WEMA: bewusst KEIN Swipe – kompakt und hochwertig vertikal */
+  #wema { padding-top: 3.8rem !important; padding-bottom: 3.8rem !important; }
+  #wema .wema-grid { display: grid !important; grid-template-columns: 1fr !important; gap: 0.85rem !important; }
+  #wema .wema-card { padding: 1.25rem 1.2rem !important; display: grid !important; grid-template-columns: 2.35rem 1fr !important; column-gap: 0.95rem !important; align-items: start !important; }
+  #wema .wema-card-icon { width: 2.35rem !important; height: 2.35rem !important; margin-bottom: 0 !important; grid-row: 1 / span 2; }
+  #wema .wema-card-title { font-size: 1.18rem !important; line-height: 1.18 !important; margin-bottom: 0.35rem !important; }
+  #wema .wema-card-text { font-size: 0.84rem !important; line-height: 1.48 !important; }
+  #wema .wema-card--highlight { display: block !important; padding: 1.35rem 1.2rem !important; }
+  #wema .wema-advantages-title { margin-bottom: 0.85rem !important; }
+  #wema .wema-advantages { gap: 0.72rem !important; }
+  #wema .wema-advantages li span,
+  #wema .wema-advantages li strong { line-height: 1.4 !important; }
+  .wema-brand-cta { margin-top: 1.65rem !important; padding-inline: 1.15rem; }
+  .wema-brand-left { width: 100%; justify-content: center; gap: 0.95rem !important; }
+  .wema-brand-logo { width: 82px !important; }
   .wema-brand-divider { height: 48px !important; }
-  .wema-brand-kicker { font-size: 0.64rem !important; letter-spacing: 0.14em !important; }
-  .wema-brand-button { padding: 0.72rem 1.05rem !important; font-size: 0.68rem !important; }
+  .wema-brand-button { padding: 0.72rem 1.05rem !important; font-size: 0.66rem !important; letter-spacing: 0.11em !important; }
 
-  /* Integrierte Immobilienkompetenz / Netzwerk: ebenfalls verdichtet wischbar */
-  .netzwerk-grid {
-    display: flex !important;
+  /* INTEGRIERTE IMMOBILIENKOMPETENZ / NETZWERK: mobil wischbar, wie positiv bewertet */
+  #netzwerk .netzwerk-grid {
+    display: flex !important; grid-template-columns: none !important;
+    overflow-x: auto !important; overflow-y: hidden !important;
     gap: 1rem !important;
+    padding: 0 1.15rem 1rem !important; margin-left: -1.15rem !important; margin-right: -1.15rem !important;
+    scroll-snap-type: x mandatory !important; -webkit-overflow-scrolling: touch; scrollbar-width: none;
   }
+  #netzwerk .netzwerk-grid::-webkit-scrollbar { display: none; }
+  #netzwerk .netzwerk-card { flex: 0 0 82% !important; scroll-snap-align: start !important; padding: 1.55rem 1.35rem !important; min-height: 250px; }
+  #netzwerk .netzwerk-card-title { font-size: 1.35rem !important; }
+  #netzwerk .netzwerk-card-text { font-size: 0.88rem !important; line-height: 1.6 !important; }
 
-  .netzwerk-card {
-    flex: 0 0 84%;
-    scroll-snap-align: start;
-    padding: 1.55rem !important;
-    min-height: 260px;
-  }
-
-  .netzwerk-card-title { font-size: 1.35rem !important; }
-  .netzwerk-card-text { font-size: 0.88rem !important; line-height: 1.6 !important; }
-
-  /* Prozess war bereits horizontal – hier nur etwas ruhiger und kürzer */
-  .prozess-steps { gap: 0.9rem !important; padding-bottom: 0.8rem !important; }
-  .prozess-step { flex-basis: 78% !important; padding: 1.45rem 1.2rem !important; }
-  .prozess-benefits { margin-top: 1.4rem !important; }
-
-  /* Kleine visuelle Orientierung: dezente Scrollkante rechts */
-  #leistungen .section-inner,
-  #fokus .section-inner,
-  #wema .section-inner,
-  #netzwerk .section-inner {
-    position: relative;
-  }
+  /* IMMOBILIEN: mobil kompakter, ohne Kartenlogik/Design zu zerstören */
+  #immobilien { padding-top: 3.7rem !important; padding-bottom: 3.9rem !important; }
+  #immobilien .immo-filter { flex-wrap: nowrap !important; overflow-x: auto !important; gap: 0.5rem !important; margin: 0 -1.15rem 1.45rem !important; padding: 0 1.15rem 0.35rem !important; scrollbar-width: none; }
+  #immobilien .immo-filter::-webkit-scrollbar { display: none; }
+  #immobilien .immo-filter-btn { flex: 0 0 auto; padding: 0.42rem 0.95rem !important; font-size: 0.66rem !important; }
+  #immobilien .immo-card,
+  #immobilien .immo-premium-card { flex-basis: 84% !important; }
+  #immobilien .immo-premium-body,
+  #immobilien .immo-final-body,
+  #immobilien .immo-v4-body,
+  #immobilien .immo-card-body { padding: 1.18rem 1.1rem 1.25rem !important; }
+  #immobilien .immo-card-title { font-size: 1.25rem !important; line-height: 1.15 !important; }
+  #immobilien .immo-card-location { font-size: 0.82rem !important; }
+  #immobilien .immo-premium-media .immo-card-img,
+  #immobilien .immo-card-img { aspect-ratio: 1.18 / 1 !important; }
+  #immobilien .immo-final-facts,
+  #immobilien .immo-v4-facts,
+  #immobilien .immo-card-facts,
+  #immobilien .immo-premium-facts { margin-top: 0.95rem !important; padding-top: 0.95rem !important; gap: 0.75rem 0.9rem !important; }
+  #immobilien .immo-final-fact strong,
+  #immobilien .immo-v4-fact strong,
+  #immobilien .immo-card-fact-val,
+  #immobilien .immo-premium-fact strong { font-size: 1.18rem !important; }
+  #immobilien .immo-final-price,
+  #immobilien .immo-v4-price,
+  #immobilien .immo-card-price,
+  #immobilien .immo-premium-price { margin-top: 1rem !important; padding: 0.9rem 0.95rem !important; }
+  #immobilien .immo-final-price strong,
+  #immobilien .immo-v4-price strong,
+  #immobilien .immo-card-price strong,
+  #immobilien .immo-premium-price strong { font-size: 1.45rem !important; }
 }
 
 @media (max-width: 420px) {
-  .leistung-card,
-  .fokus-grid,
-  .wema-grid,
-  .netzwerk-card { scroll-snap-stop: always; }
-  .leistung-card { flex-basis: 86%; }
-  .fokus-grid { grid-auto-columns: 86%; grid-template-rows: repeat(2, 200px); }
-  .fokus-card { height: 200px !important; }
-  .wema-grid { grid-auto-columns: 88%; }
-  .netzwerk-card { flex-basis: 88%; }
+  #leistungen .leistung-card,
+  #netzwerk .netzwerk-card,
+  #immobilien .immo-card,
+  #immobilien .immo-premium-card { flex-basis: 86% !important; }
+  #fokus .fokus-grid { grid-auto-columns: minmax(245px, 86%) !important; }
+  #wema .wema-card { grid-template-columns: 2.2rem 1fr !important; column-gap: 0.8rem !important; }
+  .wema-brand-logo { width: 74px !important; }
 }
+/* END MOBILE UX FINAL REAL IMPLEMENTED */
