@@ -116,13 +116,12 @@ if ('IntersectionObserver' in window) {
     </div>`;
 
   const getCardFacts = (obj) => {
-    const hasRoomsOrFloor = has(obj.zimmer) || has(obj.etage);
     const candidates = [
-      { label: 'Fläche', value: obj.flaeche, suffix: ' m²', priority: 1 },
-      { label: 'Zimmer', value: obj.zimmer, suffix: '', priority: has(obj.zimmer) ? 2 : 99 },
-      { label: 'Etage', value: obj.etage, suffix: '', priority: has(obj.etage) ? 3 : 99 },
-      { label: 'Lagerfläche', value: obj.lagerflaeche, suffix: ' m²', priority: hasRoomsOrFloor ? 4 : 2 },
-      { label: 'Teilbar ab', value: obj.teilbarAb, suffix: ' m²', priority: hasRoomsOrFloor ? 5 : 3 }
+      { label: 'Gesamtfläche', value: obj.flaeche, suffix: ' m²', priority: 1 },
+      { label: 'Lagerfläche', value: obj.lagerflaeche, suffix: ' m²', priority: 2 },
+      { label: 'Teilbar ab', value: obj.teilbarAb, suffix: ' m²', priority: 3 },
+      { label: 'Zimmer', value: obj.zimmer, suffix: '', priority: 4 },
+      { label: 'Etage', value: obj.etage, suffix: '', priority: 5 }
     ];
 
     return candidates
@@ -131,14 +130,19 @@ if ('IntersectionObserver' in window) {
       .slice(0, 3);
   };
 
-  const compactFacts = (obj) => getCardFacts(obj)
-    .map(fact => {
-      const value = fact.suffix ? formatNumber(fact.value) : esc(fact.value);
-      const label = fact.label === 'Teilbar ab' ? 'teilbar' : fact.label;
-      return `${value}${fact.suffix} ${esc(label)}`;
-    })
-    .join('<span class="immo-premium-dot">·</span>');
+  const formatFactValue = (fact) => {
+    const value = fact.suffix ? formatNumber(fact.value) : esc(fact.value);
+    return `${value}${fact.suffix}`;
+  };
 
+  const compactFacts = (obj) => getCardFacts(obj)
+    .map(fact => `
+      <div class="immo-premium-fact-item">
+        <span>${esc(fact.label)}</span>
+        <strong>${formatFactValue(fact)}</strong>
+      </div>
+    `)
+    .join('');
   const modalFact = (label, value, suffix = '') => {
     if (!has(value)) return '';
     const outputValue = suffix ? formatNumber(value) : esc(value);
@@ -218,8 +222,8 @@ if ('IntersectionObserver' in window) {
             ${has(obj.ort) ? `<p class="immo-premium-location">📍 ${esc(obj.ort)}</p>` : ''}
             ${(has(obj.vermarktungsart) || facts) ? `
               <div class="immo-premium-meta">
-                ${has(obj.vermarktungsart) ? `<span>${esc(obj.vermarktungsart)}</span>` : ''}
-                ${facts ? `<span>${facts}</span>` : ''}
+                ${has(obj.vermarktungsart) ? `<span class="immo-premium-dealtype">${esc(obj.vermarktungsart)}</span>` : ''}
+                ${facts ? `<div class="immo-premium-card-facts">${facts}</div>` : ''}
               </div>` : ''}
           </div>
         </article>`;

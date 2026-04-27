@@ -1760,19 +1760,18 @@ img, svg { max-width:100%; height:auto; }
   font-size: .9rem;
 }
 
+
 .immo-premium-meta {
   margin-top: 1.15rem;
   padding-top: 1.05rem;
   border-top: 1px solid rgba(0,66,74,.12);
   display: flex;
   flex-direction: column;
-  gap: .45rem;
+  gap: .9rem;
   color: var(--green);
-  font-size: .78rem;
-  letter-spacing: .04em;
 }
 
-.immo-premium-meta > span:first-child {
+.immo-premium-dealtype {
   width: fit-content;
   border: 1px solid rgba(0,66,74,.18);
   padding: .28rem .55rem;
@@ -1781,10 +1780,45 @@ img, svg { max-width:100%; height:auto; }
   letter-spacing: .14em;
 }
 
+.immo-premium-card-facts {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: .85rem;
+}
+
+.immo-premium-fact-item {
+  min-width: 0;
+}
+
+.immo-premium-fact-item span {
+  display: block;
+  margin-bottom: .25rem;
+  font-size: .58rem;
+  line-height: 1.15;
+  letter-spacing: .13em;
+  text-transform: uppercase;
+  color: var(--gray);
+}
+
+.immo-premium-fact-item strong {
+  display: block;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.08rem;
+  line-height: 1.05;
+  font-weight: 600;
+  color: var(--green);
+  overflow-wrap: anywhere;
+}
+
 .immo-premium-dot {
-  display: inline-block;
-  margin: 0 .45rem;
-  opacity: .55;
+  display: none;
+}
+
+@media (max-width: 520px) {
+  .immo-premium-card-facts {
+    grid-template-columns: 1fr;
+    gap: .75rem;
+  }
 }
 
 .immo-premium-modal {
