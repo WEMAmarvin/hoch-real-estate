@@ -3353,3 +3353,39 @@ img, svg { max-width:100%; height:auto; }
     padding: 30px 24px;
   }
 }
+
+
+/* === LPV3 REFINEMENT === */
+
+.lpv3-header{
+padding:20px 0;
+text-align:center;
+background:#fff;
+}
+.lpv3-header img{
+height:40px;
+}
+
+.lpv2-split{
+align-items:flex-start;
+}
+
+.lpv2-page h2{
+margin-bottom:20px;
+}
+
+.lpv2-copy p{
+margin-bottom:18px;
+}
+
+.lpv3-contact-img{
+width:120px;
+border-radius:6px;
+margin:20px 0;
+}
+
+/* simple icons */
+.lpv2-card h3::before{
+content:"• ";
+color:#c9a269;
+}
