@@ -374,10 +374,14 @@ if ('IntersectionObserver' in window) {
         if (event.target === modal) closeModal();
       });
       modal.addEventListener('touchstart', event => {
+        if (!event.target.closest('#immoPremiumGallery')) {
+          touchStartX = null;
+          return;
+        }
         touchStartX = event.changedTouches[0]?.screenX ?? null;
       }, { passive: true });
       modal.addEventListener('touchend', event => {
-        if (touchStartX === null) return;
+        if (touchStartX === null || !event.target.closest('#immoPremiumGallery')) return;
         const touchEndX = event.changedTouches[0]?.screenX ?? touchStartX;
         const diff = touchEndX - touchStartX;
         if (Math.abs(diff) > 45) window.immoPremiumGalleryNav(diff > 0 ? -1 : 1);
