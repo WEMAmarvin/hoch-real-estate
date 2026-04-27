@@ -2668,200 +2668,74 @@ img, svg { max-width:100%; height:auto; }
 }
 /* END MOBILE UX FINAL REAL IMPLEMENTED */
 
-/* =========================================================
-   MOBILE UX SAFE FIX 2026-04-27
-   Basis: letzte funktionierende Mobile-UX-Version.
-   Ziel: nur Prozess + Immobilien mobil verbessern.
-   Keine Wildcard-Selektoren, keine globalen Layout-Eingriffe.
-   ========================================================= */
 
+/* === MOBILE UX ITERATION 3 FINAL === */
 @media (max-width: 768px) {
 
-  /* PROZESS: mobil als kontrollierter horizontaler Ablauf */
-  #prozess .prozess-steps {
+  /* Prozess horizontal */
+  .prozess, .process, [class*="prozess"] {
     display: flex !important;
-    align-items: stretch !important;
-    overflow-x: auto !important;
-    overflow-y: hidden !important;
-    gap: 0.75rem !important;
-    padding: 0 1.15rem 1rem !important;
-    margin-left: -1.15rem !important;
-    margin-right: -1.15rem !important;
-    margin-bottom: 2rem !important;
-    scroll-snap-type: x mandatory !important;
-    -webkit-overflow-scrolling: touch !important;
-    scrollbar-width: none !important;
+    overflow-x: auto;
+    gap: 16px;
+    padding: 0 16px;
+    scroll-snap-type: x mandatory;
   }
 
-  #prozess .prozess-steps::-webkit-scrollbar {
-    display: none !important;
+  .prozess > *, .process > *, [class*="prozess"] > * {
+    flex: 0 0 85%;
+    scroll-snap-align: start;
   }
 
-  #prozess .prozess-step {
-    flex: 0 0 78% !important;
-    scroll-snap-align: start !important;
-    padding: 1.45rem 1.05rem 1.35rem !important;
-    min-height: 250px !important;
+  /* Immobilien kompakter */
+  .immobilien-card, [class*="immobilien"] {
+    padding: 12px !important;
   }
 
-  #prozess .prozess-arrow {
-    flex: 0 0 1.2rem !important;
-    width: 1.2rem !important;
-    min-width: 1.2rem !important;
-    align-self: center !important;
-    opacity: 0.65 !important;
+  .immobilien-card img, [class*="immobilien"] img {
+    height: 180px !important;
+    object-fit: cover;
   }
 
-  #prozess .prozess-arrow svg {
-    width: 1rem !important;
-    height: 1rem !important;
+  .immobilien-card h3 {
+    font-size: 16px;
   }
 
-  #prozess .step-number {
-    font-size: 0.68rem !important;
-    margin-bottom: 0.55rem !important;
+  /* Marktsegmente sauberer Swipe */
+  .marktsegmente, [class*="markt"] {
+    display: flex;
+    overflow-x: auto;
+    gap: 16px;
+    padding: 0 16px;
+    scroll-snap-type: x mandatory;
   }
 
-  #prozess .step-dot {
-    width: 3rem !important;
-    height: 3rem !important;
-    margin-bottom: 0.9rem !important;
+  .marktsegmente > *, [class*="markt"] > * {
+    flex: 0 0 80%;
+    scroll-snap-align: start;
   }
 
-  #prozess .step-dot svg {
-    width: 1.35rem !important;
-    height: 1.35rem !important;
+  /* WEMA wieder vertikal */
+  .wema, [class*="wema"] {
+    display: block !important;
   }
 
-  #prozess .step-title {
-    font-size: 1.18rem !important;
-    line-height: 1.15 !important;
-    margin-bottom: 0.55rem !important;
+  /* Global spacing */
+  section {
+    padding: 50px 20px !important;
   }
 
-  #prozess .step-text {
-    font-size: 0.84rem !important;
-    line-height: 1.48 !important;
-  }
-
-  #prozess .step-tag {
-    margin-top: 0.85rem !important;
-    font-size: 0.58rem !important;
-  }
-
-  #prozess .prozess-benefits {
-    margin-top: 1.1rem !important;
-  }
-
-  /* IMMOBILIEN: mobil sichtbar kompakter, aber Design bleibt gleich */
-  #immobilien .immo-grid {
-    gap: 1rem !important;
-    padding-bottom: 0.75rem !important;
-  }
-
-  #immobilien .immo-card,
-  #immobilien .immo-premium-card {
-    flex: 0 0 78% !important;
-  }
-
-  #immobilien .immo-premium-media .immo-card-img,
-  #immobilien .immo-card-img {
-    aspect-ratio: 1.35 / 1 !important;
-  }
-
-  #immobilien .immo-premium-body,
-  #immobilien .immo-card-body {
-    padding: 1rem 0.95rem 1.05rem !important;
-  }
-
-  #immobilien .immo-card-type {
-    font-size: 0.56rem !important;
-    letter-spacing: 0.18em !important;
-    margin-bottom: 0.28rem !important;
-  }
-
-  #immobilien .immo-premium-body h3,
-  #immobilien .immo-card-title {
-    font-size: 1.18rem !important;
-    line-height: 1.12 !important;
-    margin-top: 0.2rem !important;
-  }
-
-  #immobilien .immo-premium-location,
-  #immobilien .immo-card-location {
-    font-size: 0.76rem !important;
-    margin-top: 0.3rem !important;
-    margin-bottom: 0.6rem !important;
-  }
-
-  #immobilien .immo-premium-meta {
-    margin-top: 0.75rem !important;
-  }
-
-  #immobilien .immo-premium-dealtype {
-    font-size: 0.58rem !important;
-    padding: 0.22rem 0.48rem !important;
-  }
-
-  #immobilien .immo-premium-card-facts {
-    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
-    gap: 0.55rem !important;
-    margin-top: 0.75rem !important;
-    padding-top: 0.8rem !important;
-  }
-
-  #immobilien .immo-premium-fact-item span {
-    font-size: 0.5rem !important;
-    letter-spacing: 0.08em !important;
-    line-height: 1.15 !important;
-    margin-bottom: 0.18rem !important;
-  }
-
-  #immobilien .immo-premium-fact-item strong {
-    font-size: 0.98rem !important;
-    line-height: 1.05 !important;
-  }
-
-  #immobilien .immo-premium-price-overlay {
-    left: 0.75rem !important;
-    right: auto !important;
-    bottom: 0.75rem !important;
-    padding: 0.58rem 0.72rem 0.62rem !important;
-    min-width: 0 !important;
-  }
-
-  #immobilien .immo-premium-price-overlay span {
-    font-size: 0.48rem !important;
-    margin-bottom: 0.15rem !important;
-  }
-
-  #immobilien .immo-premium-price-overlay strong {
-    font-size: 1.22rem !important;
-  }
-
-  #immobilien .immo-carousel-nav {
-    margin-top: 0.8rem !important;
-  }
-
-  #immobilien .immo-carousel-btn {
-    width: 38px !important;
-    height: 38px !important;
-  }
 }
 
-@media (max-width: 420px) {
-  #prozess .prozess-step {
-    flex-basis: 82% !important;
-    min-height: 245px !important;
+
+/* === MOBILE UX EDGE SPACING FIX === */
+@media (max-width: 768px) {
+  .prozess-wrapper, .prozess, .process {
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+    scroll-padding-left: 20px;
   }
 
-  #immobilien .immo-card,
-  #immobilien .immo-premium-card {
-    flex-basis: 82% !important;
-  }
-
-  #immobilien .immo-premium-card-facts {
-    gap: 0.48rem !important;
+  .prozess-wrapper > *, .prozess > *, .process > * {
+    margin-left: 0 !important;
   }
 }
-/* END MOBILE UX SAFE FIX */
