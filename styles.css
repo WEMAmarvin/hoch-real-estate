@@ -1,2885 +1,667 @@
-:root {
-  --green: #00424a;
-  --green-light: #005560;
-  --gold: #C8A46B;
-  --gold-light: #d4b47e;
-  --cream: #F7F4EF;
-  --white: #ffffff;
-  --anthracite: #2B2B2B;
-  --gray: #6b7280;
-  --gray-light: #f0ede8;
+:root{--green:#00424a;--green-light:#005560;--gold:#C8A46B;--gold-light:#d4b47e;--cream:#F7F4EF;--white:#ffffff;--anthracite:#2B2B2B;--gray:#6b7280;--gray-light:#f0ede8;}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'Outfit',sans-serif;background:var(--cream);color:var(--anthracite);overflow-x:hidden;}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:space-between;align-items:center;padding:1.2rem 4rem;background:rgba(0,66,74,0.96);backdrop-filter:blur(12px);border-bottom:1px solid rgba(200,164,107,0.2);}
+.nav-logo{display:flex;align-items:center;}
+.nav-logo svg{display:block;}
+.nav-links{display:flex;gap:2.5rem;list-style:none;}
+.nav-links a{color:rgba(255,255,255,0.75);text-decoration:none;font-size:0.78rem;font-weight:400;letter-spacing:0.1em;text-transform:uppercase;transition:color 0.3s;}
+.nav-links a:hover{color:var(--gold);}
+.nav-cta{background:var(--gold) !important;color:var(--white) !important;padding:0.55rem 1.4rem !important;font-weight:500 !important;transition:background 0.3s !important;}
+.nav-cta:hover{background:var(--gold-light) !important;}
+#hero{min-height:100vh;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;background:var(--green);}
+.hero-architecture{position:absolute;inset:0;z-index:0;overflow:hidden;}
+.hero-architecture img{width:100%;height:120%;object-fit:cover;object-position:left center;filter:grayscale(100%) brightness(0.45);transform:scale(1.03);will-change:transform;}
+.hero-bg{position:absolute;inset:0;background:linear-gradient(105deg,rgba(0,44,50,0.93) 0%,rgba(0,66,74,0.72) 45%,rgba(0,66,74,0.35) 100%);z-index:1;}
+.hero-pattern{position:absolute;inset:0;background-image:repeating-linear-gradient(90deg,transparent,transparent 80px,rgba(200,164,107,0.04) 80px,rgba(200,164,107,0.04) 81px),repeating-linear-gradient(0deg,transparent,transparent 80px,rgba(200,164,107,0.04) 80px,rgba(200,164,107,0.04) 81px);z-index:0;}
+.hero-content{position:relative;z-index:2;padding:2rem 4rem;max-width:900px;width:100%;text-align:center;display:flex;flex-direction:column;align-items:center;margin:0 auto;}
+.hero-logo{margin-bottom:1.5rem;opacity:0;animation:fadeIn 1s ease 0.1s forwards;}
+.hero-logo svg{filter:drop-shadow(0 4px 24px rgba(0,0,0,0.3));}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:0.75rem;margin-bottom:2rem;opacity:0;animation:fadeUp 0.8s ease 0.2s forwards;justify-content:center;}
+.hero-eyebrow-line{width:2.5rem;height:1px;background:var(--gold);}
+.hero-eyebrow span{font-size:0.72rem;font-weight:500;letter-spacing:0.3em;text-transform:uppercase;color:var(--gold);}
+.hero-title{font-family:'Cormorant Garamond',serif;font-size:clamp(3.5rem,7vw,6.5rem);font-weight:300;color:var(--white);line-height:1;margin-bottom:0;opacity:0;animation:fadeUp 0.9s ease 0.4s forwards;}
+.hero-title strong{font-weight:600;display:block;}
+.hero-title em{font-style:italic;font-weight:300;font-size:0.7em;color:var(--gold);display:inline;letter-spacing:0.02em;}
+.hero-subtitle{font-size:1.1rem;font-weight:300;color:rgba(255,255,255,0.75);max-width:560px;line-height:1.8;margin-top:2rem;margin-bottom:2.5rem;opacity:0;animation:fadeUp 0.9s ease 0.6s forwards;text-align:center;}
+.hero-actions{display:flex;gap:1.2rem;align-items:center;justify-content:center;opacity:0;animation:fadeUp 0.9s ease 0.8s forwards;}
+.btn-primary{background:var(--gold);color:var(--white);padding:0.9rem 2.2rem;font-family:'Outfit',sans-serif;font-size:0.82rem;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;text-decoration:none;transition:all 0.3s;display:inline-block;}
+.btn-primary:hover{background:var(--gold-light);transform:translateY(-1px);}
+.btn-ghost{color:rgba(255,255,255,0.7);font-size:0.82rem;font-weight:400;letter-spacing:0.08em;text-decoration:none;display:inline-flex;align-items:center;gap:0.5rem;transition:color 0.3s;}
+.btn-ghost:hover{color:var(--gold);}
+.btn-ghost::after{content:'→';}
+section{padding:7rem 4rem;}
+.section-inner{max-width:1200px;margin:0 auto;}
+.section-label{display:inline-flex;align-items:center;gap:0.75rem;margin-bottom:1.2rem;}
+.section-label-line{width:2.5rem;height:1px;background:var(--gold);}
+.section-label span{font-size:0.68rem;font-weight:500;letter-spacing:0.35em;text-transform:uppercase;color:var(--gold);}
+.section-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2.2rem,4vw,3.6rem);font-weight:600;color:var(--green);line-height:1.05;margin-bottom:1.8rem;}
+.section-title em{font-style:italic;font-weight:300;}
+.section-lead{font-size:1.05rem;font-weight:300;color:var(--gray);line-height:1.95;max-width:600px;}
+#ueber{background:var(--white);padding:7rem 4rem;}
+.ueber-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;max-width:1200px;margin:0 auto;}
+.ueber-logo-box{background:var(--green);padding:3.5rem;position:relative;display:flex;flex-direction:column;justify-content:center;min-height:280px;}
+.ueber-logo-box::before{content:'';position:absolute;top:-10px;right:-10px;width:100%;height:100%;border:1px solid var(--gold);pointer-events:none;}
+.ueber-logo-eyebrow{font-size:0.62rem;font-weight:600;letter-spacing:0.35em;text-transform:uppercase;color:var(--gold);margin-bottom:1.5rem;}
+.ueber-logo-main{font-family:'Cormorant Garamond',serif;font-size:4.5rem;font-weight:600;color:var(--white);line-height:0.9;letter-spacing:0.08em;}
+.ueber-logo-divider{width:3rem;height:1px;background:var(--gold);margin:1.5rem 0;}
+.ueber-logo-sub{font-size:0.72rem;font-weight:400;letter-spacing:0.25em;text-transform:uppercase;color:rgba(255,255,255,0.55);line-height:1.8;}
+.ueber-logo-tagline{margin-top:1.5rem;font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:300;font-style:italic;color:rgba(255,255,255,0.7);line-height:1.5;}
+.ueber-stats{display:flex;margin-top:1.8rem;border-top:1px solid rgba(0,66,74,0.12);border-bottom:1px solid rgba(0,66,74,0.12);padding:1.2rem 0;}
+.ueber-stat{flex:1;display:flex;flex-direction:column;align-items:center;text-align:center;border-right:1px solid rgba(0,66,74,0.12);padding:0 1rem;}
+.ueber-stat:last-child{border-right:none;}
+.ueber-stat .num{font-family:'Cormorant Garamond',serif;font-size:1.9rem;font-weight:600;color:var(--green);display:block;line-height:1;}
+.ueber-stat .label{font-size:0.62rem;font-weight:400;color:var(--gray);letter-spacing:0.12em;text-transform:uppercase;margin-top:0.4rem;display:block;}
+.ueber-text .section-lead{margin-bottom:2rem;}
+.ueber-points{list-style:none;display:flex;flex-direction:column;gap:1rem;}
+.ueber-points li{display:flex;gap:1rem;align-items:flex-start;}
+.ueber-points li::before{content:'';width:18px;height:1px;background:var(--gold);flex-shrink:0;margin-top:0.65rem;}
+.ueber-points li span{font-size:0.96rem;font-weight:300;color:var(--anthracite);line-height:1.7;}
+#leistungen{background:var(--cream);}
+.leistungen-header{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:end;margin-bottom:4rem;}
+.leistungen-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.5px;background:rgba(0,66,74,0.1);}
+.leistung-card{background:var(--white);padding:2.5rem;transition:background 0.5s ease,box-shadow 0.4s ease;cursor:default;position:relative;overflow:hidden;}
+.leistung-card::after{content:'';position:absolute;bottom:0;left:0;height:2px;width:0;background:var(--gold);transition:width 0.5s ease;}
+.leistung-card:hover::after{width:100%;}
+.leistung-card:hover{background:var(--green);box-shadow:0 20px 50px rgba(0,44,50,0.2);}
+.leistung-card:hover .leistung-num,.leistung-card:hover .leistung-title,.leistung-card:hover .leistung-text{color:var(--white);}
+.leistung-card:hover .leistung-num{color:rgba(200,164,107,0.5);}
+.leistung-num{font-family:'Cormorant Garamond',serif;font-size:3.5rem;font-weight:300;color:rgba(200,164,107,0.3);line-height:1;margin-bottom:1.5rem;transition:color 0.5s ease;}
+.leistung-title{font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:600;color:var(--green);margin-bottom:0.85rem;transition:color 0.5s ease;}
+.leistung-text{font-size:0.95rem;font-weight:300;color:var(--gray);line-height:1.8;transition:color 0.5s ease;}
+#fokus{background:var(--white);padding:7rem 4rem;}
+.fokus-header{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:end;margin-bottom:3.5rem;}
+.fokus-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;}
+.fokus-card{position:relative;overflow:hidden;aspect-ratio:4/3;cursor:default;}
+.fokus-card img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform 0.6s ease;filter:brightness(0.78) saturate(0.9);}
+.fokus-card:hover img{transform:scale(1.06);filter:brightness(0.5) saturate(0.75);}
+.fokus-card-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,44,50,0.92) 0%,rgba(0,44,50,0.3) 55%,transparent 100%);transition:background 0.4s;}
+.fokus-card:hover .fokus-card-overlay{background:linear-gradient(to top,rgba(0,44,50,0.97) 0%,rgba(0,44,50,0.55) 55%,rgba(0,44,50,0.1) 100%);}
+.fokus-card-content{position:absolute;bottom:0;left:0;right:0;padding:1.5rem;z-index:2;}
+.fokus-card-tag{display:inline-block;font-size:0.6rem;font-weight:600;letter-spacing:0.25em;text-transform:uppercase;color:var(--gold);margin-bottom:0.4rem;opacity:0;transform:translateY(6px);transition:all 0.35s ease;}
+.fokus-card:hover .fokus-card-tag{opacity:1;transform:translateY(0);}
+.fokus-card-line{width:0;height:1px;background:var(--gold);margin-bottom:0.6rem;transition:width 0.4s ease;}
+.fokus-card:hover .fokus-card-line{width:2rem;}
+.fokus-title{font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:600;color:var(--white);line-height:1.2;}
+.fokus-text{font-size:0.86rem;font-weight:300;color:rgba(255,255,255,0);line-height:1.7;max-height:0;overflow:hidden;transition:all 0.4s ease;margin-top:0;}
+.fokus-card:hover .fokus-text{color:rgba(255,255,255,0.75);max-height:80px;margin-top:0.5rem;}
+#prozess{background:var(--cream);position:relative;}
+#prozess .section-inner{position:relative;z-index:1;}
+.prozess-bg{position:absolute;inset:0;background-image:url('assets/image-01.webp');background-size:cover;background-position:center;opacity:0.04;}
+.prozess-header{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:end;margin-bottom:4rem;}
+.prozess-steps{display:flex;align-items:stretch;gap:0;margin-bottom:3rem;position:relative;}
+.prozess-step{flex:1;display:flex;flex-direction:column;align-items:center;text-align:center;padding:2.2rem 1rem 2rem;background:rgba(255,255,255,0.75);backdrop-filter:blur(4px);border:1px solid rgba(200,164,107,0.2);position:relative;transition:background 0.3s,border-color 0.3s,transform 0.3s;}
+.prozess-step:hover{background:rgba(255,255,255,0.95);border-color:rgba(200,164,107,0.5);transform:translateY(-3px);}
+.prozess-arrow{display:flex;align-items:center;justify-content:center;flex-shrink:0;width:2rem;color:var(--gold);}
+.prozess-arrow svg{width:1.4rem;height:1.4rem;stroke:var(--gold);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0;}
+.step-number{font-family:'Cormorant Garamond',serif;font-size:0.65rem;font-weight:600;letter-spacing:0.25em;color:rgba(0,66,74,0.2);margin-bottom:0.8rem;text-transform:uppercase;}
+.step-dot{width:3.2rem;height:3.2rem;background:var(--cream);border:1.5px solid var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;margin-bottom:1.2rem;position:relative;z-index:1;transition:background 0.3s,transform 0.3s;}
+.prozess-step:hover .step-dot{background:var(--green);transform:scale(1.08);}
+.step-dot svg{width:1.2rem;height:1.2rem;stroke:var(--green);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;transition:stroke 0.3s;}
+.prozess-step:hover .step-dot svg{stroke:var(--gold);}
+.step-title{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:600;color:var(--green);line-height:1.25;margin-bottom:0.6rem;}
+.step-text{font-size:0.78rem;font-weight:300;color:var(--gray);line-height:1.6;}
+.step-tag{display:inline-block;margin-top:auto;padding-top:0.8rem;font-size:0.58rem;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);}
+.prozess-benefits{display:grid;grid-template-columns:repeat(4,1fr);background:var(--green);margin-top:1.5rem;}
+.benefit{padding:1.5rem 1.8rem;border-right:1px solid rgba(255,255,255,0.08);}
+.benefit:last-child{border-right:none;}
+.benefit-title{font-size:0.65rem;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:var(--gold);margin-bottom:0.4rem;}
+.benefit-text{font-size:0.78rem;font-weight:300;color:rgba(255,255,255,0.6);line-height:1.55;}
+.wema-link-btn{display:inline-flex;align-items:center;gap:0.5rem;margin-top:1.5rem;padding:0.7rem 1.6rem;border:1px solid var(--gold);color:var(--gold);font-size:0.78rem;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;text-decoration:none;transition:all 0.3s;}
+.wema-link-btn:hover{background:var(--gold);color:var(--white);}
+#wema{background:var(--white);}
+.wema-header{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:end;margin-bottom:4rem;}
+.wema-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;}
+.wema-card{background:var(--cream);padding:2rem;border-top:2px solid transparent;transition:border-color 0.3s,transform 0.3s;}
+.wema-card:hover{border-top-color:var(--gold);transform:translateY(-3px);}
+.wema-card-icon{width:2.8rem;height:2.8rem;background:var(--green);border-radius:50%;display:flex;align-items:center;justify-content:center;margin-bottom:1.2rem;}
+.wema-card-icon svg{width:1.2rem;height:1.2rem;stroke:var(--gold);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;}
+.wema-card-title{font-family:'Cormorant Garamond',serif;font-size:1.35rem;font-weight:600;color:var(--green);margin-bottom:0.6rem;line-height:1.3;}
+.wema-card-text{font-size:0.93rem;font-weight:300;color:var(--gray);line-height:1.75;}
+.wema-card--highlight{background:var(--green);border-top:2px solid var(--gold) !important;}
+.wema-card--highlight:hover{transform:translateY(-3px);}
+.wema-advantages-title{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:600;color:var(--gold);margin-bottom:1.2rem;}
+.wema-advantages{list-style:none;display:flex;flex-direction:column;gap:1rem;}
+.wema-advantages li{display:flex;gap:0.75rem;align-items:flex-start;}
+.wema-adv-dot{width:5px;height:5px;background:var(--gold);border-radius:50%;flex-shrink:0;margin-top:0.4rem;}
+.wema-advantages li div{display:flex;flex-direction:column;gap:0.15rem;}
+.wema-advantages li strong{font-size:0.88rem;font-weight:500;color:var(--white);}
+.wema-advantages li span{font-size:0.82rem;font-weight:300;color:rgba(255,255,255,0.55);line-height:1.5;}
+#netzwerk{background:var(--cream);}
+.netzwerk-header{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:end;margin-bottom:4rem;}
+.netzwerk-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;}
+.netzwerk-card{background:var(--white);padding:2.2rem;border:1px solid rgba(200,164,107,0.25);overflow:hidden;position:relative;transition:border-color 0.4s,box-shadow 0.4s;}
+.netzwerk-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;width:0;background:var(--gold);transition:width 0.45s ease;}
+.netzwerk-card::after{content:'';position:absolute;inset:0;background:var(--green);transform:translateY(100%);transition:transform 0.45s cubic-bezier(0.4,0,0.2,1);z-index:0;}
+.netzwerk-card:hover{border-color:var(--gold);box-shadow:0 12px 40px rgba(0,66,74,0.12);}
+.netzwerk-card:hover::before{width:100%;}
+.netzwerk-card:hover::after{transform:translateY(0);}
+.netzwerk-card-inner{position:relative;z-index:1;}
+.netzwerk-card-icon{width:2.6rem;height:2.6rem;display:flex;align-items:center;justify-content:center;margin-bottom:1.2rem;border:1px solid rgba(200,164,107,0.35);border-radius:50%;transition:border-color 0.3s,background 0.3s;}
+.netzwerk-card:hover .netzwerk-card-icon{border-color:var(--gold);background:rgba(200,164,107,0.15);}
+.netzwerk-card-icon svg{width:1.1rem;height:1.1rem;stroke:var(--gold);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;}
+.netzwerk-card-label{font-size:0.62rem;font-weight:600;letter-spacing:0.28em;text-transform:uppercase;color:var(--gold);margin-bottom:0.5rem;}
+.netzwerk-card-title{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:600;color:var(--green);margin-bottom:0.8rem;line-height:1.2;transition:color 0.3s;}
+.netzwerk-card:hover .netzwerk-card-title{color:var(--white);}
+.netzwerk-card-text{font-size:0.93rem;font-weight:300;color:var(--gray);line-height:1.75;transition:color 0.3s;}
+.netzwerk-card:hover .netzwerk-card-text{color:rgba(255,255,255,0.7);}
+#kontakt{background:var(--green);padding:6rem 4rem;overflow:hidden;}
+.kontakt-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1.2fr;gap:5rem;align-items:stretch;}
+.kontakt-photo{position:relative;overflow:hidden;}
+.kontakt-photo img{width:100%;height:100%;object-fit:cover;object-position:center top;filter:grayscale(15%);display:block;}
+.kontakt-photo-overlay{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(to top,rgba(0,44,50,0.95),transparent);padding:3rem 2rem 1.8rem;}
+.kontakt-photo-name{font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:600;color:var(--white);display:block;line-height:1.1;}
+.kontakt-photo-role{font-size:0.65rem;font-weight:400;letter-spacing:0.18em;text-transform:uppercase;color:var(--gold);margin-top:0.4rem;display:block;}
+.kontakt-content{display:flex;flex-direction:column;justify-content:center;}
+.kontakt-content .section-title{color:var(--white);}
+.kontakt-content .section-label span{color:var(--gold);}
+.kontakt-lead{font-size:1.02rem;font-weight:300;color:rgba(255,255,255,0.6);line-height:1.95;margin-bottom:2.5rem;margin-top:1rem;}
+.kontakt-items{list-style:none;display:flex;flex-direction:column;gap:1.2rem;margin-bottom:2.5rem;}
+.kontakt-item{display:flex;align-items:center;gap:1rem;}
+.kontakt-item-icon{width:2rem;height:2rem;border:1px solid rgba(200,164,107,0.3);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.kontakt-item-icon svg{width:0.85rem;height:0.85rem;stroke:var(--gold);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;}
+.kontakt-item a,.kontakt-item span{font-size:0.93rem;font-weight:300;color:rgba(255,255,255,0.7);text-decoration:none;transition:color 0.3s;}
+.kontakt-item a:hover{color:var(--gold);}
+.kontakt-cta{display:inline-block;background:var(--gold);color:var(--white);padding:0.9rem 2.2rem;font-family:'Outfit',sans-serif;font-size:0.8rem;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;text-decoration:none;transition:background 0.3s;align-self:flex-start;}
+.kontakt-cta:hover{background:var(--gold-light);}
+footer{background:#001c20;padding:0 4rem;border-top:1px solid rgba(200,164,107,0.2);}
+.footer-top{display:flex;justify-content:space-between;align-items:center;padding:2.5rem 0;border-bottom:1px solid rgba(255,255,255,0.06);}
+.footer-logo{font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:600;color:var(--white);letter-spacing:0.15em;display:block;}
+.footer-logo-sub{font-size:0.6rem;font-weight:400;color:var(--gold);letter-spacing:0.3em;text-transform:uppercase;display:block;margin-top:3px;}
+.footer-claim{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:300;font-style:italic;color:rgba(255,255,255,0.4);}
+.footer-contact{display:flex;flex-direction:column;align-items:flex-end;gap:0.3rem;}
+.footer-contact a,.footer-contact span{font-size:0.78rem;font-weight:300;color:rgba(255,255,255,0.5);text-decoration:none;letter-spacing:0.05em;transition:color 0.3s;}
+.footer-contact a:hover{color:var(--gold);}
+.footer-bottom{display:flex;justify-content:space-between;align-items:center;padding:1.2rem 0;}
+.footer-tagline{font-size:0.65rem;font-weight:300;color:rgba(255,255,255,0.25);letter-spacing:0.1em;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px);}
+to{opacity:1;transform:translateY(0);}
+}
+@keyframes fadeIn{from{opacity:0;}
+to{opacity:1;}
+}
+.reveal{opacity:0;transform:translateY(24px);transition:opacity 0.7s ease,transform 0.7s ease;}
+.reveal.visible{opacity:1;transform:translateY(0);}
+@media(max-width:900px){nav{padding:1.2rem 1.5rem;}
+.nav-links{display:none;}
+section{padding:4rem 1.5rem;}
+#hero{min-height:100svh;}
+.hero-content{padding:7rem 1.5rem 4rem;}
+.ueber-grid,.leistungen-header,.prozess-header,.wema-header,.netzwerk-header,.fokus-header,.kontakt-inner{grid-template-columns:1fr;gap:2.5rem;}
+.leistungen-grid,.wema-grid,.netzwerk-grid,.fokus-grid{grid-template-columns:1fr;}
+.prozess-steps{grid-template-columns:1fr;gap:1.5rem;}
+.prozess-steps::before{display:none;}
+.prozess-benefits{grid-template-columns:1fr 1fr;}
+.benefit{border-right:none;border-bottom:1px solid rgba(0,66,74,0.1);}
+.kontakt-photo{height:340px;}
+.footer-top{flex-direction:column;align-items:flex-start;gap:1rem;}
+.footer-contact{align-items:flex-start;}
+}
+#leistungen,#prozess,#netzwerk{position:relative;overflow:hidden;}
+.cream-parallax-bg{position:absolute;inset:-30%;background-image:url('assets/image-02.webp');background-size:cover;background-position:center;opacity:0.05;z-index:0;pointer-events:none;will-change:transform;}
+#leistungen .section-inner,#prozess .section-inner,#netzwerk .section-inner{position:relative;z-index:1;}
+#immobilien{background:var(--white);}
+.immobilien-header{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:end;margin-bottom:2.5rem;}
+.immo-filter{display:flex;gap:0.6rem;flex-wrap:wrap;margin-bottom:3rem;}
+.immo-filter-btn{padding:0.45rem 1.2rem;font-family:'Outfit',sans-serif;font-size:0.72rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;border:1px solid rgba(31,79,70,0.2);background:transparent;color:var(--gray);cursor:pointer;transition:all 0.25s;}
+.immo-filter-btn:hover,.immo-filter-btn.active{background:var(--green);border-color:var(--green);color:var(--white);}
+.immo-carousel{position:relative;}
+.immo-carousel-viewport{overflow:hidden;}
+.immo-grid{display:flex;gap:1.5rem;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;padding:0.25rem 0 1rem;scrollbar-width:none;}
+.immo-grid::-webkit-scrollbar{display:none;}
+.immo-carousel-nav{display:flex;justify-content:flex-end;gap:0.75rem;margin-top:1.2rem;}
+.immo-carousel-btn{width:44px;height:44px;border:1px solid rgba(31,79,70,0.18);background:var(--white);color:var(--green);font-size:1.4rem;line-height:1;cursor:pointer;transition:all 0.25s ease;display:inline-flex;align-items:center;justify-content:center;}
+.immo-carousel-btn:hover{background:var(--green);color:var(--white);border-color:var(--green);}
+.immo-carousel-btn:disabled{opacity:0.35;cursor:default;background:var(--white);color:var(--gray);border-color:rgba(31,79,70,0.12);}
+.immo-card{background:var(--cream);cursor:pointer;transition:transform 0.3s,box-shadow 0.3s;border:1px solid transparent;position:relative;overflow:hidden;flex:0 0 calc((100% - 3rem) / 3);scroll-snap-align:start;}
+.immo-card:hover{transform:translateY(-4px);box-shadow:0 16px 40px rgba(31,79,70,0.12);border-color:rgba(200,164,107,0.3);}
+.immo-card-img{width:100%;aspect-ratio:4/3;object-fit:cover;display:block;transition:transform 0.5s;}
+.immo-card:hover .immo-card-img{transform:scale(1.04);}
+.immo-card-img-placeholder{width:100%;aspect-ratio:4/3;background:var(--green);display:flex;align-items:center;justify-content:center;}
+.immo-card-img-placeholder svg{width:3rem;height:3rem;stroke:rgba(255,255,255,0.2);fill:none;stroke-width:1;}
+.immo-card-badge{position:absolute;top:1rem;left:1rem;background:var(--gold);color:var(--white);font-size:0.6rem;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;padding:0.3rem 0.7rem;}
+.immo-card-body{padding:1.5rem;}
+.immo-card-type{font-size:0.62rem;font-weight:600;letter-spacing:0.25em;text-transform:uppercase;color:var(--gold);margin-bottom:0.4rem;}
+.immo-card-title{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:600;color:var(--green);line-height:1.2;margin-bottom:0.3rem;}
+.immo-card-location{font-size:0.78rem;font-weight:300;color:var(--gray);margin-bottom:1rem;}
+.immo-card-facts{display:flex;gap:1rem;flex-wrap:wrap;padding-top:1rem;border-top:1px solid rgba(31,79,70,0.08);}
+.immo-card-fact{display:flex;flex-direction:column;gap:0.1rem;}
+.immo-card-fact-val{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:600;color:var(--green);}
+.immo-card-fact-key{font-size:0.6rem;font-weight:400;letter-spacing:0.1em;text-transform:uppercase;color:var(--gray);}
+.immo-card-price{margin-top:1rem;font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:600;color:var(--green);}
+.immo-card-cta{display:inline-block;margin-top:0.8rem;font-size:0.72rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);}
+.immo-empty{grid-column:1/-1;text-align:center;padding:4rem;color:var(--gray);font-size:0.9rem;font-weight:300;}
+.immo-modal{display:none;position:fixed;inset:0;background:rgba(10,30,25,0.85);z-index:200;align-items:center;justify-content:center;padding:2rem;backdrop-filter:blur(4px);}
+.immo-modal.open{display:flex;}
+.immo-modal-inner{background:var(--white);max-width:780px;width:100%;max-height:88vh;overflow-y:auto;position:relative;}
+.immo-modal-close{position:absolute;top:1.2rem;right:1.2rem;background:var(--green);color:var(--white);border:none;width:2.2rem;height:2.2rem;font-size:0.85rem;cursor:pointer;z-index:10;transition:background 0.2s;}
+.immo-modal-close:hover{background:var(--gold);}
+.immo-modal-img{width:100%;max-height:320px;object-fit:cover;display:block;}
+.immo-modal-img-placeholder{width:100%;height:220px;background:var(--green);display:flex;align-items:center;justify-content:center;}
+.immo-modal-body{padding:2.5rem;}
+.immo-modal-type{font-size:0.65rem;font-weight:600;letter-spacing:0.25em;text-transform:uppercase;color:var(--gold);margin-bottom:0.5rem;}
+.immo-modal-title{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:600;color:var(--green);line-height:1.1;margin-bottom:0.4rem;}
+.immo-modal-location{font-size:0.85rem;color:var(--gray);margin-bottom:1.5rem;}
+.immo-modal-facts{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:1px solid rgba(31,79,70,0.1);margin-bottom:1.8rem;}
+.immo-modal-fact{padding:1rem;border-right:1px solid rgba(31,79,70,0.1);text-align:center;}
+.immo-modal-fact:last-child{border-right:none;}
+.immo-modal-fact-val{font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:600;color:var(--green);display:block;}
+.immo-modal-fact-key{font-size:0.62rem;font-weight:400;letter-spacing:0.12em;text-transform:uppercase;color:var(--gray);margin-top:0.2rem;display:block;}
+.immo-modal-desc{font-size:0.88rem;font-weight:300;color:var(--anthracite);line-height:1.75;margin-bottom:2rem;}
+.immo-modal-price{font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:600;color:var(--green);margin-bottom:1.2rem;}
+.immo-modal-cta{background:var(--gold);color:var(--white);padding:0.9rem 2rem;font-size:0.8rem;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;text-decoration:none;display:inline-block;transition:background 0.3s;}
+.immo-modal-cta:hover{background:var(--gold-light);}
+@media (max-width:1100px){.immo-card{flex-basis:calc((100% - 1.5rem) / 2);}
+}
+@media (max-width:900px){.immobilien-header{grid-template-columns:1fr;gap:2rem;}
+.immo-card{flex-basis:82%;}
+.immo-carousel-nav{justify-content:flex-start;}
+.immo-modal-facts{grid-template-columns:repeat(2,1fr);}
+}
+@media (max-width:560px){.immo-card{flex-basis:92%;}
+}
+.immo-gallery{position:relative;overflow:hidden;background:#111;}
+.immo-gallery-img{width:100%;max-height:360px;object-fit:cover;display:block;transition:opacity 0.3s;}
+.immo-gallery-nav{position:absolute;top:50%;transform:translateY(-50%);background:rgba(15,40,35,0.75);border:1px solid rgba(200,164,107,0.4);color:var(--gold);width:2.4rem;height:2.4rem;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:1rem;transition:background 0.2s;z-index:5;user-select:none;}
+.immo-gallery-nav:hover{background:var(--green);}
+.immo-gallery-prev{left:0.8rem;}
+.immo-gallery-next{right:0.8rem;}
+.immo-gallery-dots{position:absolute;bottom:0.7rem;left:50%;transform:translateX(-50%);display:flex;gap:0.4rem;}
+.immo-gallery-dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,0.4);cursor:pointer;transition:background 0.2s;}
+.immo-gallery-dot.active{background:var(--gold);}
+.leistungen-header,.fokus-header,.prozess-header,.wema-header,.netzwerk-header,.immobilien-header{align-items:start !important;}
+.leistungen-header > div:first-child,.fokus-header > div:first-child,.prozess-header > div:first-child,.wema-header > div:first-child,.netzwerk-header > div:first-child,.immobilien-header > div:first-child{align-self:start !important;}
+.leistungen-header > div:last-child,.fokus-header > div:last-child,.prozess-header > div:last-child,.wema-header > div:last-child,.netzwerk-header > div:last-child,.immobilien-header > div:last-child,.leistungen-header > .section-lead,.fokus-header > .section-lead,.prozess-header > .section-lead,.wema-header > .section-lead,.netzwerk-header > .section-lead,.immobilien-header > .section-lead{justify-self:end !important;align-self:start !important;margin-top:calc(0.68rem + 2.4rem) !important;max-width:560px !important;text-align:right !important;}
+.leistungen-header > div:last-child .section-lead,.fokus-header > div:last-child .section-lead,.prozess-header > div:last-child .section-lead,.wema-header > div:last-child .section-lead,.netzwerk-header > div:last-child .section-lead,.immobilien-header > div:last-child .section-lead,.leistungen-header > .section-lead,.fokus-header > .section-lead,.prozess-header > .section-lead,.wema-header > .section-lead,.netzwerk-header > .section-lead,.immobilien-header > .section-lead{text-align:right !important;margin-left:auto !important;margin-right:0 !important;}
+.section-inner > div[style*="grid-template-columns"] > div:last-child .section-lead{text-align:right;margin-left:auto;margin-right:0;}
+@media (max-width:900px){.leistungen-header > div:last-child,.fokus-header > div:last-child,.prozess-header > div:last-child,.wema-header > div:last-child,.netzwerk-header > div:last-child,.immobilien-header > div:last-child,.leistungen-header > .section-lead,.fokus-header > .section-lead,.prozess-header > .section-lead,.wema-header > .section-lead,.netzwerk-header > .section-lead,.immobilien-header > .section-lead{justify-self:start !important;margin-top:0 !important;text-align:left !important;}
+.leistungen-header > div:last-child .section-lead,.fokus-header > div:last-child .section-lead,.prozess-header > div:last-child .section-lead,.wema-header > div:last-child .section-lead,.netzwerk-header > div:last-child .section-lead,.immobilien-header > div:last-child .section-lead,.leistungen-header > .section-lead,.fokus-header > .section-lead,.prozess-header > .section-lead,.wema-header > .section-lead,.netzwerk-header > .section-lead,.immobilien-header > .section-lead{text-align:left !important;margin-left:0 !important;}
+}
+section{padding:5.5rem 4rem;}
+.leistungen-header,.fokus-header,.prozess-header,.wema-header,.netzwerk-header,.immobilien-header{margin-bottom:3rem;}
+.fokus-grid{gap:1.2rem;}
+.section-title{margin-bottom:1.4rem;}
+.section-lead{margin-bottom:1.8rem;}
+@media (max-width:700px){.wema-brand-note{flex-direction:column;align-items:flex-start;}
+.wema-brand-note > div:first-child{margin-bottom:1rem;}
+.wema-brand-note div:last-child{text-align:left;}
+}
+.wema-brand-cta{max-width:620px;margin:3rem auto 0 auto;display:flex;justify-content:center;}
+.wema-brand-left{display:inline-flex;align-items:center;gap:1.6rem;}
+.wema-brand-logo{width:112px;height:auto;display:block;flex-shrink:0;}
+.wema-brand-divider{width:1px;height:68px;background:var(--gold);flex-shrink:0;}
+.wema-brand-copy{display:flex;flex-direction:column;align-items:flex-start;gap:0.75rem;}
+.wema-brand-kicker{font-size:0.72rem;line-height:1.25;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;color:var(--gold);white-space:nowrap;}
+.wema-brand-button{display:inline-block;background:var(--gold);color:var(--white);padding:0.85rem 2rem;font-size:0.75rem;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;text-decoration:none;transition:all 0.3s ease;}
+.wema-brand-button:hover{background:var(--gold-light);transform:translateY(-1px);}
+@media (max-width:700px){.wema-brand-cta{max-width:100%;margin-top:2.4rem;}
+.wema-brand-left{gap:1.2rem;}
+.wema-brand-logo{width:92px;}
+.wema-brand-divider{height:58px;}
+.wema-brand-kicker{white-space:normal;}
+.wema-brand-button{padding:0.8rem 1.4rem;}
+}
+.nav-logo{cursor:pointer;text-decoration:none;}
+html,body{width:100%;max-width:100%;overflow-x:hidden;}
+img,svg{max-width:100%;height:auto;}
+@media (max-width:900px){nav{padding:1rem 1.25rem;}
+.nav-links{display:none;}
+section{padding:4.5rem 1.35rem;}
+.section-title{font-size:clamp(2.1rem,9vw,3rem);}
+.section-lead{font-size:0.98rem;line-height:1.75;}
+#hero{min-height:100svh;}
+.hero-content{padding:7rem 1.35rem 4rem;}
+.hero-logo svg{width:220px !important;height:auto !important;}
+.hero-title{font-size:clamp(2.55rem,11vw,3.65rem);line-height:1.05;}
+.hero-subtitle{font-size:0.98rem;line-height:1.65;max-width:34rem;}
+.hero-actions{flex-direction:column;width:100%;max-width:320px;gap:0.85rem;}
+.btn-primary,.btn-ghost{width:100%;justify-content:center;text-align:center;}
+.ueber-grid,.leistungen-header,.fokus-header,.prozess-header,.wema-header,.netzwerk-header,.immobilien-header,.kontakt-inner{grid-template-columns:minmax(0,1fr) !important;gap:2.25rem;}
+.leistungen-grid,.fokus-grid,.wema-grid,.netzwerk-grid{grid-template-columns:minmax(0,1fr) !important;}
+.leistungen-header .section-lead,.fokus-header .section-lead,.prozess-header .section-lead,.wema-header .section-lead,.netzwerk-header .section-lead,.immobilien-header .section-lead{text-align:left !important;margin-top:0 !important;}
+.fokus-card{min-height:320px;aspect-ratio:auto;}
+.fokus-card-tag,.fokus-card-line,.fokus-text{opacity:1;transform:none;}
+.fokus-card-line{width:2rem;}
+.fokus-text{color:rgba(255,255,255,0.78);max-height:none;overflow:visible;margin-top:0.5rem;}
+.prozess-steps{display:flex !important;grid-template-columns:none !important;overflow-x:auto;gap:1rem;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;padding-bottom:1rem;}
+.prozess-step{flex:0 0 82%;scroll-snap-align:start;}
+.prozess-steps::before{display:none !important;}
+.prozess-benefits{grid-template-columns:minmax(0,1fr) !important;}
+.benefit{border-right:none !important;border-bottom:1px solid rgba(0,66,74,0.1);}
+.immo-card{flex-basis:88% !important;}
+.immo-carousel-nav{justify-content:flex-start;}
+.kontakt-photo{height:260px;}
+.footer-top{flex-direction:column;align-items:flex-start;gap:1rem;}
+.footer-contact{align-items:flex-start;}
+}
+@media (max-width:520px){section{padding-left:1.15rem;padding-right:1.15rem;}
+.hero-logo svg{width:190px !important;}
+.hero-eyebrow span{letter-spacing:0.18em;}
+.ueber-logo-box{padding:2rem;}
+.ueber-stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));}
+.ueber-stat{border-right:none;padding:1rem 0.5rem;}
+}
+.immo-card-media{position:relative;overflow:hidden;background:var(--green);}
+.immo-card-market{display:inline-block;margin-top:0.5rem;font-size:0.62rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--green);border:1px solid rgba(0,66,74,0.18);padding:0.25rem 0.55rem;}
+.immo-card-price{margin-top:1.15rem;padding-top:1rem;border-top:1px solid rgba(0,66,74,0.1);font-family:'Cormorant Garamond',serif;font-size:1.55rem;font-weight:600;color:var(--green);}
+.immo-card-facts{margin-top:1rem;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0.7rem;}
+.immo-card-fact{min-width:0;}
+.immo-card-fact-val{display:block;font-family:'Cormorant Garamond',serif;font-size:1.25rem;font-weight:600;color:var(--green);line-height:1;}
+.immo-card-fact-key{display:block;margin-top:0.25rem;font-size:0.58rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--gray);}
+.immo-modal-desc{margin-top:1.4rem;color:var(--gray);line-height:1.8;}
+.immo-modal-location{margin:0.2rem 0 1.2rem;color:var(--gray);}
+.immo-v4-card{background:var(--cream);border:1px solid rgba(0,66,74,0.08);}
+.immo-v4-media{position:relative;overflow:hidden;background:var(--green);}
+.immo-v4-body{padding:1.5rem;}
+.immo-v4-market{display:inline-block;margin-top:0.75rem;font-size:0.62rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--green);border:1px solid rgba(0,66,74,0.18);padding:0.3rem 0.6rem;}
+.immo-v4-facts{margin-top:1.2rem;padding-top:1.1rem;border-top:1px solid rgba(0,66,74,0.10);display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem 1.2rem;}
+.immo-v4-fact span{display:block;font-size:0.58rem;color:var(--gray);text-transform:uppercase;letter-spacing:0.12em;margin-bottom:0.25rem;}
+.immo-v4-fact strong{display:block;font-family:'Cormorant Garamond',serif;color:var(--green);font-size:1.35rem;line-height:1.05;font-weight:600;}
+.immo-v4-price{margin-top:1.2rem;padding-top:1rem;border-top:1px solid rgba(0,66,74,0.10);font-family:'Cormorant Garamond',serif;color:var(--green);font-size:1.65rem;font-weight:600;}
+.immo-v4-modal{position:relative;background:var(--white);}
+.immo-v4-close{position:absolute;top:1rem;right:1rem;z-index:5;width:2.4rem;height:2.4rem;border:none;background:var(--green);color:var(--white);font-size:1.4rem;cursor:pointer;}
+.immo-v4-modal-img{width:100%;display:block;aspect-ratio:16 / 9;object-fit:cover;}
+.immo-v4-modal-placeholder{aspect-ratio:16 / 9;background:var(--green);display:flex;align-items:center;justify-content:center;}
+.immo-v4-modal-body{padding:2.1rem;}
+.immo-v4-modal-body h3{color:var(--green);font-size:clamp(1.7rem,4vw,2.35rem);margin-top:0.25rem;}
+.immo-v4-modal-facts{margin:1.6rem 0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));border:1px solid rgba(0,66,74,0.12);background:rgba(247,244,239,0.55);}
+.immo-v4-modal-fact{padding:1rem 1.1rem;border-right:1px solid rgba(0,66,74,0.10);border-bottom:1px solid rgba(0,66,74,0.10);}
+.immo-v4-modal-fact:nth-child(2n){border-right:none;}
+.immo-v4-modal-fact span{display:block;font-size:0.62rem;color:var(--gray);text-transform:uppercase;letter-spacing:0.13em;margin-bottom:0.35rem;}
+.immo-v4-modal-fact strong{display:block;font-family:'Cormorant Garamond',serif;color:var(--green);font-size:1.35rem;line-height:1.1;}
+@media (max-width:700px){.immo-v4-modal-facts{grid-template-columns:1fr;}
+.immo-v4-modal-fact{border-right:none;}
+.immo-v4-modal-body{padding:1.5rem;}
+}
+.immo-final-card{background:var(--cream);border:1px solid rgba(0,66,74,0.08);}
+.immo-final-media{position:relative;overflow:hidden;background:var(--green);}
+.immo-final-body{padding:1.5rem;}
+.immo-final-market{display:inline-block;margin-top:0.75rem;font-size:0.62rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--green);border:1px solid rgba(0,66,74,0.18);padding:0.3rem 0.6rem;}
+.immo-final-facts{margin-top:1.2rem;padding-top:1.1rem;border-top:1px solid rgba(0,66,74,0.10);display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem 1.2rem;}
+.immo-final-fact span{display:block;font-size:0.58rem;color:var(--gray);text-transform:uppercase;letter-spacing:0.12em;margin-bottom:0.25rem;}
+.immo-final-fact strong{display:block;font-family:'Cormorant Garamond',serif;color:var(--green);font-size:1.35rem;line-height:1.05;font-weight:600;}
+.immo-final-price{margin-top:1.2rem;padding-top:1rem;border-top:1px solid rgba(0,66,74,0.10);font-family:'Cormorant Garamond',serif;color:var(--green);font-size:1.65rem;font-weight:600;}
+.immo-final-modal{position:relative;background:var(--white);}
+.immo-final-close{position:absolute;top:1rem;right:1rem;z-index:5;width:2.4rem;height:2.4rem;border:none;background:var(--green);color:var(--white);font-size:1.4rem;cursor:pointer;}
+.immo-final-modal-img{width:100%;display:block;aspect-ratio:16 / 9;object-fit:cover;}
+.immo-final-modal-placeholder{aspect-ratio:16 / 9;background:var(--green);display:flex;align-items:center;justify-content:center;}
+.immo-final-modal-body{padding:2.1rem;}
+.immo-final-modal-body h3{color:var(--green);font-size:clamp(1.7rem,4vw,2.35rem);margin-top:0.25rem;}
+.immo-final-modal-facts{margin:1.6rem 0;display:grid !important;grid-template-columns:repeat(2,minmax(0,1fr));border:1px solid rgba(0,66,74,0.12);background:rgba(247,244,239,0.55);}
+.immo-final-modal-fact{padding:1rem 1.1rem;border-right:1px solid rgba(0,66,74,0.10);border-bottom:1px solid rgba(0,66,74,0.10);}
+.immo-final-modal-fact:nth-child(2n){border-right:none;}
+.immo-final-modal-fact span{display:block;font-size:0.62rem;color:var(--gray);text-transform:uppercase;letter-spacing:0.13em;margin-bottom:0.35rem;}
+.immo-final-modal-fact strong{display:block;font-family:'Cormorant Garamond',serif;color:var(--green);font-size:1.35rem;line-height:1.1;}
+@media (max-width:700px){.immo-final-modal-facts{grid-template-columns:1fr;}
+.immo-final-modal-fact{border-right:none;}
+.immo-final-modal-body{padding:1.5rem;}
+}
+.immo-final-body{padding:1.65rem 1.55rem 1.75rem;}
+.immo-final-market{margin-top:1rem;margin-bottom:0.15rem;background:rgba(0,66,74,0.03);}
+.immo-final-facts{margin-top:1.25rem;padding-top:1.25rem;border-top:1px solid rgba(0,66,74,0.12);display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1.1rem 1.4rem;}
+.immo-final-fact span{display:block;font-size:0.6rem;color:var(--gray);text-transform:uppercase;letter-spacing:0.14em;margin-bottom:0.35rem;}
+.immo-final-fact strong{display:block;font-family:'Cormorant Garamond',serif;color:var(--green);font-size:1.42rem;line-height:1.05;font-weight:600;}
+.immo-final-price{margin-top:1.35rem;padding:1.15rem 1.2rem;border:1px solid rgba(0,66,74,0.14);background:rgba(255,255,255,0.45);font-family:inherit;color:var(--green);}
+.immo-final-price span{display:block;font-size:0.62rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--gray);margin-bottom:0.35rem;}
+.immo-final-price strong{display:block;font-family:'Cormorant Garamond',serif;font-size:1.75rem;line-height:1.05;font-weight:600;color:var(--green);}
+.immo-card-title{margin-top:0.35rem;}
+.immo-card-location{margin-top:0.4rem;}
+.immo-final-price,.immo-v4-price,.immo-card-price{margin-top:1.35rem !important;padding:1.15rem 1.2rem !important;border:1px solid rgba(0,66,74,0.14) !important;background:rgba(255,255,255,0.5) !important;font-family:inherit !important;color:var(--green) !important;}
+.immo-final-price span,.immo-v4-price span,.immo-card-price span{display:block !important;font-size:0.62rem !important;letter-spacing:0.16em !important;text-transform:uppercase !important;color:var(--gray) !important;margin-bottom:0.35rem !important;font-family:inherit !important;}
+.immo-final-price strong,.immo-v4-price strong,.immo-card-price strong{display:block !important;font-family:'Cormorant Garamond',serif !important;font-size:1.75rem !important;line-height:1.05 !important;font-weight:600 !important;color:var(--green) !important;}
+.immo-final-facts,.immo-v4-facts,.immo-card-facts{margin-top:1.25rem !important;padding-top:1.25rem !important;border-top:1px solid rgba(0,66,74,0.12) !important;display:grid !important;grid-template-columns:repeat(2,minmax(0,1fr)) !important;gap:1.1rem 1.4rem !important;}
+.immo-premium-card{background:var(--cream);border:1px solid rgba(0,66,74,0.08);cursor:pointer;transition:transform .25s ease,box-shadow .25s ease;}
+.immo-premium-card:hover{transform:translateY(-4px);box-shadow:0 18px 45px rgba(0,40,45,0.12);}
+.immo-premium-media{position:relative;overflow:hidden;background:var(--green);}
+.immo-premium-media .immo-card-img{display:block;width:100%;aspect-ratio:4 / 3;object-fit:cover;transition:transform .45s ease;}
+.immo-premium-card:hover .immo-card-img{transform:scale(1.035);}
+.immo-premium-status{position:absolute;top:1rem;left:1rem;z-index:2;color:#fff;font-size:.58rem;letter-spacing:.16em;text-transform:uppercase;padding:.45rem .65rem;font-weight:700;}
+.immo-premium-price-overlay{position:absolute;right:1rem;bottom:1rem;z-index:2;background:rgba(255,255,255,.92);backdrop-filter:blur(8px);padding:.8rem .95rem .85rem;min-width:8.5rem;box-shadow:0 12px 30px rgba(0,0,0,.14);}
+.immo-premium-price-overlay span{display:block;font-size:.56rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gray);margin-bottom:.2rem;}
+.immo-premium-price-overlay strong{display:block;font-family:'Cormorant Garamond',serif;font-size:1.55rem;line-height:1;color:var(--green);font-weight:600;}
+.immo-premium-body{padding:1.55rem 1.5rem 1.65rem;}
+.immo-premium-body h3{margin:.35rem 0 0;font-family:'Cormorant Garamond',serif;font-size:1.45rem;line-height:1.15;color:var(--green);}
+.immo-premium-location{margin:.55rem 0 0;color:var(--gray);font-size:.9rem;}
+.immo-premium-meta{margin-top:1.15rem;padding-top:1.05rem;border-top:1px solid rgba(0,66,74,.12);display:flex;flex-direction:column;gap:.9rem;color:var(--green);}
+.immo-premium-dealtype{width:fit-content;border:1px solid rgba(0,66,74,.18);padding:.28rem .55rem;text-transform:uppercase;font-size:.62rem;letter-spacing:.14em;}
+.immo-premium-card-facts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.85rem;}
+.immo-premium-fact-item{min-width:0;}
+.immo-premium-fact-item span{display:block;margin-bottom:.25rem;font-size:.58rem;line-height:1.15;letter-spacing:.13em;text-transform:uppercase;color:var(--gray);}
+.immo-premium-fact-item strong{display:block;font-family:'Cormorant Garamond',serif;font-size:1.08rem;line-height:1.05;font-weight:600;color:var(--green);overflow-wrap:anywhere;}
+.immo-premium-dot{display:none;}
+@media (max-width:520px){.immo-premium-card-facts{grid-template-columns:1fr;gap:.75rem;}
+}
+.immo-premium-modal{position:relative;background:var(--white);}
+.immo-premium-close{position:absolute;top:1rem;right:1rem;z-index:5;width:2.4rem;height:2.4rem;border:none;background:var(--green);color:var(--white);font-size:1.4rem;cursor:pointer;}
+.immo-premium-modal-img{width:100%;display:block;aspect-ratio:16 / 9;object-fit:cover;}
+.immo-premium-modal-placeholder{aspect-ratio:16 / 9;background:var(--green);display:flex;align-items:center;justify-content:center;}
+.immo-premium-modal-body{padding:2.2rem;}
+.immo-premium-modal-body h3{color:var(--green);font-size:clamp(1.7rem,4vw,2.35rem);margin:.25rem 0 0;}
+.immo-premium-modal-facts{margin:1.6rem 0 1.7rem;display:grid !important;grid-template-columns:repeat(2,minmax(0,1fr));border:1px solid rgba(0,66,74,.12);background:rgba(247,244,239,.55);}
+.immo-premium-modal-fact{padding:1rem 1.1rem;border-right:1px solid rgba(0,66,74,.10);border-bottom:1px solid rgba(0,66,74,.10);}
+.immo-premium-modal-fact:nth-child(2n){border-right:none;}
+.immo-premium-modal-fact span{display:block;font-size:.62rem;color:var(--gray);text-transform:uppercase;letter-spacing:.13em;margin-bottom:.35rem;}
+.immo-premium-modal-fact strong{display:block;font-family:'Cormorant Garamond',serif;color:var(--green);font-size:1.35rem;line-height:1.1;}
+.immo-premium-description{margin-top:1.4rem;color:var(--gray);font-size:.98rem;line-height:1.85;}
+.immo-premium-description p{margin:0 0 1.15rem;}
+.immo-premium-description p:last-child{margin-bottom:0;}
+.immo-premium-cta-wrap{margin-top:2.25rem;padding-top:0.25rem;}
+.immo-premium-description + .immo-premium-cta-wrap{margin-top:2.25rem;}
+.immo-premium-cta-wrap .immo-modal-cta{display:inline-flex;align-items:center;justify-content:center;}
+@media (max-width:700px){.immo-premium-price-overlay{left:1rem;right:auto;min-width:auto;}
+.immo-premium-modal-facts{grid-template-columns:1fr;}
+.immo-premium-modal-fact{border-right:none;}
+.immo-premium-modal-body{padding:1.5rem;}
+}
+.immo-premium-description strong{font-weight:600;color:var(--anthracite);}
+.immo-premium-description em{font-style:italic;}
+.immo-premium-description u{text-underline-offset:0.18em;}
+.immo-premium-description s{opacity:0.75;}
+.immo-premium-description a{color:var(--green);text-decoration:none;border-bottom:1px solid var(--gold);}
+.immo-premium-description code{font-family:monospace;font-size:0.9em;background:rgba(0,66,74,0.08);padding:0.1rem 0.25rem;}
+.immo-premium-image-count{position:absolute;left:1rem;bottom:1rem;z-index:2;background:rgba(0,66,74,.86);color:#fff;font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;padding:.42rem .6rem;}
+.immo-premium-gallery{position:relative;background:var(--green);aspect-ratio:16 / 9;overflow:hidden;}
+.immo-premium-gallery-img{display:none;width:100%;height:100%;object-fit:cover;}
+.immo-premium-gallery-img.active{display:block;}
+.immo-premium-gallery-nav{position:absolute;top:50%;transform:translateY(-50%);z-index:4;width:2.6rem;height:2.6rem;border:1px solid rgba(255,255,255,.45);background:rgba(0,66,74,.76);color:#fff;font-size:1.8rem;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;}
+.immo-premium-gallery-nav.prev{left:1rem;}
+.immo-premium-gallery-nav.next{right:1rem;}
+.immo-premium-gallery-counter{position:absolute;right:1rem;bottom:1rem;z-index:4;background:rgba(0,66,74,.82);color:#fff;padding:.4rem .65rem;font-size:.72rem;letter-spacing:.08em;}
+.immo-premium-gallery-dots{position:absolute;left:50%;bottom:1.15rem;transform:translateX(-50%);z-index:4;display:flex;gap:.35rem;}
+.immo-premium-gallery-dot{width:.42rem;height:.42rem;border-radius:50%;border:0;background:rgba(255,255,255,.5);cursor:pointer;}
+.immo-premium-gallery-dot.active{background:var(--gold);}
+@media (max-width:700px){.immo-premium-gallery-nav{width:2.3rem;height:2.3rem;}
+.immo-premium-gallery-dots{display:none;}
+}
+.immo-premium-card{position:relative;overflow:hidden;transform:translateY(0);transition:transform .34s cubic-bezier(.2,.8,.2,1),box-shadow .34s cubic-bezier(.2,.8,.2,1),border-color .34s ease;will-change:transform;}
+.immo-premium-card::after{content:'';position:absolute;left:0;right:0;bottom:0;height:3px;background:var(--gold);transform:scaleX(0);transform-origin:left;transition:transform .34s ease;}
+.immo-premium-card:hover{transform:translateY(-8px);border-color:rgba(200,164,107,.45);box-shadow:0 28px 70px rgba(0,40,45,.18);}
+.immo-premium-card:hover::after{transform:scaleX(1);}
+.immo-premium-media::before{content:'';position:absolute;inset:0;z-index:1;background:linear-gradient(to top,rgba(0,44,50,.25),rgba(0,44,50,0));opacity:0;transition:opacity .34s ease;pointer-events:none;}
+.immo-premium-card:hover .immo-premium-media::before{opacity:1;}
+.immo-premium-media .immo-card-img{transition:transform .65s cubic-bezier(.2,.8,.2,1),filter .65s ease;}
+.immo-premium-card:hover .immo-card-img{transform:scale(1.065);filter:saturate(.95) contrast(1.03);}
+.immo-premium-card:hover .immo-premium-price-overlay{transform:translateY(-2px);box-shadow:0 16px 38px rgba(0,0,0,.18);}
+.immo-premium-price-overlay{transition:transform .34s ease,box-shadow .34s ease;}
+.immo-modal{background:rgba(0,44,50,.86) !important;backdrop-filter:blur(8px) saturate(.9);}
+.immo-modal-inner{max-width:min(1040px,calc(100vw - 3rem)) !important;width:100% !important;max-height:90vh !important;border:1px solid rgba(200,164,107,.24);box-shadow:0 34px 110px rgba(0,0,0,.35);}
+.immo-modal-close{top:1rem !important;right:1rem !important;background:rgba(0,66,74,.92) !important;border:1px solid rgba(255,255,255,.22) !important;transition:background .25s ease,transform .25s ease !important;}
+.immo-modal-close:hover{background:var(--gold) !important;transform:rotate(90deg);}
+.immo-premium-modal{background:var(--white);}
+.immo-premium-gallery{aspect-ratio:21 / 9 !important;min-height:390px;border-bottom:1px solid rgba(0,66,74,.10);}
+.immo-premium-gallery::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(0,44,50,.20),rgba(0,44,50,0) 46%);pointer-events:none;z-index:2;}
+.immo-premium-gallery-img{animation:immoGalleryFade .22s ease;}
+@keyframes immoGalleryFade{from{opacity:.86;}
+to{opacity:1;}
+}
+.immo-premium-gallery-nav,.immo-premium-gallery-counter,.immo-premium-gallery-dots{z-index:5;}
+.immo-premium-modal-body{padding:clamp(2.2rem,4vw,3.4rem) clamp(2.2rem,5vw,4rem) clamp(2.5rem,5vw,3.8rem) !important;}
+.immo-premium-modal-body .immo-card-type{margin-bottom:.75rem;}
+.immo-premium-modal-body h3{max-width:780px;font-size:clamp(2rem,3.7vw,3rem) !important;line-height:1.02 !important;letter-spacing:-.015em;}
+.immo-premium-modal-body .immo-modal-location{margin-top:.75rem !important;margin-bottom:1.8rem !important;font-size:.95rem;}
+.immo-premium-modal-facts{margin:2rem 0 2.4rem !important;grid-template-columns:repeat(4,minmax(0,1fr)) !important;background:linear-gradient(135deg,rgba(247,244,239,.88),rgba(255,255,255,.78)) !important;border:1px solid rgba(0,66,74,.12) !important;}
+.immo-premium-modal-fact{min-height:104px;display:flex;flex-direction:column;justify-content:center;padding:1.2rem 1.25rem !important;}
+.immo-premium-modal-fact:nth-child(2n){border-right:1px solid rgba(0,66,74,.10);}
+.immo-premium-modal-fact:nth-child(4n){border-right:none;}
+.immo-premium-modal-fact span{font-size:.6rem !important;color:rgba(82,91,102,.88) !important;}
+.immo-premium-modal-fact strong{font-size:clamp(1.35rem,2vw,1.7rem) !important;}
+.immo-premium-description{max-width:760px;margin-top:0 !important;color:#525b66 !important;font-size:1rem !important;line-height:1.95 !important;}
+.immo-premium-description p{margin-bottom:1.35rem !important;}
+.immo-premium-description p:last-child{margin-bottom:0 !important;}
+.immo-premium-cta-wrap{margin-top:3rem !important;padding-top:1.4rem !important;border-top:1px solid rgba(0,66,74,.10);}
+.immo-premium-cta-wrap .immo-modal-cta{min-width:190px;padding:1rem 2.2rem !important;box-shadow:0 14px 34px rgba(200,164,107,.22);}
+.immo-premium-cta-wrap .immo-modal-cta:hover{transform:translateY(-1px);}
+@media (max-width:900px){.immo-modal{padding:1rem !important;}
+.immo-modal-inner{max-width:calc(100vw - 2rem) !important;}
+.immo-premium-gallery{aspect-ratio:16 / 10 !important;min-height:280px;}
+.immo-premium-modal-facts{grid-template-columns:repeat(2,minmax(0,1fr)) !important;}
+.immo-premium-modal-fact:nth-child(2n){border-right:none;}
+.immo-premium-modal-fact:nth-child(4n){border-right:none;}
+}
+@media (max-width:560px){.immo-premium-card:hover{transform:none;}
+.immo-premium-gallery{min-height:230px;}
+.immo-premium-modal-body{padding:1.65rem !important;}
+.immo-premium-modal-facts{grid-template-columns:1fr !important;}
+.immo-premium-modal-fact,.immo-premium-modal-fact:nth-child(2n),.immo-premium-modal-fact:nth-child(4n){border-right:none !important;}
+}
+.immo-premium-card{border-color:rgba(0,66,74,0.08) !important;box-shadow:none !important;transform:none !important;transition:transform .22s ease,border-color .22s ease,box-shadow .22s ease !important;}
+.immo-premium-card::after,.immo-premium-media::before{display:none !important;}
+.immo-premium-card:hover{transform:translateY(-2px) !important;border-color:rgba(200,164,107,.28) !important;box-shadow:0 10px 26px rgba(0,40,45,.07) !important;}
+.immo-premium-media .immo-card-img,.immo-premium-card:hover .immo-card-img{transform:none !important;filter:none !important;}
+.immo-premium-card:hover .immo-premium-price-overlay{transform:none !important;box-shadow:0 12px 30px rgba(0,0,0,.14) !important;}
+.immo-modal{background:rgba(10,30,25,.85) !important;backdrop-filter:blur(4px) !important;}
+.immo-modal-inner{max-width:860px !important;width:min(860px,calc(100vw - 3rem)) !important;max-height:88vh !important;border:none !important;box-shadow:0 24px 80px rgba(0,0,0,.28) !important;}
+.immo-modal-close{background:var(--green) !important;border:none !important;transform:none !important;}
+.immo-modal-close:hover{background:var(--gold) !important;transform:none !important;}
+.immo-premium-gallery{aspect-ratio:auto !important;height:clamp(300px,50vh,460px) !important;min-height:0 !important;background:var(--green) !important;border-bottom:1px solid rgba(0,66,74,.10) !important;}
+.immo-premium-gallery::after{display:none !important;}
+.immo-premium-gallery-img{width:100% !important;height:100% !important;object-fit:cover !important;object-position:center center !important;}
+.immo-premium-modal-body{padding:2.25rem !important;}
+.immo-premium-modal-body h3{max-width:720px !important;font-size:clamp(1.85rem,3.2vw,2.45rem) !important;line-height:1.08 !important;}
+.immo-premium-modal-facts{grid-template-columns:repeat(2,minmax(0,1fr)) !important;margin:1.7rem 0 2rem !important;background:rgba(247,244,239,.55) !important;}
+.immo-premium-modal-fact{min-height:auto !important;padding:1rem 1.1rem !important;}
+.immo-premium-modal-fact:nth-child(2n){border-right:none !important;}
+.immo-premium-modal-fact:nth-child(4n){border-right:none !important;}
+.immo-premium-description{max-width:720px !important;font-size:.98rem !important;line-height:1.85 !important;color:var(--gray) !important;}
+.immo-premium-cta-wrap{margin-top:2.75rem !important;padding-top:.4rem !important;border-top:none !important;}
+.immo-premium-cta-wrap .immo-modal-cta{box-shadow:none !important;}
+@media (max-width:900px){.immo-modal-inner{width:calc(100vw - 2rem) !important;max-width:calc(100vw - 2rem) !important;}
+.immo-premium-gallery{height:clamp(240px,42vh,360px) !important;}
+}
+@media (max-width:560px){.immo-premium-card:hover{transform:none !important;box-shadow:none !important;}
+.immo-premium-gallery{height:260px !important;}
+.immo-premium-modal-body{padding:1.5rem !important;}
+.immo-premium-modal-facts{grid-template-columns:1fr !important;}
+}
+@media (max-width:760px){html,body{overflow-x:hidden;}
+section,#fokus{padding:3.8rem 1.15rem !important;}
+.section-inner{width:100%;max-width:100%;}
+.section-label{margin-bottom:0.75rem !important;}
+.section-title{font-size:clamp(2rem,10vw,2.75rem) !important;line-height:1.04 !important;margin-bottom:1rem !important;}
+.section-lead{font-size:0.94rem !important;line-height:1.65 !important;margin-bottom:1.45rem !important;}
+.leistungen-header,.fokus-header,.prozess-header,.wema-header,.netzwerk-header,.immobilien-header{gap:1.25rem !important;margin-bottom:1.8rem !important;}
+#ueber{padding-top:3.6rem !important;padding-bottom:3.6rem !important;}
+.ueber-grid{gap:1.65rem !important;}
+.ueber-logo-box{padding:1.55rem 1.35rem !important;max-width:260px;margin-inline:auto;}
+.ueber-logo-box svg,.ueber-logo-box img{max-height:150px;width:auto;}
+.ueber-stats{display:grid !important;grid-template-columns:repeat(2,minmax(0,1fr)) !important;gap:0 !important;margin-top:1.05rem !important;padding:0.75rem 0 !important;}
+.ueber-stat{padding:0.65rem 0.55rem !important;border-right:none !important;}
+.ueber-stat:nth-child(odd){border-right:1px solid rgba(0,66,74,0.12) !important;}
+.ueber-stat .num{font-size:1.55rem !important;}
+.ueber-stat .label{font-size:0.56rem !important;letter-spacing:0.1em !important;}
+.ueber-text .section-lead{margin-bottom:1.15rem !important;}
+.ueber-points{gap:0.72rem !important;}
+.ueber-points li{gap:0.75rem !important;}
+.ueber-points li span{font-size:0.9rem !important;line-height:1.55 !important;}
+#leistungen .leistungen-grid{display:flex !important;grid-template-columns:none !important;overflow-x:auto !important;overflow-y:hidden !important;gap:1rem !important;background:transparent !important;padding:0 1.15rem 0.9rem !important;margin-left:-1.15rem !important;margin-right:-1.15rem !important;scroll-snap-type:x mandatory !important;-webkit-overflow-scrolling:touch;scrollbar-width:none;}
+#leistungen .leistungen-grid::-webkit-scrollbar{display:none;}
+#leistungen .leistung-card{flex:0 0 82% !important;scroll-snap-align:start !important;padding:1.65rem 1.45rem !important;min-height:255px;border:1px solid rgba(0,66,74,0.08);}
+#leistungen .leistung-num{font-size:2.65rem !important;margin-bottom:1rem !important;}
+#leistungen .leistung-title{font-size:1.52rem !important;margin-bottom:0.65rem !important;}
+#leistungen .leistung-text{font-size:0.9rem !important;line-height:1.62 !important;}
+#fokus .fokus-grid{display:grid !important;grid-auto-flow:column !important;grid-template-rows:repeat(2,minmax(190px,auto)) !important;grid-template-columns:none !important;grid-auto-columns:minmax(255px,82%) !important;overflow-x:auto !important;overflow-y:hidden !important;gap:1rem !important;padding:0 1.15rem 1rem !important;margin-left:-1.15rem !important;margin-right:-1.15rem !important;scroll-snap-type:x mandatory !important;-webkit-overflow-scrolling:touch;scrollbar-width:none;}
+#fokus .fokus-grid::-webkit-scrollbar{display:none;}
+#fokus .fokus-card{min-height:190px !important;aspect-ratio:auto !important;scroll-snap-align:start !important;border-radius:0;}
+#fokus .fokus-card-content{padding:1.15rem !important;}
+#fokus .fokus-title{font-size:1.28rem !important;line-height:1.16 !important;}
+#fokus .fokus-card-tag,#fokus .fokus-card-line,#fokus .fokus-text{opacity:1 !important;transform:none !important;}
+#fokus .fokus-card-line{width:2rem !important;}
+#fokus .fokus-text{max-height:none !important;overflow:visible !important;margin-top:0.45rem !important;font-size:0.84rem !important;line-height:1.45 !important;color:rgba(255,255,255,0.78) !important;}
+#wema{padding-top:3.8rem !important;padding-bottom:3.8rem !important;}
+#wema .wema-grid{display:grid !important;grid-template-columns:1fr !important;gap:0.85rem !important;}
+#wema .wema-card{padding:1.25rem 1.2rem !important;display:grid !important;grid-template-columns:2.35rem 1fr !important;column-gap:0.95rem !important;align-items:start !important;}
+#wema .wema-card-icon{width:2.35rem !important;height:2.35rem !important;margin-bottom:0 !important;grid-row:1 / span 2;}
+#wema .wema-card-title{font-size:1.18rem !important;line-height:1.18 !important;margin-bottom:0.35rem !important;}
+#wema .wema-card-text{font-size:0.84rem !important;line-height:1.48 !important;}
+#wema .wema-card--highlight{display:block !important;padding:1.35rem 1.2rem !important;}
+#wema .wema-advantages-title{margin-bottom:0.85rem !important;}
+#wema .wema-advantages{gap:0.72rem !important;}
+#wema .wema-advantages li span,#wema .wema-advantages li strong{line-height:1.4 !important;}
+.wema-brand-cta{margin-top:1.65rem !important;padding-inline:1.15rem;}
+.wema-brand-left{width:100%;justify-content:center;gap:0.95rem !important;}
+.wema-brand-logo{width:82px !important;}
+.wema-brand-divider{height:48px !important;}
+.wema-brand-button{padding:0.72rem 1.05rem !important;font-size:0.66rem !important;letter-spacing:0.11em !important;}
+#netzwerk .netzwerk-grid{display:flex !important;grid-template-columns:none !important;overflow-x:auto !important;overflow-y:hidden !important;gap:1rem !important;padding:0 1.15rem 1rem !important;margin-left:-1.15rem !important;margin-right:-1.15rem !important;scroll-snap-type:x mandatory !important;-webkit-overflow-scrolling:touch;scrollbar-width:none;}
+#netzwerk .netzwerk-grid::-webkit-scrollbar{display:none;}
+#netzwerk .netzwerk-card{flex:0 0 82% !important;scroll-snap-align:start !important;padding:1.55rem 1.35rem !important;min-height:250px;}
+#netzwerk .netzwerk-card-title{font-size:1.35rem !important;}
+#netzwerk .netzwerk-card-text{font-size:0.88rem !important;line-height:1.6 !important;}
+#immobilien{padding-top:3.7rem !important;padding-bottom:3.9rem !important;}
+#immobilien .immo-filter{flex-wrap:nowrap !important;overflow-x:auto !important;gap:0.5rem !important;margin:0 -1.15rem 1.45rem !important;padding:0 1.15rem 0.35rem !important;scrollbar-width:none;}
+#immobilien .immo-filter::-webkit-scrollbar{display:none;}
+#immobilien .immo-filter-btn{flex:0 0 auto;padding:0.42rem 0.95rem !important;font-size:0.66rem !important;}
+#immobilien .immo-card,#immobilien .immo-premium-card{flex-basis:84% !important;}
+#immobilien .immo-premium-body,#immobilien .immo-final-body,#immobilien .immo-v4-body,#immobilien .immo-card-body{padding:1.18rem 1.1rem 1.25rem !important;}
+#immobilien .immo-card-title{font-size:1.25rem !important;line-height:1.15 !important;}
+#immobilien .immo-card-location{font-size:0.82rem !important;}
+#immobilien .immo-premium-media .immo-card-img,#immobilien .immo-card-img{aspect-ratio:1.18 / 1 !important;}
+#immobilien .immo-final-facts,#immobilien .immo-v4-facts,#immobilien .immo-card-facts,#immobilien .immo-premium-facts{margin-top:0.95rem !important;padding-top:0.95rem !important;gap:0.75rem 0.9rem !important;}
+#immobilien .immo-final-fact strong,#immobilien .immo-v4-fact strong,#immobilien .immo-card-fact-val,#immobilien .immo-premium-fact strong{font-size:1.18rem !important;}
+#immobilien .immo-final-price,#immobilien .immo-v4-price,#immobilien .immo-card-price,#immobilien .immo-premium-price{margin-top:1rem !important;padding:0.9rem 0.95rem !important;}
+#immobilien .immo-final-price strong,#immobilien .immo-v4-price strong,#immobilien .immo-card-price strong,#immobilien .immo-premium-price strong{font-size:1.45rem !important;}
+}
+@media (max-width:420px){#leistungen .leistung-card,#netzwerk .netzwerk-card,#immobilien .immo-card,#immobilien .immo-premium-card{flex-basis:86% !important;}
+#fokus .fokus-grid{grid-auto-columns:minmax(245px,86%) !important;}
+#wema .wema-card{grid-template-columns:2.2rem 1fr !important;column-gap:0.8rem !important;}
+.wema-brand-logo{width:74px !important;}
+}
+@media (max-width:768px){#prozess .prozess-steps{display:flex !important;align-items:stretch !important;overflow-x:auto !important;overflow-y:hidden !important;gap:0.75rem !important;padding:0 1.15rem 1rem !important;margin-left:-1.15rem !important;margin-right:-1.15rem !important;margin-bottom:2rem !important;scroll-snap-type:x mandatory !important;-webkit-overflow-scrolling:touch !important;scrollbar-width:none !important;}
+#prozess .prozess-steps::-webkit-scrollbar{display:none !important;}
+#prozess .prozess-step{flex:0 0 78% !important;scroll-snap-align:start !important;padding:1.45rem 1.05rem 1.35rem !important;min-height:250px !important;}
+#prozess .prozess-arrow{flex:0 0 1.2rem !important;width:1.2rem !important;min-width:1.2rem !important;align-self:center !important;opacity:0.65 !important;}
+#prozess .prozess-arrow svg{width:1rem !important;height:1rem !important;}
+#prozess .step-number{font-size:0.68rem !important;margin-bottom:0.55rem !important;}
+#prozess .step-dot{width:3rem !important;height:3rem !important;margin-bottom:0.9rem !important;}
+#prozess .step-dot svg{width:1.35rem !important;height:1.35rem !important;}
+#prozess .step-title{font-size:1.18rem !important;line-height:1.15 !important;margin-bottom:0.55rem !important;}
+#prozess .step-text{font-size:0.84rem !important;line-height:1.48 !important;}
+#prozess .step-tag{margin-top:0.85rem !important;font-size:0.58rem !important;}
+#prozess .prozess-benefits{margin-top:1.1rem !important;}
+#immobilien .immo-grid{gap:1rem !important;padding-bottom:0.75rem !important;}
+#immobilien .immo-card,#immobilien .immo-premium-card{flex:0 0 78% !important;}
+#immobilien .immo-premium-media .immo-card-img,#immobilien .immo-card-img{aspect-ratio:1.35 / 1 !important;}
+#immobilien .immo-premium-body,#immobilien .immo-card-body{padding:1rem 0.95rem 1.05rem !important;}
+#immobilien .immo-card-type{font-size:0.56rem !important;letter-spacing:0.18em !important;margin-bottom:0.28rem !important;}
+#immobilien .immo-premium-body h3,#immobilien .immo-card-title{font-size:1.18rem !important;line-height:1.12 !important;margin-top:0.2rem !important;}
+#immobilien .immo-premium-location,#immobilien .immo-card-location{font-size:0.76rem !important;margin-top:0.3rem !important;margin-bottom:0.6rem !important;}
+#immobilien .immo-premium-meta{margin-top:0.75rem !important;}
+#immobilien .immo-premium-dealtype{font-size:0.58rem !important;padding:0.22rem 0.48rem !important;}
+#immobilien .immo-premium-card-facts{grid-template-columns:repeat(3,minmax(0,1fr)) !important;gap:0.55rem !important;margin-top:0.75rem !important;padding-top:0.8rem !important;}
+#immobilien .immo-premium-fact-item span{font-size:0.5rem !important;letter-spacing:0.08em !important;line-height:1.15 !important;margin-bottom:0.18rem !important;}
+#immobilien .immo-premium-fact-item strong{font-size:0.98rem !important;line-height:1.05 !important;}
+#immobilien .immo-premium-price-overlay{left:0.75rem !important;right:auto !important;bottom:0.75rem !important;padding:0.58rem 0.72rem 0.62rem !important;min-width:0 !important;}
+#immobilien .immo-premium-price-overlay span{font-size:0.48rem !important;margin-bottom:0.15rem !important;}
+#immobilien .immo-premium-price-overlay strong{font-size:1.22rem !important;}
+#immobilien .immo-carousel-nav{margin-top:0.8rem !important;}
+#immobilien .immo-carousel-btn{width:38px !important;height:38px !important;}
+}
+@media (max-width:420px){#prozess .prozess-step{flex-basis:82% !important;min-height:245px !important;}
+#immobilien .immo-card,#immobilien .immo-premium-card{flex-basis:82% !important;}
+#immobilien .immo-premium-card-facts{gap:0.48rem !important;}
+}
+@media (max-width:760px){#leistungen .leistungen-grid,#fokus .fokus-grid,#netzwerk .netzwerk-grid{margin-left:0 !important;margin-right:0 !important;padding-left:0 !important;padding-right:0 !important;scroll-padding-left:0 !important;}
+}
+@media (max-width:768px){#prozess .prozess-steps{margin-left:0 !important;margin-right:0 !important;padding-left:0 !important;padding-right:0 !important;scroll-padding-left:0 !important;}
 }
-* { margin:0; padding:0; box-sizing:border-box; }
-html { scroll-behavior:smooth; }
-body { font-family:'Outfit',sans-serif; background:var(--cream); color:var(--anthracite); overflow-x:hidden; }
-
-/* NAV */
-nav {
-  position:fixed; top:0; left:0; right:0; z-index:100;
-  display:flex; justify-content:space-between; align-items:center;
-  padding:1.2rem 4rem;
-  background:rgba(0,66,74,0.96);
-  backdrop-filter:blur(12px);
-  border-bottom:1px solid rgba(200,164,107,0.2);
-}
-.nav-logo { display:flex; align-items:center; }
-.nav-logo svg { display:block; }
-.nav-links { display:flex; gap:2.5rem; list-style:none; }
-.nav-links a { color:rgba(255,255,255,0.75); text-decoration:none; font-size:0.78rem; font-weight:400; letter-spacing:0.1em; text-transform:uppercase; transition:color 0.3s; }
-.nav-links a:hover { color:var(--gold); }
-.nav-cta { background:var(--gold) !important; color:var(--white) !important; padding:0.55rem 1.4rem !important; font-weight:500 !important; transition:background 0.3s !important; }
-.nav-cta:hover { background:var(--gold-light) !important; }
-
-/* HERO */
-#hero { min-height:100vh; display:flex; align-items:center; justify-content:center; position:relative; overflow:hidden; background:var(--green); }
-.hero-architecture { position:absolute; inset:0; z-index:0; overflow:hidden; }
-.hero-architecture img { width:100%; height:120%; object-fit:cover; object-position:left center; filter:grayscale(100%) brightness(0.45); transform:scale(1.03); will-change:transform; }
-.hero-bg { position:absolute; inset:0; background:linear-gradient(105deg,rgba(0,44,50,0.93) 0%,rgba(0,66,74,0.72) 45%,rgba(0,66,74,0.35) 100%); z-index:1; }
-.hero-pattern { position:absolute; inset:0; background-image:repeating-linear-gradient(90deg,transparent,transparent 80px,rgba(200,164,107,0.04) 80px,rgba(200,164,107,0.04) 81px),repeating-linear-gradient(0deg,transparent,transparent 80px,rgba(200,164,107,0.04) 80px,rgba(200,164,107,0.04) 81px); z-index:0; }
-.hero-content { position:relative; z-index:2; padding:2rem 4rem; max-width:900px; width:100%; text-align:center; display:flex; flex-direction:column; align-items:center; margin:0 auto; }
-.hero-logo { margin-bottom:1.5rem; opacity:0; animation:fadeIn 1s ease 0.1s forwards; }
-.hero-logo svg { filter:drop-shadow(0 4px 24px rgba(0,0,0,0.3)); }
-.hero-eyebrow { display:inline-flex; align-items:center; gap:0.75rem; margin-bottom:2rem; opacity:0; animation:fadeUp 0.8s ease 0.2s forwards; justify-content:center; }
-.hero-eyebrow-line { width:2.5rem; height:1px; background:var(--gold); }
-.hero-eyebrow span { font-size:0.72rem; font-weight:500; letter-spacing:0.3em; text-transform:uppercase; color:var(--gold); }
-.hero-title { font-family:'Cormorant Garamond',serif; font-size:clamp(3.5rem,7vw,6.5rem); font-weight:300; color:var(--white); line-height:1; margin-bottom:0; opacity:0; animation:fadeUp 0.9s ease 0.4s forwards; }
-.hero-title strong { font-weight:600; display:block; }
-.hero-title em { font-style:italic; font-weight:300; font-size:0.7em; color:var(--gold); display:inline; letter-spacing:0.02em; }
-.hero-subtitle { font-size:1.1rem; font-weight:300; color:rgba(255,255,255,0.75); max-width:560px; line-height:1.8; margin-top:2rem; margin-bottom:2.5rem; opacity:0; animation:fadeUp 0.9s ease 0.6s forwards; text-align:center; }
-.hero-actions { display:flex; gap:1.2rem; align-items:center; justify-content:center; opacity:0; animation:fadeUp 0.9s ease 0.8s forwards; }
-.btn-primary { background:var(--gold); color:var(--white); padding:0.9rem 2.2rem; font-family:'Outfit',sans-serif; font-size:0.82rem; font-weight:500; letter-spacing:0.12em; text-transform:uppercase; text-decoration:none; transition:all 0.3s; display:inline-block; }
-.btn-primary:hover { background:var(--gold-light); transform:translateY(-1px); }
-.btn-ghost { color:rgba(255,255,255,0.7); font-size:0.82rem; font-weight:400; letter-spacing:0.08em; text-decoration:none; display:inline-flex; align-items:center; gap:0.5rem; transition:color 0.3s; }
-.btn-ghost:hover { color:var(--gold); }
-.btn-ghost::after { content:'→'; }
-
-/* SECTIONS */
-section { padding:7rem 4rem; }
-.section-inner { max-width:1200px; margin:0 auto; }
-.section-label { display:inline-flex; align-items:center; gap:0.75rem; margin-bottom:1.2rem; }
-.section-label-line { width:2.5rem; height:1px; background:var(--gold); }
-.section-label span { font-size:0.68rem; font-weight:500; letter-spacing:0.35em; text-transform:uppercase; color:var(--gold); }
-.section-title { font-family:'Cormorant Garamond',serif; font-size:clamp(2.2rem,4vw,3.6rem); font-weight:600; color:var(--green); line-height:1.05; margin-bottom:1.8rem; }
-.section-title em { font-style:italic; font-weight:300; }
-.section-lead { font-size:1.05rem; font-weight:300; color:var(--gray); line-height:1.95; max-width:600px; }
-
-/* ÜBER UNS – weiß */
-#ueber { background:var(--white); padding:7rem 4rem; }
-.ueber-grid { display:grid; grid-template-columns:1fr 1fr; gap:5rem; align-items:center; max-width:1200px; margin:0 auto; }
-.ueber-logo-box {
-  background: var(--green);
-  padding: 3.5rem;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  min-height: 280px;
-}
-.ueber-logo-box::before {
-  content:''; position:absolute;
-  top:-10px; right:-10px;
-  width:100%; height:100%;
-  border:1px solid var(--gold);
-  pointer-events:none;
-}
-.ueber-logo-eyebrow {
-  font-size:0.62rem; font-weight:600;
-  letter-spacing:0.35em; text-transform:uppercase;
-  color:var(--gold); margin-bottom:1.5rem;
-}
-.ueber-logo-main {
-  font-family:'Cormorant Garamond',serif;
-  font-size:4.5rem; font-weight:600;
-  color:var(--white); line-height:0.9;
-  letter-spacing:0.08em;
-}
-.ueber-logo-divider {
-  width:3rem; height:1px;
-  background:var(--gold);
-  margin:1.5rem 0;
-}
-.ueber-logo-sub {
-  font-size:0.72rem; font-weight:400;
-  letter-spacing:0.25em; text-transform:uppercase;
-  color:rgba(255,255,255,0.55);
-  line-height:1.8;
-}
-.ueber-logo-tagline {
-  margin-top:1.5rem;
-  font-family:'Cormorant Garamond',serif;
-  font-size:1.1rem; font-weight:300;
-  font-style:italic;
-  color:rgba(255,255,255,0.7);
-  line-height:1.5;
-}
-.ueber-stats { display:flex; margin-top:1.8rem; border-top:1px solid rgba(0,66,74,0.12); border-bottom:1px solid rgba(0,66,74,0.12); padding:1.2rem 0; }
-.ueber-stat { flex:1; display:flex; flex-direction:column; align-items:center; text-align:center; border-right:1px solid rgba(0,66,74,0.12); padding:0 1rem; }
-.ueber-stat:last-child { border-right:none; }
-.ueber-stat .num { font-family:'Cormorant Garamond',serif; font-size:1.9rem; font-weight:600; color:var(--green); display:block; line-height:1; }
-.ueber-stat .label { font-size:0.62rem; font-weight:400; color:var(--gray); letter-spacing:0.12em; text-transform:uppercase; margin-top:0.4rem; display:block; }
-.ueber-text .section-lead { margin-bottom:2rem; }
-.ueber-points { list-style:none; display:flex; flex-direction:column; gap:1rem; }
-.ueber-points li { display:flex; gap:1rem; align-items:flex-start; }
-.ueber-points li::before { content:''; width:18px; height:1px; background:var(--gold); flex-shrink:0; margin-top:0.65rem; }
-.ueber-points li span { font-size:0.96rem; font-weight:300; color:var(--anthracite); line-height:1.7; }
-
-/* LEISTUNGEN – creme */
-#leistungen { background:var(--cream); }
-.leistungen-header { display:grid; grid-template-columns:1fr 1fr; gap:4rem; align-items:end; margin-bottom:4rem; }
-.leistungen-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:1.5px; background:rgba(0,66,74,0.1); }
-.leistung-card { background:var(--white); padding:2.5rem; transition:background 0.5s ease,box-shadow 0.4s ease; cursor:default; position:relative; overflow:hidden; }
-.leistung-card::after { content:''; position:absolute; bottom:0; left:0; height:2px; width:0; background:var(--gold); transition:width 0.5s ease; }
-.leistung-card:hover::after { width:100%; }
-.leistung-card:hover { background:var(--green); box-shadow:0 20px 50px rgba(0,44,50,0.2); }
-.leistung-card:hover .leistung-num, .leistung-card:hover .leistung-title, .leistung-card:hover .leistung-text { color:var(--white); }
-.leistung-card:hover .leistung-num { color:rgba(200,164,107,0.5); }
-.leistung-num { font-family:'Cormorant Garamond',serif; font-size:3.5rem; font-weight:300; color:rgba(200,164,107,0.3); line-height:1; margin-bottom:1.5rem; transition:color 0.5s ease; }
-.leistung-title { font-family:'Cormorant Garamond',serif; font-size:1.8rem; font-weight:600; color:var(--green); margin-bottom:0.85rem; transition:color 0.5s ease; }
-.leistung-text { font-size:0.95rem; font-weight:300; color:var(--gray); line-height:1.8; transition:color 0.5s ease; }
-
-/* FOKUSFELDER – weiß */
-#fokus { background:var(--white); padding:7rem 4rem; }
-.fokus-header { display:grid; grid-template-columns:1fr 1fr; gap:4rem; align-items:end; margin-bottom:3.5rem; }
-.fokus-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1.5rem; }
-.fokus-card { position:relative; overflow:hidden; aspect-ratio:4/3; cursor:default; }
-.fokus-card img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; transition:transform 0.6s ease; filter:brightness(0.78) saturate(0.9); }
-.fokus-card:hover img { transform:scale(1.06); filter:brightness(0.5) saturate(0.75); }
-.fokus-card-overlay { position:absolute; inset:0; background:linear-gradient(to top,rgba(0,44,50,0.92) 0%,rgba(0,44,50,0.3) 55%,transparent 100%); transition:background 0.4s; }
-.fokus-card:hover .fokus-card-overlay { background:linear-gradient(to top,rgba(0,44,50,0.97) 0%,rgba(0,44,50,0.55) 55%,rgba(0,44,50,0.1) 100%); }
-.fokus-card-content { position:absolute; bottom:0; left:0; right:0; padding:1.5rem; z-index:2; }
-.fokus-card-tag { display:inline-block; font-size:0.6rem; font-weight:600; letter-spacing:0.25em; text-transform:uppercase; color:var(--gold); margin-bottom:0.4rem; opacity:0; transform:translateY(6px); transition:all 0.35s ease; }
-.fokus-card:hover .fokus-card-tag { opacity:1; transform:translateY(0); }
-.fokus-card-line { width:0; height:1px; background:var(--gold); margin-bottom:0.6rem; transition:width 0.4s ease; }
-.fokus-card:hover .fokus-card-line { width:2rem; }
-.fokus-title { font-family:'Cormorant Garamond',serif; font-size:1.6rem; font-weight:600; color:var(--white); line-height:1.2; }
-.fokus-text { font-size:0.86rem; font-weight:300; color:rgba(255,255,255,0); line-height:1.7; max-height:0; overflow:hidden; transition:all 0.4s ease; margin-top:0; }
-.fokus-card:hover .fokus-text { color:rgba(255,255,255,0.75); max-height:80px; margin-top:0.5rem; }
-
-/* PROZESS – creme */
-#prozess { background:var(--cream); position:relative; }
-#prozess .section-inner { position:relative; z-index:1; }
-.prozess-bg { position:absolute; inset:0; background-image:url('assets/image-01.jpg'); background-size:cover; background-position:center; opacity:0.04; }
-.prozess-header { display:grid; grid-template-columns:1fr 1fr; gap:4rem; align-items:end; margin-bottom:4rem; }
-.prozess-steps {
-  display:flex; align-items:stretch;
-  gap:0; margin-bottom:3rem; position:relative;
-}
-.prozess-step {
-  flex:1; display:flex; flex-direction:column; align-items:center; text-align:center;
-  padding:2.2rem 1rem 2rem;
-  background:rgba(255,255,255,0.75);
-  backdrop-filter:blur(4px);
-  border:1px solid rgba(200,164,107,0.2);
-  position:relative;
-  transition:background 0.3s, border-color 0.3s, transform 0.3s;
-}
-.prozess-step:hover {
-  background:rgba(255,255,255,0.95);
-  border-color:rgba(200,164,107,0.5);
-  transform:translateY(-3px);
-}
-/* Goldpfeil zwischen Kacheln */
-.prozess-arrow {
-  display:flex; align-items:center; justify-content:center;
-  flex-shrink:0; width:2rem;
-  color:var(--gold);
-}
-.prozess-arrow svg {
-  width:1.4rem; height:1.4rem;
-  stroke:var(--gold); fill:none;
-  stroke-width:2; stroke-linecap:round; stroke-linejoin:round;
-  flex-shrink:0;
-}
-.step-number {
-  font-family:'Cormorant Garamond',serif; font-size:0.65rem; font-weight:600;
-  letter-spacing:0.25em; color:rgba(0,66,74,0.2); margin-bottom:0.8rem;
-  text-transform:uppercase;
-}
-.step-dot {
-  width:3.2rem; height:3.2rem; background:var(--cream);
-  border:1.5px solid var(--gold); border-radius:50%;
-  display:flex; align-items:center; justify-content:center;
-  margin-bottom:1.2rem; position:relative; z-index:1;
-  transition:background 0.3s, transform 0.3s;
-}
-.prozess-step:hover .step-dot { background:var(--green); transform:scale(1.08); }
-.step-dot svg { width:1.2rem; height:1.2rem; stroke:var(--green); fill:none; stroke-width:1.5; stroke-linecap:round; stroke-linejoin:round; transition:stroke 0.3s; }
-.prozess-step:hover .step-dot svg { stroke:var(--gold); }
-.step-title {
-  font-family:'Cormorant Garamond',serif; font-size:1.1rem; font-weight:600;
-  color:var(--green); line-height:1.25; margin-bottom:0.6rem;
-}
-.step-text { font-size:0.78rem; font-weight:300; color:var(--gray); line-height:1.6; }
-.step-tag {
-  display:inline-block; margin-top:auto; padding-top:0.8rem;
-  font-size:0.58rem; font-weight:600; letter-spacing:0.2em; text-transform:uppercase;
-  color:var(--gold);
-}
-/* Benefits */
-.prozess-benefits {
-  display:grid; grid-template-columns:repeat(4,1fr);
-  background:var(--green); margin-top:1.5rem;
-}
-.benefit { padding:1.5rem 1.8rem; border-right:1px solid rgba(255,255,255,0.08); }
-.benefit:last-child { border-right:none; }
-.benefit-title { font-size:0.65rem; font-weight:600; letter-spacing:0.18em; text-transform:uppercase; color:var(--gold); margin-bottom:0.4rem; }
-.benefit-text { font-size:0.78rem; font-weight:300; color:rgba(255,255,255,0.6); line-height:1.55; }
-
-/* WEMA – weiß */
-.wema-link-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  margin-top: 1.5rem;
-  padding: 0.7rem 1.6rem;
-  border: 1px solid var(--gold);
-  color: var(--gold);
-  font-size: 0.78rem;
-  font-weight: 500;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  text-decoration: none;
-  transition: all 0.3s;
-}
-.wema-link-btn:hover { background: var(--gold); color: var(--white); }
-
-#wema { background:var(--white); }
-.wema-header { display:grid; grid-template-columns:1fr 1fr; gap:4rem; align-items:end; margin-bottom:4rem; }
-.wema-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1.5rem; }
-.wema-card { background:var(--cream); padding:2rem; border-top:2px solid transparent; transition:border-color 0.3s,transform 0.3s; }
-.wema-card:hover { border-top-color:var(--gold); transform:translateY(-3px); }
-.wema-card-icon { width:2.8rem; height:2.8rem; background:var(--green); border-radius:50%; display:flex; align-items:center; justify-content:center; margin-bottom:1.2rem; }
-.wema-card-icon svg { width:1.2rem; height:1.2rem; stroke:var(--gold); fill:none; stroke-width:1.5; stroke-linecap:round; stroke-linejoin:round; }
-.wema-card-title { font-family:'Cormorant Garamond',serif; font-size:1.35rem; font-weight:600; color:var(--green); margin-bottom:0.6rem; line-height:1.3; }
-.wema-card-text { font-size:0.93rem; font-weight:300; color:var(--gray); line-height:1.75; }
-.wema-card--highlight { background:var(--green); border-top:2px solid var(--gold) !important; }
-.wema-card--highlight:hover { transform:translateY(-3px); }
-.wema-advantages-title { font-family:'Cormorant Garamond',serif; font-size:1.1rem; font-weight:600; color:var(--gold); margin-bottom:1.2rem; }
-.wema-advantages { list-style:none; display:flex; flex-direction:column; gap:1rem; }
-.wema-advantages li { display:flex; gap:0.75rem; align-items:flex-start; }
-.wema-adv-dot { width:5px; height:5px; background:var(--gold); border-radius:50%; flex-shrink:0; margin-top:0.4rem; }
-.wema-advantages li div { display:flex; flex-direction:column; gap:0.15rem; }
-.wema-advantages li strong { font-size:0.88rem; font-weight:500; color:var(--white); }
-.wema-advantages li span { font-size:0.82rem; font-weight:300; color:rgba(255,255,255,0.55); line-height:1.5; }
-
-/* NETZWERK – creme */
-#netzwerk { background:var(--cream); }
-.netzwerk-header { display:grid; grid-template-columns:1fr 1fr; gap:4rem; align-items:end; margin-bottom:4rem; }
-.netzwerk-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1.5rem; }
-.netzwerk-card { background:var(--white); padding:2.2rem; border:1px solid rgba(200,164,107,0.25); overflow:hidden; position:relative; transition:border-color 0.4s,box-shadow 0.4s; }
-.netzwerk-card::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; width:0; background:var(--gold); transition:width 0.45s ease; }
-.netzwerk-card::after { content:''; position:absolute; inset:0; background:var(--green); transform:translateY(100%); transition:transform 0.45s cubic-bezier(0.4,0,0.2,1); z-index:0; }
-.netzwerk-card:hover { border-color:var(--gold); box-shadow:0 12px 40px rgba(0,66,74,0.12); }
-.netzwerk-card:hover::before { width:100%; }
-.netzwerk-card:hover::after { transform:translateY(0); }
-.netzwerk-card-inner { position:relative; z-index:1; }
-.netzwerk-card-icon { width:2.6rem; height:2.6rem; display:flex; align-items:center; justify-content:center; margin-bottom:1.2rem; border:1px solid rgba(200,164,107,0.35); border-radius:50%; transition:border-color 0.3s,background 0.3s; }
-.netzwerk-card:hover .netzwerk-card-icon { border-color:var(--gold); background:rgba(200,164,107,0.15); }
-.netzwerk-card-icon svg { width:1.1rem; height:1.1rem; stroke:var(--gold); fill:none; stroke-width:1.5; stroke-linecap:round; stroke-linejoin:round; }
-.netzwerk-card-label { font-size:0.62rem; font-weight:600; letter-spacing:0.28em; text-transform:uppercase; color:var(--gold); margin-bottom:0.5rem; }
-.netzwerk-card-title { font-family:'Cormorant Garamond',serif; font-size:1.5rem; font-weight:600; color:var(--green); margin-bottom:0.8rem; line-height:1.2; transition:color 0.3s; }
-.netzwerk-card:hover .netzwerk-card-title { color:var(--white); }
-.netzwerk-card-text { font-size:0.93rem; font-weight:300; color:var(--gray); line-height:1.75; transition:color 0.3s; }
-.netzwerk-card:hover .netzwerk-card-text { color:rgba(255,255,255,0.7); }
-
-/* KONTAKT – petrol, zweispaltig: Foto links, Inhalt rechts */
-#kontakt { background:var(--green); padding:6rem 4rem; overflow:hidden; }
-.kontakt-inner { max-width:1200px; margin:0 auto; display:grid; grid-template-columns:1fr 1.2fr; gap:5rem; align-items:stretch; }
-.kontakt-photo { position:relative; overflow:hidden; }
-.kontakt-photo img { width:100%; height:100%; object-fit:cover; object-position:center top; filter:grayscale(15%); display:block; }
-.kontakt-photo-overlay { position:absolute; bottom:0; left:0; right:0; background:linear-gradient(to top,rgba(0,44,50,0.95),transparent); padding:3rem 2rem 1.8rem; }
-.kontakt-photo-name { font-family:'Cormorant Garamond',serif; font-size:1.6rem; font-weight:600; color:var(--white); display:block; line-height:1.1; }
-.kontakt-photo-role { font-size:0.65rem; font-weight:400; letter-spacing:0.18em; text-transform:uppercase; color:var(--gold); margin-top:0.4rem; display:block; }
-.kontakt-content { display:flex; flex-direction:column; justify-content:center; }
-.kontakt-content .section-title { color:var(--white); }
-.kontakt-content .section-label span { color:var(--gold); }
-.kontakt-lead { font-size:1.02rem; font-weight:300; color:rgba(255,255,255,0.6); line-height:1.95; margin-bottom:2.5rem; margin-top:1rem; }
-.kontakt-items { list-style:none; display:flex; flex-direction:column; gap:1.2rem; margin-bottom:2.5rem; }
-.kontakt-item { display:flex; align-items:center; gap:1rem; }
-.kontakt-item-icon { width:2rem; height:2rem; border:1px solid rgba(200,164,107,0.3); border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
-.kontakt-item-icon svg { width:0.85rem; height:0.85rem; stroke:var(--gold); fill:none; stroke-width:1.5; stroke-linecap:round; stroke-linejoin:round; }
-.kontakt-item a, .kontakt-item span { font-size:0.93rem; font-weight:300; color:rgba(255,255,255,0.7); text-decoration:none; transition:color 0.3s; }
-.kontakt-item a:hover { color:var(--gold); }
-.kontakt-cta { display:inline-block; background:var(--gold); color:var(--white); padding:0.9rem 2.2rem; font-family:'Outfit',sans-serif; font-size:0.8rem; font-weight:500; letter-spacing:0.12em; text-transform:uppercase; text-decoration:none; transition:background 0.3s; align-self:flex-start; }
-.kontakt-cta:hover { background:var(--gold-light); }
-
-/* FOOTER */
-footer { background:#001c20; padding:0 4rem; border-top:1px solid rgba(200,164,107,0.2); }
-.footer-top { display:flex; justify-content:space-between; align-items:center; padding:2.5rem 0; border-bottom:1px solid rgba(255,255,255,0.06); }
-.footer-logo { font-family:'Cormorant Garamond',serif; font-size:1.4rem; font-weight:600; color:var(--white); letter-spacing:0.15em; display:block; }
-.footer-logo-sub { font-size:0.6rem; font-weight:400; color:var(--gold); letter-spacing:0.3em; text-transform:uppercase; display:block; margin-top:3px; }
-.footer-claim { font-family:'Cormorant Garamond',serif; font-size:1.1rem; font-weight:300; font-style:italic; color:rgba(255,255,255,0.4); }
-.footer-contact { display:flex; flex-direction:column; align-items:flex-end; gap:0.3rem; }
-.footer-contact a, .footer-contact span { font-size:0.78rem; font-weight:300; color:rgba(255,255,255,0.5); text-decoration:none; letter-spacing:0.05em; transition:color 0.3s; }
-.footer-contact a:hover { color:var(--gold); }
-.footer-bottom { display:flex; justify-content:space-between; align-items:center; padding:1.2rem 0; }
-.footer-tagline { font-size:0.65rem; font-weight:300; color:rgba(255,255,255,0.25); letter-spacing:0.1em; }
-
-/* ANIMATIONS */
-@keyframes fadeUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
-@keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
-.reveal { opacity:0; transform:translateY(24px); transition:opacity 0.7s ease,transform 0.7s ease; }
-.reveal.visible { opacity:1; transform:translateY(0); }
-
-/* RESPONSIVE */
-@media(max-width:900px) {
-  nav { padding:1.2rem 1.5rem; }
-  .nav-links { display:none; }
-  section { padding:4rem 1.5rem; }
-  #hero { min-height:100svh; }
-  .hero-content { padding:7rem 1.5rem 4rem; }
-  .ueber-grid, .leistungen-header, .prozess-header, .wema-header, .netzwerk-header, .fokus-header, .kontakt-inner { grid-template-columns:1fr; gap:2.5rem; }
-  .leistungen-grid, .wema-grid, .netzwerk-grid, .fokus-grid { grid-template-columns:1fr; }
-  .prozess-steps { grid-template-columns:1fr; gap:1.5rem; }
-  .prozess-steps::before { display:none; }
-  .prozess-benefits { grid-template-columns:1fr 1fr; }
-  .benefit { border-right:none; border-bottom:1px solid rgba(0,66,74,0.1); }
-  .kontakt-photo { height:340px; }
-  .footer-top { flex-direction:column; align-items:flex-start; gap:1rem; }
-  .footer-contact { align-items:flex-start; }
-}
-
-  /* Shared arch2 background for cream sections */
-  #leistungen, #prozess, #netzwerk {
-    position: relative;
-    overflow: hidden;
-  }
-
-  .cream-parallax-bg {
-    position: absolute;
-    inset: -30%;
-    background-image: url('assets/image-02.jpg');
-    background-size: cover;
-    background-position: center;
-    opacity: 0.05;
-    z-index: 0;
-    pointer-events: none;
-    will-change: transform;
-  }
-
-  #leistungen .section-inner,
-  #prozess .section-inner,
-  #netzwerk .section-inner {
-    position: relative;
-    z-index: 1;
-  }
-
-
-  /* ── IMMOBILIEN ── */
-  #immobilien {
-    background: var(--white);
-  }
-
-  .immobilien-header {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 4rem;
-    align-items: end;
-    margin-bottom: 2.5rem;
-  }
-
-  /* Filter-Leiste */
-  .immo-filter {
-    display: flex;
-    gap: 0.6rem;
-    flex-wrap: wrap;
-    margin-bottom: 3rem;
-  }
-
-  .immo-filter-btn {
-    padding: 0.45rem 1.2rem;
-    font-family: 'Outfit', sans-serif;
-    font-size: 0.72rem;
-    font-weight: 500;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    border: 1px solid rgba(31,79,70,0.2);
-    background: transparent;
-    color: var(--gray);
-    cursor: pointer;
-    transition: all 0.25s;
-  }
-
-  .immo-filter-btn:hover,
-  .immo-filter-btn.active {
-    background: var(--green);
-    border-color: var(--green);
-    color: var(--white);
-  }
-
-  /* Immobilien-Carousel */
-  .immo-carousel {
-    position: relative;
-  }
-
-  .immo-carousel-viewport {
-    overflow: hidden;
-  }
-
-  .immo-grid {
-    display: flex;
-    gap: 1.5rem;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    scroll-behavior: smooth;
-    padding: 0.25rem 0 1rem;
-    scrollbar-width: none;
-  }
-
-  .immo-grid::-webkit-scrollbar { display: none; }
-
-  .immo-carousel-nav {
-    display: flex;
-    justify-content: flex-end;
-    gap: 0.75rem;
-    margin-top: 1.2rem;
-  }
-
-  .immo-carousel-btn {
-    width: 44px;
-    height: 44px;
-    border: 1px solid rgba(31,79,70,0.18);
-    background: var(--white);
-    color: var(--green);
-    font-size: 1.4rem;
-    line-height: 1;
-    cursor: pointer;
-    transition: all 0.25s ease;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .immo-carousel-btn:hover {
-    background: var(--green);
-    color: var(--white);
-    border-color: var(--green);
-  }
-
-  .immo-carousel-btn:disabled {
-    opacity: 0.35;
-    cursor: default;
-    background: var(--white);
-    color: var(--gray);
-    border-color: rgba(31,79,70,0.12);
-  }
-
-  .immo-card {
-    background: var(--cream);
-    cursor: pointer;
-    transition: transform 0.3s, box-shadow 0.3s;
-    border: 1px solid transparent;
-    position: relative;
-    overflow: hidden;
-    flex: 0 0 calc((100% - 3rem) / 3);
-    scroll-snap-align: start;
-  }
-
-  .immo-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 16px 40px rgba(31,79,70,0.12);
-    border-color: rgba(200,164,107,0.3);
-  }
-
-  .immo-card-img {
-    width: 100%;
-    aspect-ratio: 4/3;
-    object-fit: cover;
-    display: block;
-    transition: transform 0.5s;
-  }
-
-  .immo-card:hover .immo-card-img { transform: scale(1.04); }
-
-  .immo-card-img-placeholder {
-    width: 100%;
-    aspect-ratio: 4/3;
-    background: var(--green);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .immo-card-img-placeholder svg {
-    width: 3rem;
-    height: 3rem;
-    stroke: rgba(255,255,255,0.2);
-    fill: none;
-    stroke-width: 1;
-  }
-
-  .immo-card-badge {
-    position: absolute;
-    top: 1rem;
-    left: 1rem;
-    background: var(--gold);
-    color: var(--white);
-    font-size: 0.6rem;
-    font-weight: 600;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    padding: 0.3rem 0.7rem;
-  }
-
-  .immo-card-body {
-    padding: 1.5rem;
-  }
-
-  .immo-card-type {
-    font-size: 0.62rem;
-    font-weight: 600;
-    letter-spacing: 0.25em;
-    text-transform: uppercase;
-    color: var(--gold);
-    margin-bottom: 0.4rem;
-  }
-
-  .immo-card-title {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.3rem;
-    font-weight: 600;
-    color: var(--green);
-    line-height: 1.2;
-    margin-bottom: 0.3rem;
-  }
-
-  .immo-card-location {
-    font-size: 0.78rem;
-    font-weight: 300;
-    color: var(--gray);
-    margin-bottom: 1rem;
-  }
-
-  .immo-card-facts {
-    display: flex;
-    gap: 1rem;
-    flex-wrap: wrap;
-    padding-top: 1rem;
-    border-top: 1px solid rgba(31,79,70,0.08);
-  }
-
-  .immo-card-fact {
-    display: flex;
-    flex-direction: column;
-    gap: 0.1rem;
-  }
-
-  .immo-card-fact-val {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.1rem;
-    font-weight: 600;
-    color: var(--green);
-  }
-
-  .immo-card-fact-key {
-    font-size: 0.6rem;
-    font-weight: 400;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--gray);
-  }
-
-  .immo-card-price {
-    margin-top: 1rem;
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.4rem;
-    font-weight: 600;
-    color: var(--green);
-  }
-
-  .immo-card-cta {
-    display: inline-block;
-    margin-top: 0.8rem;
-    font-size: 0.72rem;
-    font-weight: 500;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--gold);
-  }
-
-  /* Keine Objekte */
-  .immo-empty {
-    grid-column: 1/-1;
-    text-align: center;
-    padding: 4rem;
-    color: var(--gray);
-    font-size: 0.9rem;
-    font-weight: 300;
-  }
-
-  /* Modal */
-  .immo-modal {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(10,30,25,0.85);
-    z-index: 200;
-    align-items: center;
-    justify-content: center;
-    padding: 2rem;
-    backdrop-filter: blur(4px);
-  }
-
-  .immo-modal.open { display: flex; }
-
-  .immo-modal-inner {
-    background: var(--white);
-    max-width: 780px;
-    width: 100%;
-    max-height: 88vh;
-    overflow-y: auto;
-    position: relative;
-  }
-
-  .immo-modal-close {
-    position: absolute;
-    top: 1.2rem;
-    right: 1.2rem;
-    background: var(--green);
-    color: var(--white);
-    border: none;
-    width: 2.2rem;
-    height: 2.2rem;
-    font-size: 0.85rem;
-    cursor: pointer;
-    z-index: 10;
-    transition: background 0.2s;
-  }
-
-  .immo-modal-close:hover { background: var(--gold); }
-
-  .immo-modal-img {
-    width: 100%;
-    max-height: 320px;
-    object-fit: cover;
-    display: block;
-  }
-
-  .immo-modal-img-placeholder {
-    width: 100%;
-    height: 220px;
-    background: var(--green);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .immo-modal-body {
-    padding: 2.5rem;
-  }
-
-  .immo-modal-type {
-    font-size: 0.65rem;
-    font-weight: 600;
-    letter-spacing: 0.25em;
-    text-transform: uppercase;
-    color: var(--gold);
-    margin-bottom: 0.5rem;
-  }
-
-  .immo-modal-title {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 2rem;
-    font-weight: 600;
-    color: var(--green);
-    line-height: 1.1;
-    margin-bottom: 0.4rem;
-  }
-
-  .immo-modal-location {
-    font-size: 0.85rem;
-    color: var(--gray);
-    margin-bottom: 1.5rem;
-  }
-
-  .immo-modal-facts {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 0;
-    border: 1px solid rgba(31,79,70,0.1);
-    margin-bottom: 1.8rem;
-  }
-
-  .immo-modal-fact {
-    padding: 1rem;
-    border-right: 1px solid rgba(31,79,70,0.1);
-    text-align: center;
-  }
-
-  .immo-modal-fact:last-child { border-right: none; }
-
-  .immo-modal-fact-val {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.4rem;
-    font-weight: 600;
-    color: var(--green);
-    display: block;
-  }
-
-  .immo-modal-fact-key {
-    font-size: 0.62rem;
-    font-weight: 400;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--gray);
-    margin-top: 0.2rem;
-    display: block;
-  }
-
-  .immo-modal-desc {
-    font-size: 0.88rem;
-    font-weight: 300;
-    color: var(--anthracite);
-    line-height: 1.75;
-    margin-bottom: 2rem;
-  }
-
-  .immo-modal-price {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.8rem;
-    font-weight: 600;
-    color: var(--green);
-    margin-bottom: 1.2rem;
-  }
-
-  .immo-modal-cta {
-    background: var(--gold);
-    color: var(--white);
-    padding: 0.9rem 2rem;
-    font-size: 0.8rem;
-    font-weight: 500;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    text-decoration: none;
-    display: inline-block;
-    transition: background 0.3s;
-  }
-
-  .immo-modal-cta:hover { background: var(--gold-light); }
-
-  @media (max-width: 1100px) {
-    .immo-card { flex-basis: calc((100% - 1.5rem) / 2); }
-  }
-
-  @media (max-width: 900px) {
-    .immobilien-header { grid-template-columns: 1fr; gap: 2rem; }
-    .immo-card { flex-basis: 82%; }
-    .immo-carousel-nav { justify-content: flex-start; }
-    .immo-modal-facts { grid-template-columns: repeat(2,1fr); }
-  }
-
-  @media (max-width: 560px) {
-    .immo-card { flex-basis: 92%; }
-  }
-
-  /* ── IMMOBILIEN GALERIE ── */
-  .immo-gallery {
-    position: relative;
-    overflow: hidden;
-    background: #111;
-  }
-
-  .immo-gallery-img {
-    width: 100%;
-    max-height: 360px;
-    object-fit: cover;
-    display: block;
-    transition: opacity 0.3s;
-  }
-
-  .immo-gallery-nav {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background: rgba(15,40,35,0.75);
-    border: 1px solid rgba(200,164,107,0.4);
-    color: var(--gold);
-    width: 2.4rem;
-    height: 2.4rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    font-size: 1rem;
-    transition: background 0.2s;
-    z-index: 5;
-    user-select: none;
-  }
-
-  .immo-gallery-nav:hover { background: var(--green); }
-  .immo-gallery-prev { left: 0.8rem; }
-  .immo-gallery-next { right: 0.8rem; }
-
-  .immo-gallery-dots {
-    position: absolute;
-    bottom: 0.7rem;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    gap: 0.4rem;
-  }
-
-  .immo-gallery-dot {
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: rgba(255,255,255,0.4);
-    cursor: pointer;
-    transition: background 0.2s;
-  }
-
-  .immo-gallery-dot.active { background: var(--gold); }
-
-  /* ── HERO PARALLAX ── */
-/* Einheitliche Ausrichtung der rechten Introtexte:
-   Oberkante Text = Oberkante große Überschrift,
-   rechtsbündig und bündig zur rechten Kante der Kacheln. */
-.leistungen-header,
-.fokus-header,
-.prozess-header,
-.wema-header,
-.netzwerk-header,
-.immobilien-header {
-  align-items: start !important;
-}
-
-.leistungen-header > div:first-child,
-.fokus-header > div:first-child,
-.prozess-header > div:first-child,
-.wema-header > div:first-child,
-.netzwerk-header > div:first-child,
-.immobilien-header > div:first-child {
-  align-self: start !important;
-}
-
-.leistungen-header > div:last-child,
-.fokus-header > div:last-child,
-.prozess-header > div:last-child,
-.wema-header > div:last-child,
-.netzwerk-header > div:last-child,
-.immobilien-header > div:last-child,
-.leistungen-header > .section-lead,
-.fokus-header > .section-lead,
-.prozess-header > .section-lead,
-.wema-header > .section-lead,
-.netzwerk-header > .section-lead,
-.immobilien-header > .section-lead {
-  justify-self: end !important;
-  align-self: start !important;
-  margin-top: calc(0.68rem + 2.4rem) !important;
-  max-width: 560px !important;
-  text-align: right !important;
-}
-
-.leistungen-header > div:last-child .section-lead,
-.fokus-header > div:last-child .section-lead,
-.prozess-header > div:last-child .section-lead,
-.wema-header > div:last-child .section-lead,
-.netzwerk-header > div:last-child .section-lead,
-.immobilien-header > div:last-child .section-lead,
-.leistungen-header > .section-lead,
-.fokus-header > .section-lead,
-.prozess-header > .section-lead,
-.wema-header > .section-lead,
-.netzwerk-header > .section-lead,
-.immobilien-header > .section-lead {
-  text-align: right !important;
-  margin-left: auto !important;
-  margin-right: 0 !important;
-}
-
-/* Falls einzelne Abschnitte keinen eigenen Header-Klassennamen haben, aber das gleiche Muster nutzen */
-.section-inner > div[style*="grid-template-columns"] > div:last-child .section-lead {
-  text-align: right;
-  margin-left: auto;
-  margin-right: 0;
-}
-
-@media (max-width: 900px) {
-  .leistungen-header > div:last-child,
-  .fokus-header > div:last-child,
-  .prozess-header > div:last-child,
-  .wema-header > div:last-child,
-  .netzwerk-header > div:last-child,
-  .immobilien-header > div:last-child,
-  .leistungen-header > .section-lead,
-  .fokus-header > .section-lead,
-  .prozess-header > .section-lead,
-  .wema-header > .section-lead,
-  .netzwerk-header > .section-lead,
-  .immobilien-header > .section-lead {
-    justify-self: start !important;
-    margin-top: 0 !important;
-    text-align: left !important;
-  }
-
-  .leistungen-header > div:last-child .section-lead,
-  .fokus-header > div:last-child .section-lead,
-  .prozess-header > div:last-child .section-lead,
-  .wema-header > div:last-child .section-lead,
-  .netzwerk-header > div:last-child .section-lead,
-  .immobilien-header > div:last-child .section-lead,
-  .leistungen-header > .section-lead,
-  .fokus-header > .section-lead,
-  .prozess-header > .section-lead,
-  .wema-header > .section-lead,
-  .netzwerk-header > .section-lead,
-  .immobilien-header > .section-lead {
-    text-align: left !important;
-    margin-left: 0 !important;
-  }
-}
-
-
-/* Moderate Verdichtung – kompakter, aber weiterhin großzügig */
-section {
-  padding: 5.5rem 4rem;
-}
-
-/* Headerbereiche etwas enger */
-.leistungen-header,
-.fokus-header,
-.prozess-header,
-.wema-header,
-.netzwerk-header,
-.immobilien-header {
-  margin-bottom: 3rem;
-}
-
-/* Kachelabstände leicht reduzieren */
-.fokus-grid {
-  gap: 1.2rem;
-}
-
-/* Allgemeine vertikale Abstände minimal straffen */
-.section-title {
-  margin-bottom: 1.4rem;
-}
-
-.section-lead {
-  margin-bottom: 1.8rem;
-}
-
-
-@media (max-width:700px){
-  .wema-brand-note{flex-direction:column; align-items:flex-start;}
-  .wema-brand-note > div:first-child{margin-bottom:1rem;}
-  .wema-brand-note div:last-child{text-align:left;}
-}
-
-
-/* Saubere WEMA-CTA-Komponente */
-.wema-brand-cta {
-  max-width: 620px;
-  margin: 3rem auto 0 auto;
-  display: flex;
-  justify-content: center;
-}
-
-.wema-brand-left {
-  display: inline-flex;
-  align-items: center;
-  gap: 1.6rem;
-}
-
-.wema-brand-logo {
-  width: 112px;
-  height: auto;
-  display: block;
-  flex-shrink: 0;
-}
-
-.wema-brand-divider {
-  width: 1px;
-  height: 68px;
-  background: var(--gold);
-  flex-shrink: 0;
-}
-
-.wema-brand-copy {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 0.75rem;
-}
-
-.wema-brand-kicker {
-  font-size: 0.72rem;
-  line-height: 1.25;
-  font-weight: 500;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--gold);
-  white-space: nowrap;
-}
-
-.wema-brand-button {
-  display: inline-block;
-  background: var(--gold);
-  color: var(--white);
-  padding: 0.85rem 2rem;
-  font-size: 0.75rem;
-  font-weight: 500;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  text-decoration: none;
-  transition: all 0.3s ease;
-}
-
-.wema-brand-button:hover {
-  background: var(--gold-light);
-  transform: translateY(-1px);
-}
-
-@media (max-width: 700px) {
-  .wema-brand-cta {
-    max-width: 100%;
-    margin-top: 2.4rem;
-  }
-
-  .wema-brand-left {
-    gap: 1.2rem;
-  }
-
-  .wema-brand-logo {
-    width: 92px;
-  }
-
-  .wema-brand-divider {
-    height: 58px;
-  }
-
-  .wema-brand-kicker {
-    white-space: normal;
-  }
-
-  .wema-brand-button {
-    padding: 0.8rem 1.4rem;
-  }
-}
-
-
-.nav-logo { cursor: pointer; text-decoration: none; }
-
-
-/* Online-ready Feinschliff */
-html, body { width:100%; max-width:100%; overflow-x:hidden; }
-img, svg { max-width:100%; height:auto; }
-
-/* Mobile Navigation: Logo bleibt sichtbar, Desktop-Links werden ausgeblendet */
-@media (max-width: 900px) {
-  nav { padding: 1rem 1.25rem; }
-  .nav-links { display: none; }
-
-  section { padding: 4.5rem 1.35rem; }
-  .section-title { font-size: clamp(2.1rem, 9vw, 3rem); }
-  .section-lead { font-size: 0.98rem; line-height: 1.75; }
-
-  #hero { min-height: 100svh; }
-  .hero-content { padding: 7rem 1.35rem 4rem; }
-  .hero-logo svg { width: 220px !important; height:auto !important; }
-  .hero-title { font-size: clamp(2.55rem, 11vw, 3.65rem); line-height: 1.05; }
-  .hero-subtitle { font-size: 0.98rem; line-height: 1.65; max-width: 34rem; }
-  .hero-actions { flex-direction: column; width: 100%; max-width: 320px; gap: 0.85rem; }
-  .btn-primary, .btn-ghost { width: 100%; justify-content: center; text-align: center; }
-
-  .ueber-grid,
-  .leistungen-header,
-  .fokus-header,
-  .prozess-header,
-  .wema-header,
-  .netzwerk-header,
-  .immobilien-header,
-  .kontakt-inner {
-    grid-template-columns: minmax(0,1fr) !important;
-    gap: 2.25rem;
-  }
-
-  .leistungen-grid,
-  .fokus-grid,
-  .wema-grid,
-  .netzwerk-grid {
-    grid-template-columns: minmax(0,1fr) !important;
-  }
-
-  .leistungen-header .section-lead,
-  .fokus-header .section-lead,
-  .prozess-header .section-lead,
-  .wema-header .section-lead,
-  .netzwerk-header .section-lead,
-  .immobilien-header .section-lead {
-    text-align: left !important;
-    margin-top: 0 !important;
-  }
-
-  .fokus-card { min-height: 320px; aspect-ratio: auto; }
-  .fokus-card-tag,
-  .fokus-card-line,
-  .fokus-text { opacity: 1; transform: none; }
-  .fokus-card-line { width: 2rem; }
-  .fokus-text { color: rgba(255,255,255,0.78); max-height: none; overflow: visible; margin-top: 0.5rem; }
-
-  .prozess-steps {
-    display: flex !important;
-    grid-template-columns: none !important;
-    overflow-x: auto;
-    gap: 1rem;
-    scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch;
-    padding-bottom: 1rem;
-  }
-  .prozess-step { flex: 0 0 82%; scroll-snap-align: start; }
-  .prozess-steps::before { display:none !important; }
-
-  .prozess-benefits { grid-template-columns: minmax(0,1fr) !important; }
-  .benefit { border-right: none !important; border-bottom: 1px solid rgba(0,66,74,0.1); }
-
-  .immo-card { flex-basis: 88% !important; }
-  .immo-carousel-nav { justify-content: flex-start; }
-
-  .kontakt-photo { height: 260px; }
-
-  .footer-top { flex-direction: column; align-items: flex-start; gap: 1rem; }
-  .footer-contact { align-items: flex-start; }
-}
-
-@media (max-width: 520px) {
-  section { padding-left: 1.15rem; padding-right: 1.15rem; }
-  .hero-logo svg { width: 190px !important; }
-  .hero-eyebrow span { letter-spacing: 0.18em; }
-  .ueber-logo-box { padding: 2rem; }
-  .ueber-stats { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); }
-  .ueber-stat { border-right: none; padding: 1rem 0.5rem; }
-}
-
-
-/* Immobilien v2 – saubere Notion-Darstellung */
-.immo-card-media {
-  position: relative;
-  overflow: hidden;
-  background: var(--green);
-}
-
-.immo-card-market {
-  display: inline-block;
-  margin-top: 0.5rem;
-  font-size: 0.62rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--green);
-  border: 1px solid rgba(0,66,74,0.18);
-  padding: 0.25rem 0.55rem;
-}
-
-.immo-card-price {
-  margin-top: 1.15rem;
-  padding-top: 1rem;
-  border-top: 1px solid rgba(0,66,74,0.1);
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.55rem;
-  font-weight: 600;
-  color: var(--green);
-}
-
-.immo-card-facts {
-  margin-top: 1rem;
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0,1fr));
-  gap: 0.7rem;
-}
-
-.immo-card-fact {
-  min-width: 0;
-}
-
-.immo-card-fact-val {
-  display: block;
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.25rem;
-  font-weight: 600;
-  color: var(--green);
-  line-height: 1;
-}
-
-.immo-card-fact-key {
-  display: block;
-  margin-top: 0.25rem;
-  font-size: 0.58rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--gray);
-}
-
-.immo-modal-desc {
-  margin-top: 1.4rem;
-  color: var(--gray);
-  line-height: 1.8;
-}
-
-.immo-modal-location {
-  margin: 0.2rem 0 1.2rem;
-  color: var(--gray);
-}
-
-
-/* Immobilien V4 – erzwingt neue Darstellung */
-.immo-v4-card {
-  background: var(--cream);
-  border: 1px solid rgba(0,66,74,0.08);
-}
-
-.immo-v4-media {
-  position: relative;
-  overflow: hidden;
-  background: var(--green);
-}
-
-.immo-v4-body {
-  padding: 1.5rem;
-}
-
-.immo-v4-market {
-  display: inline-block;
-  margin-top: 0.75rem;
-  font-size: 0.62rem;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--green);
-  border: 1px solid rgba(0,66,74,0.18);
-  padding: 0.3rem 0.6rem;
-}
-
-.immo-v4-facts {
-  margin-top: 1.2rem;
-  padding-top: 1.1rem;
-  border-top: 1px solid rgba(0,66,74,0.10);
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0,1fr));
-  gap: 1rem 1.2rem;
-}
-
-.immo-v4-fact span {
-  display: block;
-  font-size: 0.58rem;
-  color: var(--gray);
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  margin-bottom: 0.25rem;
-}
-
-.immo-v4-fact strong {
-  display: block;
-  font-family: 'Cormorant Garamond', serif;
-  color: var(--green);
-  font-size: 1.35rem;
-  line-height: 1.05;
-  font-weight: 600;
-}
-
-.immo-v4-price {
-  margin-top: 1.2rem;
-  padding-top: 1rem;
-  border-top: 1px solid rgba(0,66,74,0.10);
-  font-family: 'Cormorant Garamond', serif;
-  color: var(--green);
-  font-size: 1.65rem;
-  font-weight: 600;
-}
-
-.immo-v4-modal {
-  position: relative;
-  background: var(--white);
-}
-
-.immo-v4-close {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-  z-index: 5;
-  width: 2.4rem;
-  height: 2.4rem;
-  border: none;
-  background: var(--green);
-  color: var(--white);
-  font-size: 1.4rem;
-  cursor: pointer;
-}
-
-.immo-v4-modal-img {
-  width: 100%;
-  display: block;
-  aspect-ratio: 16 / 9;
-  object-fit: cover;
-}
-
-.immo-v4-modal-placeholder {
-  aspect-ratio: 16 / 9;
-  background: var(--green);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.immo-v4-modal-body {
-  padding: 2.1rem;
-}
-
-.immo-v4-modal-body h3 {
-  color: var(--green);
-  font-size: clamp(1.7rem, 4vw, 2.35rem);
-  margin-top: 0.25rem;
-}
-
-.immo-v4-modal-facts {
-  margin: 1.6rem 0;
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0,1fr));
-  border: 1px solid rgba(0,66,74,0.12);
-  background: rgba(247,244,239,0.55);
-}
-
-.immo-v4-modal-fact {
-  padding: 1rem 1.1rem;
-  border-right: 1px solid rgba(0,66,74,0.10);
-  border-bottom: 1px solid rgba(0,66,74,0.10);
-}
-
-.immo-v4-modal-fact:nth-child(2n) {
-  border-right: none;
-}
-
-.immo-v4-modal-fact span {
-  display: block;
-  font-size: 0.62rem;
-  color: var(--gray);
-  text-transform: uppercase;
-  letter-spacing: 0.13em;
-  margin-bottom: 0.35rem;
-}
-
-.immo-v4-modal-fact strong {
-  display: block;
-  font-family: 'Cormorant Garamond', serif;
-  color: var(--green);
-  font-size: 1.35rem;
-  line-height: 1.1;
-}
-
-@media (max-width: 700px) {
-  .immo-v4-modal-facts {
-    grid-template-columns: 1fr;
-  }
-
-  .immo-v4-modal-fact {
-    border-right: none;
-  }
-
-  .immo-v4-modal-body {
-    padding: 1.5rem;
-  }
-}
-
-
-/* Immobilien FINAL – vollständige saubere Darstellung */
-.immo-final-card {
-  background: var(--cream);
-  border: 1px solid rgba(0,66,74,0.08);
-}
-
-.immo-final-media {
-  position: relative;
-  overflow: hidden;
-  background: var(--green);
-}
-
-.immo-final-body {
-  padding: 1.5rem;
-}
-
-.immo-final-market {
-  display: inline-block;
-  margin-top: 0.75rem;
-  font-size: 0.62rem;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--green);
-  border: 1px solid rgba(0,66,74,0.18);
-  padding: 0.3rem 0.6rem;
-}
-
-.immo-final-facts {
-  margin-top: 1.2rem;
-  padding-top: 1.1rem;
-  border-top: 1px solid rgba(0,66,74,0.10);
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0,1fr));
-  gap: 1rem 1.2rem;
-}
-
-.immo-final-fact span {
-  display: block;
-  font-size: 0.58rem;
-  color: var(--gray);
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  margin-bottom: 0.25rem;
-}
-
-.immo-final-fact strong {
-  display: block;
-  font-family: 'Cormorant Garamond', serif;
-  color: var(--green);
-  font-size: 1.35rem;
-  line-height: 1.05;
-  font-weight: 600;
-}
-
-.immo-final-price {
-  margin-top: 1.2rem;
-  padding-top: 1rem;
-  border-top: 1px solid rgba(0,66,74,0.10);
-  font-family: 'Cormorant Garamond', serif;
-  color: var(--green);
-  font-size: 1.65rem;
-  font-weight: 600;
-}
-
-.immo-final-modal {
-  position: relative;
-  background: var(--white);
-}
-
-.immo-final-close {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-  z-index: 5;
-  width: 2.4rem;
-  height: 2.4rem;
-  border: none;
-  background: var(--green);
-  color: var(--white);
-  font-size: 1.4rem;
-  cursor: pointer;
-}
-
-.immo-final-modal-img {
-  width: 100%;
-  display: block;
-  aspect-ratio: 16 / 9;
-  object-fit: cover;
-}
-
-.immo-final-modal-placeholder {
-  aspect-ratio: 16 / 9;
-  background: var(--green);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.immo-final-modal-body {
-  padding: 2.1rem;
-}
-
-.immo-final-modal-body h3 {
-  color: var(--green);
-  font-size: clamp(1.7rem, 4vw, 2.35rem);
-  margin-top: 0.25rem;
-}
-
-.immo-final-modal-facts {
-  margin: 1.6rem 0;
-  display: grid !important;
-  grid-template-columns: repeat(2, minmax(0,1fr));
-  border: 1px solid rgba(0,66,74,0.12);
-  background: rgba(247,244,239,0.55);
-}
-
-.immo-final-modal-fact {
-  padding: 1rem 1.1rem;
-  border-right: 1px solid rgba(0,66,74,0.10);
-  border-bottom: 1px solid rgba(0,66,74,0.10);
-}
-
-.immo-final-modal-fact:nth-child(2n) {
-  border-right: none;
-}
-
-.immo-final-modal-fact span {
-  display: block;
-  font-size: 0.62rem;
-  color: var(--gray);
-  text-transform: uppercase;
-  letter-spacing: 0.13em;
-  margin-bottom: 0.35rem;
-}
-
-.immo-final-modal-fact strong {
-  display: block;
-  font-family: 'Cormorant Garamond', serif;
-  color: var(--green);
-  font-size: 1.35rem;
-  line-height: 1.1;
-}
-
-@media (max-width: 700px) {
-  .immo-final-modal-facts {
-    grid-template-columns: 1fr;
-  }
-
-  .immo-final-modal-fact {
-    border-right: none;
-  }
-
-  .immo-final-modal-body {
-    padding: 1.5rem;
-  }
-}
-
-
-/* Immobilien Card Polish – klarere Gliederung */
-.immo-final-body {
-  padding: 1.65rem 1.55rem 1.75rem;
-}
-
-.immo-final-market {
-  margin-top: 1rem;
-  margin-bottom: 0.15rem;
-  background: rgba(0,66,74,0.03);
-}
-
-.immo-final-facts {
-  margin-top: 1.25rem;
-  padding-top: 1.25rem;
-  border-top: 1px solid rgba(0,66,74,0.12);
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0,1fr));
-  gap: 1.1rem 1.4rem;
-}
-
-.immo-final-fact span {
-  display: block;
-  font-size: 0.6rem;
-  color: var(--gray);
-  text-transform: uppercase;
-  letter-spacing: 0.14em;
-  margin-bottom: 0.35rem;
-}
-
-.immo-final-fact strong {
-  display: block;
-  font-family: 'Cormorant Garamond', serif;
-  color: var(--green);
-  font-size: 1.42rem;
-  line-height: 1.05;
-  font-weight: 600;
-}
-
-.immo-final-price {
-  margin-top: 1.35rem;
-  padding: 1.15rem 1.2rem;
-  border: 1px solid rgba(0,66,74,0.14);
-  background: rgba(255,255,255,0.45);
-  font-family: inherit;
-  color: var(--green);
-}
-
-.immo-final-price span {
-  display: block;
-  font-size: 0.62rem;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--gray);
-  margin-bottom: 0.35rem;
-}
-
-.immo-final-price strong {
-  display: block;
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.75rem;
-  line-height: 1.05;
-  font-weight: 600;
-  color: var(--green);
-}
-
-.immo-card-title {
-  margin-top: 0.35rem;
-}
-
-.immo-card-location {
-  margin-top: 0.4rem;
-}
-
-
-/* Finaler Immobilienkarten-Preisblock */
-.immo-final-price,
-.immo-v4-price,
-.immo-card-price {
-  margin-top: 1.35rem !important;
-  padding: 1.15rem 1.2rem !important;
-  border: 1px solid rgba(0,66,74,0.14) !important;
-  background: rgba(255,255,255,0.5) !important;
-  font-family: inherit !important;
-  color: var(--green) !important;
-}
-
-.immo-final-price span,
-.immo-v4-price span,
-.immo-card-price span {
-  display: block !important;
-  font-size: 0.62rem !important;
-  letter-spacing: 0.16em !important;
-  text-transform: uppercase !important;
-  color: var(--gray) !important;
-  margin-bottom: 0.35rem !important;
-  font-family: inherit !important;
-}
-
-.immo-final-price strong,
-.immo-v4-price strong,
-.immo-card-price strong {
-  display: block !important;
-  font-family: 'Cormorant Garamond', serif !important;
-  font-size: 1.75rem !important;
-  line-height: 1.05 !important;
-  font-weight: 600 !important;
-  color: var(--green) !important;
-}
-
-.immo-final-facts,
-.immo-v4-facts,
-.immo-card-facts {
-  margin-top: 1.25rem !important;
-  padding-top: 1.25rem !important;
-  border-top: 1px solid rgba(0,66,74,0.12) !important;
-  display: grid !important;
-  grid-template-columns: repeat(2, minmax(0,1fr)) !important;
-  gap: 1.1rem 1.4rem !important;
-}
-
-
-/* Immobilien Premium Card + Description */
-.immo-premium-card {
-  background: var(--cream);
-  border: 1px solid rgba(0,66,74,0.08);
-  cursor: pointer;
-  transition: transform .25s ease, box-shadow .25s ease;
-}
-
-.immo-premium-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 18px 45px rgba(0, 40, 45, 0.12);
-}
-
-.immo-premium-media {
-  position: relative;
-  overflow: hidden;
-  background: var(--green);
-}
-
-.immo-premium-media .immo-card-img {
-  display: block;
-  width: 100%;
-  aspect-ratio: 4 / 3;
-  object-fit: cover;
-  transition: transform .45s ease;
-}
-
-.immo-premium-card:hover .immo-card-img {
-  transform: scale(1.035);
-}
-
-.immo-premium-status {
-  position: absolute;
-  top: 1rem;
-  left: 1rem;
-  z-index: 2;
-  color: #fff;
-  font-size: .58rem;
-  letter-spacing: .16em;
-  text-transform: uppercase;
-  padding: .45rem .65rem;
-  font-weight: 700;
-}
-
-.immo-premium-price-overlay {
-  position: absolute;
-  right: 1rem;
-  bottom: 1rem;
-  z-index: 2;
-  background: rgba(255,255,255,.92);
-  backdrop-filter: blur(8px);
-  padding: .8rem .95rem .85rem;
-  min-width: 8.5rem;
-  box-shadow: 0 12px 30px rgba(0,0,0,.14);
-}
-
-.immo-premium-price-overlay span {
-  display: block;
-  font-size: .56rem;
-  letter-spacing: .16em;
-  text-transform: uppercase;
-  color: var(--gray);
-  margin-bottom: .2rem;
-}
-
-.immo-premium-price-overlay strong {
-  display: block;
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.55rem;
-  line-height: 1;
-  color: var(--green);
-  font-weight: 600;
-}
-
-.immo-premium-body {
-  padding: 1.55rem 1.5rem 1.65rem;
-}
-
-.immo-premium-body h3 {
-  margin: .35rem 0 0;
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.45rem;
-  line-height: 1.15;
-  color: var(--green);
-}
-
-.immo-premium-location {
-  margin: .55rem 0 0;
-  color: var(--gray);
-  font-size: .9rem;
-}
-
-
-.immo-premium-meta {
-  margin-top: 1.15rem;
-  padding-top: 1.05rem;
-  border-top: 1px solid rgba(0,66,74,.12);
-  display: flex;
-  flex-direction: column;
-  gap: .9rem;
-  color: var(--green);
-}
-
-.immo-premium-dealtype {
-  width: fit-content;
-  border: 1px solid rgba(0,66,74,.18);
-  padding: .28rem .55rem;
-  text-transform: uppercase;
-  font-size: .62rem;
-  letter-spacing: .14em;
-}
-
-.immo-premium-card-facts {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: .85rem;
-}
-
-.immo-premium-fact-item {
-  min-width: 0;
-}
-
-.immo-premium-fact-item span {
-  display: block;
-  margin-bottom: .25rem;
-  font-size: .58rem;
-  line-height: 1.15;
-  letter-spacing: .13em;
-  text-transform: uppercase;
-  color: var(--gray);
-}
-
-.immo-premium-fact-item strong {
-  display: block;
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.08rem;
-  line-height: 1.05;
-  font-weight: 600;
-  color: var(--green);
-  overflow-wrap: anywhere;
-}
-
-.immo-premium-dot {
-  display: none;
-}
-
-@media (max-width: 520px) {
-  .immo-premium-card-facts {
-    grid-template-columns: 1fr;
-    gap: .75rem;
-  }
-}
-
-.immo-premium-modal {
-  position: relative;
-  background: var(--white);
-}
-
-.immo-premium-close {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-  z-index: 5;
-  width: 2.4rem;
-  height: 2.4rem;
-  border: none;
-  background: var(--green);
-  color: var(--white);
-  font-size: 1.4rem;
-  cursor: pointer;
-}
-
-.immo-premium-modal-img {
-  width: 100%;
-  display: block;
-  aspect-ratio: 16 / 9;
-  object-fit: cover;
-}
-
-.immo-premium-modal-placeholder {
-  aspect-ratio: 16 / 9;
-  background: var(--green);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.immo-premium-modal-body {
-  padding: 2.2rem;
-}
-
-.immo-premium-modal-body h3 {
-  color: var(--green);
-  font-size: clamp(1.7rem, 4vw, 2.35rem);
-  margin: .25rem 0 0;
-}
-
-.immo-premium-modal-facts {
-  margin: 1.6rem 0 1.7rem;
-  display: grid !important;
-  grid-template-columns: repeat(2, minmax(0,1fr));
-  border: 1px solid rgba(0,66,74,.12);
-  background: rgba(247,244,239,.55);
-}
-
-.immo-premium-modal-fact {
-  padding: 1rem 1.1rem;
-  border-right: 1px solid rgba(0,66,74,.10);
-  border-bottom: 1px solid rgba(0,66,74,.10);
-}
-
-.immo-premium-modal-fact:nth-child(2n) {
-  border-right: none;
-}
-
-.immo-premium-modal-fact span {
-  display: block;
-  font-size: .62rem;
-  color: var(--gray);
-  text-transform: uppercase;
-  letter-spacing: .13em;
-  margin-bottom: .35rem;
-}
-
-.immo-premium-modal-fact strong {
-  display: block;
-  font-family: 'Cormorant Garamond', serif;
-  color: var(--green);
-  font-size: 1.35rem;
-  line-height: 1.1;
-}
-
-.immo-premium-description {
-  margin-top: 1.4rem;
-  color: var(--gray);
-  font-size: .98rem;
-  line-height: 1.85;
-}
-
-.immo-premium-description p {
-  margin: 0 0 1.15rem;
-}
-
-.immo-premium-description p:last-child {
-  margin-bottom: 0;
-}
-
-/* Sichtbarer Abstand zwischen Immobilienbeschreibung und CTA */
-.immo-premium-cta-wrap {
-  margin-top: 2.25rem;
-  padding-top: 0.25rem;
-}
-
-.immo-premium-description + .immo-premium-cta-wrap {
-  margin-top: 2.25rem;
-}
-
-.immo-premium-cta-wrap .immo-modal-cta {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-}
-
-@media (max-width: 700px) {
-  .immo-premium-price-overlay {
-    left: 1rem;
-    right: auto;
-    min-width: auto;
-  }
-
-  .immo-premium-modal-facts {
-    grid-template-columns: 1fr;
-  }
-
-  .immo-premium-modal-fact {
-    border-right: none;
-  }
-
-  .immo-premium-modal-body {
-    padding: 1.5rem;
-  }
-}
-
-
-/* Rich Text Beschreibung aus Notion */
-.immo-premium-description strong {
-  font-weight: 600;
-  color: var(--anthracite);
-}
-
-.immo-premium-description em {
-  font-style: italic;
-}
-
-.immo-premium-description u {
-  text-underline-offset: 0.18em;
-}
-
-.immo-premium-description s {
-  opacity: 0.75;
-}
-
-.immo-premium-description a {
-  color: var(--green);
-  text-decoration: none;
-  border-bottom: 1px solid var(--gold);
-}
-
-.immo-premium-description code {
-  font-family: monospace;
-  font-size: 0.9em;
-  background: rgba(0,66,74,0.08);
-  padding: 0.1rem 0.25rem;
-}
-
-
-/* Immobilien Galerie + dynamische Fakten */
-.immo-premium-image-count {
-  position: absolute;
-  left: 1rem;
-  bottom: 1rem;
-  z-index: 2;
-  background: rgba(0,66,74,.86);
-  color: #fff;
-  font-size: .58rem;
-  letter-spacing: .14em;
-  text-transform: uppercase;
-  padding: .42rem .6rem;
-}
-
-.immo-premium-gallery {
-  position: relative;
-  background: var(--green);
-  aspect-ratio: 16 / 9;
-  overflow: hidden;
-}
-
-.immo-premium-gallery-img {
-  display: none;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.immo-premium-gallery-img.active {
-  display: block;
-}
-
-.immo-premium-gallery-nav {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 4;
-  width: 2.6rem;
-  height: 2.6rem;
-  border: 1px solid rgba(255,255,255,.45);
-  background: rgba(0,66,74,.76);
-  color: #fff;
-  font-size: 1.8rem;
-  line-height: 1;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.immo-premium-gallery-nav.prev {
-  left: 1rem;
-}
-
-.immo-premium-gallery-nav.next {
-  right: 1rem;
-}
-
-.immo-premium-gallery-counter {
-  position: absolute;
-  right: 1rem;
-  bottom: 1rem;
-  z-index: 4;
-  background: rgba(0,66,74,.82);
-  color: #fff;
-  padding: .4rem .65rem;
-  font-size: .72rem;
-  letter-spacing: .08em;
-}
-
-.immo-premium-gallery-dots {
-  position: absolute;
-  left: 50%;
-  bottom: 1.15rem;
-  transform: translateX(-50%);
-  z-index: 4;
-  display: flex;
-  gap: .35rem;
-}
-
-.immo-premium-gallery-dot {
-  width: .42rem;
-  height: .42rem;
-  border-radius: 50%;
-  border: 0;
-  background: rgba(255,255,255,.5);
-  cursor: pointer;
-}
-
-.immo-premium-gallery-dot.active {
-  background: var(--gold);
-}
-
-@media (max-width: 700px) {
-  .immo-premium-gallery-nav {
-    width: 2.3rem;
-    height: 2.3rem;
-  }
-
-  .immo-premium-gallery-dots {
-    display: none;
-  }
-}
-
-/* =========================================================
-   Premium Upgrade 2026-04-27
-   - Backup vorher erstellt
-   - Karten-Hover hochwertiger
-   - Detailansicht größer, ruhiger, wertiger
-   ========================================================= */
-
-/* Premium Hover für Immobilienkarten */
-.immo-premium-card {
-  position: relative;
-  overflow: hidden;
-  transform: translateY(0);
-  transition: transform .34s cubic-bezier(.2,.8,.2,1), box-shadow .34s cubic-bezier(.2,.8,.2,1), border-color .34s ease;
-  will-change: transform;
-}
-
-.immo-premium-card::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: 3px;
-  background: var(--gold);
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform .34s ease;
-}
-
-.immo-premium-card:hover {
-  transform: translateY(-8px);
-  border-color: rgba(200,164,107,.45);
-  box-shadow: 0 28px 70px rgba(0, 40, 45, .18);
-}
-
-.immo-premium-card:hover::after {
-  transform: scaleX(1);
-}
-
-.immo-premium-media::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  background: linear-gradient(to top, rgba(0,44,50,.25), rgba(0,44,50,0));
-  opacity: 0;
-  transition: opacity .34s ease;
-  pointer-events: none;
-}
-
-.immo-premium-card:hover .immo-premium-media::before {
-  opacity: 1;
-}
-
-.immo-premium-media .immo-card-img {
-  transition: transform .65s cubic-bezier(.2,.8,.2,1), filter .65s ease;
-}
-
-.immo-premium-card:hover .immo-card-img {
-  transform: scale(1.065);
-  filter: saturate(.95) contrast(1.03);
-}
-
-.immo-premium-card:hover .immo-premium-price-overlay {
-  transform: translateY(-2px);
-  box-shadow: 0 16px 38px rgba(0,0,0,.18);
-}
-
-.immo-premium-price-overlay {
-  transition: transform .34s ease, box-shadow .34s ease;
-}
-
-/* Premium Detailansicht */
-.immo-modal {
-  background: rgba(0, 44, 50, .86) !important;
-  backdrop-filter: blur(8px) saturate(.9);
-}
-
-.immo-modal-inner {
-  max-width: min(1040px, calc(100vw - 3rem)) !important;
-  width: 100% !important;
-  max-height: 90vh !important;
-  border: 1px solid rgba(200,164,107,.24);
-  box-shadow: 0 34px 110px rgba(0,0,0,.35);
-}
-
-.immo-modal-close {
-  top: 1rem !important;
-  right: 1rem !important;
-  background: rgba(0,66,74,.92) !important;
-  border: 1px solid rgba(255,255,255,.22) !important;
-  transition: background .25s ease, transform .25s ease !important;
-}
-
-.immo-modal-close:hover {
-  background: var(--gold) !important;
-  transform: rotate(90deg);
-}
-
-.immo-premium-modal {
-  background: var(--white);
-}
-
-.immo-premium-gallery {
-  aspect-ratio: 21 / 9 !important;
-  min-height: 390px;
-  border-bottom: 1px solid rgba(0,66,74,.10);
-}
-
-.immo-premium-gallery::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to top, rgba(0,44,50,.20), rgba(0,44,50,0) 46%);
-  pointer-events: none;
-  z-index: 2;
-}
-
-.immo-premium-gallery-img {
-  animation: immoGalleryFade .22s ease;
-}
-
-@keyframes immoGalleryFade {
-  from { opacity: .86; }
-  to { opacity: 1; }
-}
-
-.immo-premium-gallery-nav,
-.immo-premium-gallery-counter,
-.immo-premium-gallery-dots {
-  z-index: 5;
-}
-
-.immo-premium-modal-body {
-  padding: clamp(2.2rem, 4vw, 3.4rem) clamp(2.2rem, 5vw, 4rem) clamp(2.5rem, 5vw, 3.8rem) !important;
-}
-
-.immo-premium-modal-body .immo-card-type {
-  margin-bottom: .75rem;
-}
-
-.immo-premium-modal-body h3 {
-  max-width: 780px;
-  font-size: clamp(2rem, 3.7vw, 3rem) !important;
-  line-height: 1.02 !important;
-  letter-spacing: -.015em;
-}
-
-.immo-premium-modal-body .immo-modal-location {
-  margin-top: .75rem !important;
-  margin-bottom: 1.8rem !important;
-  font-size: .95rem;
-}
-
-.immo-premium-modal-facts {
-  margin: 2rem 0 2.4rem !important;
-  grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
-  background: linear-gradient(135deg, rgba(247,244,239,.88), rgba(255,255,255,.78)) !important;
-  border: 1px solid rgba(0,66,74,.12) !important;
-}
-
-.immo-premium-modal-fact {
-  min-height: 104px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 1.2rem 1.25rem !important;
-}
-
-.immo-premium-modal-fact:nth-child(2n) {
-  border-right: 1px solid rgba(0,66,74,.10);
-}
-
-.immo-premium-modal-fact:nth-child(4n) {
-  border-right: none;
-}
-
-.immo-premium-modal-fact span {
-  font-size: .6rem !important;
-  color: rgba(82,91,102,.88) !important;
-}
-
-.immo-premium-modal-fact strong {
-  font-size: clamp(1.35rem, 2vw, 1.7rem) !important;
-}
-
-.immo-premium-description {
-  max-width: 760px;
-  margin-top: 0 !important;
-  color: #525b66 !important;
-  font-size: 1rem !important;
-  line-height: 1.95 !important;
-}
-
-.immo-premium-description p {
-  margin-bottom: 1.35rem !important;
-}
-
-.immo-premium-description p:last-child {
-  margin-bottom: 0 !important;
-}
-
-.immo-premium-cta-wrap {
-  margin-top: 3rem !important;
-  padding-top: 1.4rem !important;
-  border-top: 1px solid rgba(0,66,74,.10);
-}
-
-.immo-premium-cta-wrap .immo-modal-cta {
-  min-width: 190px;
-  padding: 1rem 2.2rem !important;
-  box-shadow: 0 14px 34px rgba(200,164,107,.22);
-}
-
-.immo-premium-cta-wrap .immo-modal-cta:hover {
-  transform: translateY(-1px);
-}
-
-@media (max-width: 900px) {
-  .immo-modal {
-    padding: 1rem !important;
-  }
-
-  .immo-modal-inner {
-    max-width: calc(100vw - 2rem) !important;
-  }
-
-  .immo-premium-gallery {
-    aspect-ratio: 16 / 10 !important;
-    min-height: 280px;
-  }
-
-  .immo-premium-modal-facts {
-    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
-  }
-
-  .immo-premium-modal-fact:nth-child(2n) {
-    border-right: none;
-  }
-
-  .immo-premium-modal-fact:nth-child(4n) {
-    border-right: none;
-  }
-}
-
-@media (max-width: 560px) {
-  .immo-premium-card:hover {
-    transform: none;
-  }
-
-  .immo-premium-gallery {
-    min-height: 230px;
-  }
-
-  .immo-premium-modal-body {
-    padding: 1.65rem !important;
-  }
-
-  .immo-premium-modal-facts {
-    grid-template-columns: 1fr !important;
-  }
-
-  .immo-premium-modal-fact,
-  .immo-premium-modal-fact:nth-child(2n),
-  .immo-premium-modal-fact:nth-child(4n) {
-    border-right: none !important;
-  }
-}
-
-/* =========================================================
-   Korrektur nach Premium-Upgrade
-   - schlechten starken Hover entfernt
-   - Detailansicht wieder ruhiger und schmaler
-   - Galerie randlos, aber mit sinnvoller Bildhöhe statt Panorama-Crop
-   ========================================================= */
-
-.immo-premium-card {
-  border-color: rgba(0,66,74,0.08) !important;
-  box-shadow: none !important;
-  transform: none !important;
-  transition: transform .22s ease, border-color .22s ease, box-shadow .22s ease !important;
-}
-
-.immo-premium-card::after,
-.immo-premium-media::before {
-  display: none !important;
-}
-
-.immo-premium-card:hover {
-  transform: translateY(-2px) !important;
-  border-color: rgba(200,164,107,.28) !important;
-  box-shadow: 0 10px 26px rgba(0, 40, 45, .07) !important;
-}
-
-.immo-premium-media .immo-card-img,
-.immo-premium-card:hover .immo-card-img {
-  transform: none !important;
-  filter: none !important;
-}
-
-.immo-premium-card:hover .immo-premium-price-overlay {
-  transform: none !important;
-  box-shadow: 0 12px 30px rgba(0,0,0,.14) !important;
-}
-
-.immo-modal {
-  background: rgba(10,30,25,.85) !important;
-  backdrop-filter: blur(4px) !important;
-}
-
-.immo-modal-inner {
-  max-width: 860px !important;
-  width: min(860px, calc(100vw - 3rem)) !important;
-  max-height: 88vh !important;
-  border: none !important;
-  box-shadow: 0 24px 80px rgba(0,0,0,.28) !important;
-}
-
-.immo-modal-close {
-  background: var(--green) !important;
-  border: none !important;
-  transform: none !important;
-}
-
-.immo-modal-close:hover {
-  background: var(--gold) !important;
-  transform: none !important;
-}
-
-.immo-premium-gallery {
-  aspect-ratio: auto !important;
-  height: clamp(300px, 50vh, 460px) !important;
-  min-height: 0 !important;
-  background: var(--green) !important;
-  border-bottom: 1px solid rgba(0,66,74,.10) !important;
-}
-
-.immo-premium-gallery::after {
-  display: none !important;
-}
-
-.immo-premium-gallery-img {
-  width: 100% !important;
-  height: 100% !important;
-  object-fit: cover !important;
-  object-position: center center !important;
-}
-
-.immo-premium-modal-body {
-  padding: 2.25rem !important;
-}
-
-.immo-premium-modal-body h3 {
-  max-width: 720px !important;
-  font-size: clamp(1.85rem, 3.2vw, 2.45rem) !important;
-  line-height: 1.08 !important;
-}
-
-.immo-premium-modal-facts {
-  grid-template-columns: repeat(2, minmax(0,1fr)) !important;
-  margin: 1.7rem 0 2rem !important;
-  background: rgba(247,244,239,.55) !important;
-}
-
-.immo-premium-modal-fact {
-  min-height: auto !important;
-  padding: 1rem 1.1rem !important;
-}
-
-.immo-premium-modal-fact:nth-child(2n) {
-  border-right: none !important;
-}
-
-.immo-premium-modal-fact:nth-child(4n) {
-  border-right: none !important;
-}
-
-.immo-premium-description {
-  max-width: 720px !important;
-  font-size: .98rem !important;
-  line-height: 1.85 !important;
-  color: var(--gray) !important;
-}
-
-.immo-premium-cta-wrap {
-  margin-top: 2.75rem !important;
-  padding-top: .4rem !important;
-  border-top: none !important;
-}
-
-.immo-premium-cta-wrap .immo-modal-cta {
-  box-shadow: none !important;
-}
-
-@media (max-width: 900px) {
-  .immo-modal-inner {
-    width: calc(100vw - 2rem) !important;
-    max-width: calc(100vw - 2rem) !important;
-  }
-
-  .immo-premium-gallery {
-    height: clamp(240px, 42vh, 360px) !important;
-  }
-}
-
-@media (max-width: 560px) {
-  .immo-premium-card:hover {
-    transform: none !important;
-    box-shadow: none !important;
-  }
-
-  .immo-premium-gallery {
-    height: 260px !important;
-  }
-
-  .immo-premium-modal-body {
-    padding: 1.5rem !important;
-  }
-
-  .immo-premium-modal-facts {
-    grid-template-columns: 1fr !important;
-  }
-}
-
-/* MOBILE UX FINAL REAL IMPLEMENTED
-   Ziel: Mobile Ansicht professionell verdichten, Desktop unverändert lassen.
-   - Leistungsportfolio: horizontaler Swipe
-   - Marktsegmente: 2 Karten übereinander, dann horizontal wischen
-   - WEMA: kompakt vertikal, kein Swipe
-   - Integrierte Immobilienkompetenz/Netzwerk: horizontaler Swipe
-   - Über uns + Immobilien: mobil weniger massiv
-*/
-@media (max-width: 760px) {
-  html,
-  body { overflow-x: hidden; }
-
-  section,
-  #fokus { padding: 3.8rem 1.15rem !important; }
-
-  .section-inner { width: 100%; max-width: 100%; }
-  .section-label { margin-bottom: 0.75rem !important; }
-  .section-title { font-size: clamp(2rem, 10vw, 2.75rem) !important; line-height: 1.04 !important; margin-bottom: 1rem !important; }
-  .section-lead { font-size: 0.94rem !important; line-height: 1.65 !important; margin-bottom: 1.45rem !important; }
-
-  .leistungen-header,
-  .fokus-header,
-  .prozess-header,
-  .wema-header,
-  .netzwerk-header,
-  .immobilien-header { gap: 1.25rem !important; margin-bottom: 1.8rem !important; }
-
-  /* ÜBER UNS: weniger massiv, ohne Inhalte zu entfernen */
-  #ueber { padding-top: 3.6rem !important; padding-bottom: 3.6rem !important; }
-  .ueber-grid { gap: 1.65rem !important; }
-  .ueber-logo-box { padding: 1.55rem 1.35rem !important; max-width: 260px; margin-inline: auto; }
-  .ueber-logo-box svg,
-  .ueber-logo-box img { max-height: 150px; width: auto; }
-  .ueber-stats { display: grid !important; grid-template-columns: repeat(2, minmax(0, 1fr)) !important; gap: 0 !important; margin-top: 1.05rem !important; padding: 0.75rem 0 !important; }
-  .ueber-stat { padding: 0.65rem 0.55rem !important; border-right: none !important; }
-  .ueber-stat:nth-child(odd) { border-right: 1px solid rgba(0,66,74,0.12) !important; }
-  .ueber-stat .num { font-size: 1.55rem !important; }
-  .ueber-stat .label { font-size: 0.56rem !important; letter-spacing: 0.1em !important; }
-  .ueber-text .section-lead { margin-bottom: 1.15rem !important; }
-  .ueber-points { gap: 0.72rem !important; }
-  .ueber-points li { gap: 0.75rem !important; }
-  .ueber-points li span { font-size: 0.9rem !important; line-height: 1.55 !important; }
-
-  /* LEISTUNGSPORTFOLIO: mobil als ruhiger horizontaler Swipe */
-  #leistungen .leistungen-grid {
-    display: flex !important; grid-template-columns: none !important;
-    overflow-x: auto !important; overflow-y: hidden !important;
-    gap: 1rem !important; background: transparent !important;
-    padding: 0 1.15rem 0.9rem !important; margin-left: -1.15rem !important; margin-right: -1.15rem !important;
-    scroll-snap-type: x mandatory !important; -webkit-overflow-scrolling: touch; scrollbar-width: none;
-  }
-  #leistungen .leistungen-grid::-webkit-scrollbar { display: none; }
-  #leistungen .leistung-card { flex: 0 0 82% !important; scroll-snap-align: start !important; padding: 1.65rem 1.45rem !important; min-height: 255px; border: 1px solid rgba(0,66,74,0.08); }
-  #leistungen .leistung-num { font-size: 2.65rem !important; margin-bottom: 1rem !important; }
-  #leistungen .leistung-title { font-size: 1.52rem !important; margin-bottom: 0.65rem !important; }
-  #leistungen .leistung-text { font-size: 0.9rem !important; line-height: 1.62 !important; }
-
-  /* MARKTSEGMENTE: 2 Karten übereinander pro Swipe-Seite, sauberer Abstand statt kaputtem Cut */
-  #fokus .fokus-grid {
-    display: grid !important;
-    grid-auto-flow: column !important;
-    grid-template-rows: repeat(2, minmax(190px, auto)) !important;
-    grid-template-columns: none !important;
-    grid-auto-columns: minmax(255px, 82%) !important;
-    overflow-x: auto !important; overflow-y: hidden !important;
-    gap: 1rem !important;
-    padding: 0 1.15rem 1rem !important; margin-left: -1.15rem !important; margin-right: -1.15rem !important;
-    scroll-snap-type: x mandatory !important; -webkit-overflow-scrolling: touch; scrollbar-width: none;
-  }
-  #fokus .fokus-grid::-webkit-scrollbar { display: none; }
-  #fokus .fokus-card { min-height: 190px !important; aspect-ratio: auto !important; scroll-snap-align: start !important; border-radius: 0; }
-  #fokus .fokus-card-content { padding: 1.15rem !important; }
-  #fokus .fokus-title { font-size: 1.28rem !important; line-height: 1.16 !important; }
-  #fokus .fokus-card-tag,
-  #fokus .fokus-card-line,
-  #fokus .fokus-text { opacity: 1 !important; transform: none !important; }
-  #fokus .fokus-card-line { width: 2rem !important; }
-  #fokus .fokus-text { max-height: none !important; overflow: visible !important; margin-top: 0.45rem !important; font-size: 0.84rem !important; line-height: 1.45 !important; color: rgba(255,255,255,0.78) !important; }
-
-  /* WEMA: bewusst KEIN Swipe – kompakt und hochwertig vertikal */
-  #wema { padding-top: 3.8rem !important; padding-bottom: 3.8rem !important; }
-  #wema .wema-grid { display: grid !important; grid-template-columns: 1fr !important; gap: 0.85rem !important; }
-  #wema .wema-card { padding: 1.25rem 1.2rem !important; display: grid !important; grid-template-columns: 2.35rem 1fr !important; column-gap: 0.95rem !important; align-items: start !important; }
-  #wema .wema-card-icon { width: 2.35rem !important; height: 2.35rem !important; margin-bottom: 0 !important; grid-row: 1 / span 2; }
-  #wema .wema-card-title { font-size: 1.18rem !important; line-height: 1.18 !important; margin-bottom: 0.35rem !important; }
-  #wema .wema-card-text { font-size: 0.84rem !important; line-height: 1.48 !important; }
-  #wema .wema-card--highlight { display: block !important; padding: 1.35rem 1.2rem !important; }
-  #wema .wema-advantages-title { margin-bottom: 0.85rem !important; }
-  #wema .wema-advantages { gap: 0.72rem !important; }
-  #wema .wema-advantages li span,
-  #wema .wema-advantages li strong { line-height: 1.4 !important; }
-  .wema-brand-cta { margin-top: 1.65rem !important; padding-inline: 1.15rem; }
-  .wema-brand-left { width: 100%; justify-content: center; gap: 0.95rem !important; }
-  .wema-brand-logo { width: 82px !important; }
-  .wema-brand-divider { height: 48px !important; }
-  .wema-brand-button { padding: 0.72rem 1.05rem !important; font-size: 0.66rem !important; letter-spacing: 0.11em !important; }
-
-  /* INTEGRIERTE IMMOBILIENKOMPETENZ / NETZWERK: mobil wischbar, wie positiv bewertet */
-  #netzwerk .netzwerk-grid {
-    display: flex !important; grid-template-columns: none !important;
-    overflow-x: auto !important; overflow-y: hidden !important;
-    gap: 1rem !important;
-    padding: 0 1.15rem 1rem !important; margin-left: -1.15rem !important; margin-right: -1.15rem !important;
-    scroll-snap-type: x mandatory !important; -webkit-overflow-scrolling: touch; scrollbar-width: none;
-  }
-  #netzwerk .netzwerk-grid::-webkit-scrollbar { display: none; }
-  #netzwerk .netzwerk-card { flex: 0 0 82% !important; scroll-snap-align: start !important; padding: 1.55rem 1.35rem !important; min-height: 250px; }
-  #netzwerk .netzwerk-card-title { font-size: 1.35rem !important; }
-  #netzwerk .netzwerk-card-text { font-size: 0.88rem !important; line-height: 1.6 !important; }
-
-  /* IMMOBILIEN: mobil kompakter, ohne Kartenlogik/Design zu zerstören */
-  #immobilien { padding-top: 3.7rem !important; padding-bottom: 3.9rem !important; }
-  #immobilien .immo-filter { flex-wrap: nowrap !important; overflow-x: auto !important; gap: 0.5rem !important; margin: 0 -1.15rem 1.45rem !important; padding: 0 1.15rem 0.35rem !important; scrollbar-width: none; }
-  #immobilien .immo-filter::-webkit-scrollbar { display: none; }
-  #immobilien .immo-filter-btn { flex: 0 0 auto; padding: 0.42rem 0.95rem !important; font-size: 0.66rem !important; }
-  #immobilien .immo-card,
-  #immobilien .immo-premium-card { flex-basis: 84% !important; }
-  #immobilien .immo-premium-body,
-  #immobilien .immo-final-body,
-  #immobilien .immo-v4-body,
-  #immobilien .immo-card-body { padding: 1.18rem 1.1rem 1.25rem !important; }
-  #immobilien .immo-card-title { font-size: 1.25rem !important; line-height: 1.15 !important; }
-  #immobilien .immo-card-location { font-size: 0.82rem !important; }
-  #immobilien .immo-premium-media .immo-card-img,
-  #immobilien .immo-card-img { aspect-ratio: 1.18 / 1 !important; }
-  #immobilien .immo-final-facts,
-  #immobilien .immo-v4-facts,
-  #immobilien .immo-card-facts,
-  #immobilien .immo-premium-facts { margin-top: 0.95rem !important; padding-top: 0.95rem !important; gap: 0.75rem 0.9rem !important; }
-  #immobilien .immo-final-fact strong,
-  #immobilien .immo-v4-fact strong,
-  #immobilien .immo-card-fact-val,
-  #immobilien .immo-premium-fact strong { font-size: 1.18rem !important; }
-  #immobilien .immo-final-price,
-  #immobilien .immo-v4-price,
-  #immobilien .immo-card-price,
-  #immobilien .immo-premium-price { margin-top: 1rem !important; padding: 0.9rem 0.95rem !important; }
-  #immobilien .immo-final-price strong,
-  #immobilien .immo-v4-price strong,
-  #immobilien .immo-card-price strong,
-  #immobilien .immo-premium-price strong { font-size: 1.45rem !important; }
-}
-
-@media (max-width: 420px) {
-  #leistungen .leistung-card,
-  #netzwerk .netzwerk-card,
-  #immobilien .immo-card,
-  #immobilien .immo-premium-card { flex-basis: 86% !important; }
-  #fokus .fokus-grid { grid-auto-columns: minmax(245px, 86%) !important; }
-  #wema .wema-card { grid-template-columns: 2.2rem 1fr !important; column-gap: 0.8rem !important; }
-  .wema-brand-logo { width: 74px !important; }
-}
-/* END MOBILE UX FINAL REAL IMPLEMENTED */
-
-/* =========================================================
-   MOBILE UX SAFE FIX 2026-04-27
-   Basis: letzte funktionierende Mobile-UX-Version.
-   Ziel: nur Prozess + Immobilien mobil verbessern.
-   Keine Wildcard-Selektoren, keine globalen Layout-Eingriffe.
-   ========================================================= */
-
-@media (max-width: 768px) {
-
-  /* PROZESS: mobil als kontrollierter horizontaler Ablauf */
-  #prozess .prozess-steps {
-    display: flex !important;
-    align-items: stretch !important;
-    overflow-x: auto !important;
-    overflow-y: hidden !important;
-    gap: 0.75rem !important;
-    padding: 0 1.15rem 1rem !important;
-    margin-left: -1.15rem !important;
-    margin-right: -1.15rem !important;
-    margin-bottom: 2rem !important;
-    scroll-snap-type: x mandatory !important;
-    -webkit-overflow-scrolling: touch !important;
-    scrollbar-width: none !important;
-  }
-
-  #prozess .prozess-steps::-webkit-scrollbar {
-    display: none !important;
-  }
-
-  #prozess .prozess-step {
-    flex: 0 0 78% !important;
-    scroll-snap-align: start !important;
-    padding: 1.45rem 1.05rem 1.35rem !important;
-    min-height: 250px !important;
-  }
-
-  #prozess .prozess-arrow {
-    flex: 0 0 1.2rem !important;
-    width: 1.2rem !important;
-    min-width: 1.2rem !important;
-    align-self: center !important;
-    opacity: 0.65 !important;
-  }
-
-  #prozess .prozess-arrow svg {
-    width: 1rem !important;
-    height: 1rem !important;
-  }
-
-  #prozess .step-number {
-    font-size: 0.68rem !important;
-    margin-bottom: 0.55rem !important;
-  }
-
-  #prozess .step-dot {
-    width: 3rem !important;
-    height: 3rem !important;
-    margin-bottom: 0.9rem !important;
-  }
-
-  #prozess .step-dot svg {
-    width: 1.35rem !important;
-    height: 1.35rem !important;
-  }
-
-  #prozess .step-title {
-    font-size: 1.18rem !important;
-    line-height: 1.15 !important;
-    margin-bottom: 0.55rem !important;
-  }
-
-  #prozess .step-text {
-    font-size: 0.84rem !important;
-    line-height: 1.48 !important;
-  }
-
-  #prozess .step-tag {
-    margin-top: 0.85rem !important;
-    font-size: 0.58rem !important;
-  }
-
-  #prozess .prozess-benefits {
-    margin-top: 1.1rem !important;
-  }
-
-  /* IMMOBILIEN: mobil sichtbar kompakter, aber Design bleibt gleich */
-  #immobilien .immo-grid {
-    gap: 1rem !important;
-    padding-bottom: 0.75rem !important;
-  }
-
-  #immobilien .immo-card,
-  #immobilien .immo-premium-card {
-    flex: 0 0 78% !important;
-  }
-
-  #immobilien .immo-premium-media .immo-card-img,
-  #immobilien .immo-card-img {
-    aspect-ratio: 1.35 / 1 !important;
-  }
-
-  #immobilien .immo-premium-body,
-  #immobilien .immo-card-body {
-    padding: 1rem 0.95rem 1.05rem !important;
-  }
-
-  #immobilien .immo-card-type {
-    font-size: 0.56rem !important;
-    letter-spacing: 0.18em !important;
-    margin-bottom: 0.28rem !important;
-  }
-
-  #immobilien .immo-premium-body h3,
-  #immobilien .immo-card-title {
-    font-size: 1.18rem !important;
-    line-height: 1.12 !important;
-    margin-top: 0.2rem !important;
-  }
-
-  #immobilien .immo-premium-location,
-  #immobilien .immo-card-location {
-    font-size: 0.76rem !important;
-    margin-top: 0.3rem !important;
-    margin-bottom: 0.6rem !important;
-  }
-
-  #immobilien .immo-premium-meta {
-    margin-top: 0.75rem !important;
-  }
-
-  #immobilien .immo-premium-dealtype {
-    font-size: 0.58rem !important;
-    padding: 0.22rem 0.48rem !important;
-  }
-
-  #immobilien .immo-premium-card-facts {
-    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
-    gap: 0.55rem !important;
-    margin-top: 0.75rem !important;
-    padding-top: 0.8rem !important;
-  }
-
-  #immobilien .immo-premium-fact-item span {
-    font-size: 0.5rem !important;
-    letter-spacing: 0.08em !important;
-    line-height: 1.15 !important;
-    margin-bottom: 0.18rem !important;
-  }
-
-  #immobilien .immo-premium-fact-item strong {
-    font-size: 0.98rem !important;
-    line-height: 1.05 !important;
-  }
-
-  #immobilien .immo-premium-price-overlay {
-    left: 0.75rem !important;
-    right: auto !important;
-    bottom: 0.75rem !important;
-    padding: 0.58rem 0.72rem 0.62rem !important;
-    min-width: 0 !important;
-  }
-
-  #immobilien .immo-premium-price-overlay span {
-    font-size: 0.48rem !important;
-    margin-bottom: 0.15rem !important;
-  }
-
-  #immobilien .immo-premium-price-overlay strong {
-    font-size: 1.22rem !important;
-  }
-
-  #immobilien .immo-carousel-nav {
-    margin-top: 0.8rem !important;
-  }
-
-  #immobilien .immo-carousel-btn {
-    width: 38px !important;
-    height: 38px !important;
-  }
-}
-
-@media (max-width: 420px) {
-  #prozess .prozess-step {
-    flex-basis: 82% !important;
-    min-height: 245px !important;
-  }
-
-  #immobilien .immo-card,
-  #immobilien .immo-premium-card {
-    flex-basis: 82% !important;
-  }
-
-  #immobilien .immo-premium-card-facts {
-    gap: 0.48rem !important;
-  }
-}
-/* END MOBILE UX SAFE FIX */
-
-/* =========================================================
-   MOBILE EDGE SPACING CORRECTION 2026-04-27
-   Ziel: Swipe-Karten starten nicht mehr hart am Bildschirmrand.
-   Lösung: negative Ausgleichs-Margins der Swipe-Container aufheben.
-   Desktop bleibt unverändert.
-   ========================================================= */
-@media (max-width: 760px) {
-  #leistungen .leistungen-grid,
-  #fokus .fokus-grid,
-  #netzwerk .netzwerk-grid {
-    margin-left: 0 !important;
-    margin-right: 0 !important;
-    padding-left: 0 !important;
-    padding-right: 0 !important;
-    scroll-padding-left: 0 !important;
-  }
-}
-
-@media (max-width: 768px) {
-  #prozess .prozess-steps {
-    margin-left: 0 !important;
-    margin-right: 0 !important;
-    padding-left: 0 !important;
-    padding-right: 0 !important;
-    scroll-padding-left: 0 !important;
-  }
-}
-/* END MOBILE EDGE SPACING CORRECTION */

@@ -1,0 +1,10 @@
+Speed/Cleanup umgesetzt:
+- Landingpage-Reste entfernt / nicht wieder eingeführt
+- Bildreferenzen auf WebP umgestellt, Originale als Fallback im Projekt belassen
+- Hero-Bild mit fetchpriority=high
+- Bilder unterhalb Hero lazy + async decoding
+- script.js nur einmal und defer geladen
+- Google Font preconnect ergänzt und Font-Weights reduziert
+- CSS whitespace-minifiziert und alte Kommentar-/Experimentreste entfernt
+- JS-Kommentare/Leerraum bereinigt
+- Vercel Cache Header für Assets/CSS/JS gesetzt
