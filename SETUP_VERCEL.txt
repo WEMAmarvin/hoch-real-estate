@@ -1,0 +1,14 @@
+SETUP – Notion Immobilien auf Vercel
+
+1. Dieses komplette Projekt bei Vercel hochladen/importieren.
+2. In Vercel unter Settings > Environment Variables anlegen:
+
+   NOTION_TOKEN = dein Notion Secret Token
+   NOTION_DATABASE_ID = 34fa4c6888f080c8b2f0f54e1dd714a5
+
+3. Redeploy ausführen.
+4. Test:
+   https://DEIN-PROJEKT.vercel.app/api/immobilien
+
+Wenn dort JSON-Daten erscheinen, funktioniert die Verbindung.
+Die Website lädt die Immobilien automatisch über /api/immobilien.
