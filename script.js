@@ -381,24 +381,32 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
-/* Immobilien V4 Override – ersetzt alte Kartendarstellung und Modal vollständig */
+
+
+
+/* Immobilien FINAL – vollständige saubere Notion-Darstellung */
 (function () {
   const apiUrl = '/api/immobilien';
+  let items = [];
 
   const esc = (v) => String(v ?? '').replace(/[&<>"']/g, m => ({
-    '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#39;'
   }[m]));
 
   const has = (v) => v !== null && v !== undefined && v !== '' && v !== 'null';
 
-  const statusColorV4 = (status) => {
+  const statusColor = (status) => {
     if (status === 'Verfügbar') return 'var(--green)';
     if (status === 'Reserviert') return 'var(--gold)';
     if (status === 'Diskret') return 'var(--anthracite)';
     return 'var(--green)';
   };
 
-  const placeholderV4 = () => `
+  const placeholder = () => `
     <div class="immo-card-img-placeholder">
       <svg viewBox="0 0 24 24"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 21v-8h6v8"/></svg>
     </div>`;
@@ -406,7 +414,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const cardFact = (label, value, suffix = '') => {
     if (!has(value)) return '';
     return `
-      <div class="immo-v4-fact">
+      <div class="immo-final-fact">
         <span>${esc(label)}</span>
         <strong>${esc(value)}${suffix}</strong>
       </div>`;
@@ -415,40 +423,29 @@ document.addEventListener('DOMContentLoaded', () => {
   const modalFact = (label, value, suffix = '') => {
     if (!has(value)) return '';
     return `
-      <div class="immo-v4-modal-fact">
+      <div class="immo-final-modal-fact">
         <span>${esc(label)}</span>
         <strong>${esc(value)}${suffix}</strong>
       </div>`;
   };
 
-  const buildPrice = (obj) => {
-    if (has(obj.preisText) && obj.preisText !== 'null') return obj.preisText;
-    if (!has(obj.preis)) return 'auf Anfrage';
-    const art = String(obj.preisart || '').toLowerCase();
-    if (art.includes('m²') || art.includes('qm') || art.includes('pro')) {
-      return `${obj.preis} €/m²${obj.vermarktungsart === 'Miete' ? ' Miete' : ''}`;
-    }
-    return `${obj.preis} €${obj.vermarktungsart === 'Miete' ? ' Miete' : ''}`;
-  };
-
-  const buildImage = (obj) => {
+  const imageFor = (obj) => {
     if (obj.bild) return obj.bild;
     if (Array.isArray(obj.bilder) && obj.bilder.length) return obj.bilder[0];
     return '';
   };
 
-  const buildGalleryV4 = (obj) => {
-    const imgs = Array.isArray(obj.bilder) && obj.bilder.length ? obj.bilder : (obj.bild ? [obj.bild] : []);
-    if (!imgs.length) return `<div class="immo-v4-modal-placeholder">${placeholderV4()}</div>`;
-    return `<img class="immo-v4-modal-img" src="${esc(imgs[0])}" alt="${esc(obj.titel)}">`;
+  const priceFor = (obj) => {
+    if (has(obj.preisText)) return obj.preisText;
+    return 'auf Anfrage';
   };
-
-  let items = [];
 
   function renderFilters() {
     const wrap = document.getElementById('immoFilter');
     if (!wrap) return;
+
     const types = ['Alle', ...new Set(items.map(i => i.typ).filter(Boolean))];
+
     wrap.innerHTML = types.map((type, i) => `
       <button class="immo-filter-btn${i === 0 ? ' active' : ''}" data-type="${esc(type)}">${esc(type)}</button>
     `).join('');
@@ -457,7 +454,7 @@ document.addEventListener('DOMContentLoaded', () => {
       btn.addEventListener('click', () => {
         wrap.querySelectorAll('button').forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
-        renderCards(btn.dataset.type);
+        renderCards(btn.dataset.type || 'Alle');
       });
     });
   }
@@ -474,7 +471,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     grid.innerHTML = visible.map(obj => {
-      const img = buildImage(obj);
+      const img = imageFor(obj);
+
       const facts = [
         cardFact('Fläche', obj.flaeche, ' m²'),
         cardFact('Zimmer', obj.zimmer),
@@ -484,21 +482,38 @@ document.addEventListener('DOMContentLoaded', () => {
       ].join('');
 
       return `
-        <article class="immo-card immo-v4-card reveal visible" onclick="openImmoModal(${obj.id})">
-          <div class="immo-v4-media">
-            ${img ? `<img class="immo-card-img" src="${esc(img)}" alt="${esc(obj.titel)}" loading="lazy">` : placeholderV4()}
-            ${has(obj.status) ? `<span class="immo-card-badge" style="background:${statusColorV4(obj.status)}">${esc(obj.status)}</span>` : ''}
+        <article class="immo-card immo-final-card reveal visible" onclick="openImmoModal(${obj.id})">
+          <div class="immo-final-media">
+            ${img ? `<img class="immo-card-img" src="${esc(img)}" alt="${esc(obj.titel)}" loading="lazy">` : placeholder()}
+            ${has(obj.status) ? `<span class="immo-card-badge" style="background:${statusColor(obj.status)}">${esc(obj.status)}</span>` : ''}
           </div>
-          <div class="immo-card-body immo-v4-body">
+          <div class="immo-card-body immo-final-body">
             ${has(obj.typ) ? `<div class="immo-card-type">${esc(obj.typ)}</div>` : ''}
             <h3 class="immo-card-title">${esc(obj.titel)}</h3>
             ${has(obj.ort) ? `<p class="immo-card-location">📍 ${esc(obj.ort)}</p>` : ''}
-            ${has(obj.vermarktungsart) ? `<span class="immo-v4-market">${esc(obj.vermarktungsart)}</span>` : ''}
-            ${facts ? `<div class="immo-v4-facts">${facts}</div>` : ''}
-            <div class="immo-v4-price">${esc(buildPrice(obj))}</div>
+            ${has(obj.vermarktungsart) ? `<span class="immo-final-market">${esc(obj.vermarktungsart)}</span>` : ''}
+            ${facts ? `<div class="immo-final-facts">${facts}</div>` : ''}
+            <div class="immo-final-price">${esc(priceFor(obj))}</div>
           </div>
-        </article>`;
+        </article>
+      `;
     }).join('');
+
+    const prev = document.getElementById('immoPrev');
+    const next = document.getElementById('immoNext');
+    if (prev && next) {
+      setTimeout(() => {
+        const maxScroll = grid.scrollWidth - grid.clientWidth;
+        const hasOverflow = maxScroll > 4;
+        prev.style.display = next.style.display = hasOverflow ? 'inline-flex' : 'none';
+      }, 100);
+    }
+  }
+
+  function gallery(obj) {
+    const imgs = Array.isArray(obj.bilder) && obj.bilder.length ? obj.bilder : (obj.bild ? [obj.bild] : []);
+    if (!imgs.length) return `<div class="immo-final-modal-placeholder">${placeholder()}</div>`;
+    return `<img class="immo-final-modal-img" src="${esc(imgs[0])}" alt="${esc(obj.titel)}">`;
   }
 
   window.openImmoModal = function (id) {
@@ -508,7 +523,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const facts = [
       modalFact('Vermarktungsart', obj.vermarktungsart),
       modalFact('Status', obj.status),
-      modalFact('Preis', buildPrice(obj)),
+      modalFact('Preis', priceFor(obj)),
       modalFact('Fläche', obj.flaeche, ' m²'),
       modalFact('Zimmer', obj.zimmer),
       modalFact('Etage(n)', obj.etage),
@@ -521,18 +536,19 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!modal || !content) return;
 
     content.innerHTML = `
-      <div class="immo-v4-modal">
-        <button class="immo-v4-close" onclick="document.getElementById('immoModal').classList.remove('open');document.body.style.overflow='';">×</button>
-        ${buildGalleryV4(obj)}
-        <div class="immo-v4-modal-body">
+      <div class="immo-final-modal">
+        <button class="immo-final-close" onclick="document.getElementById('immoModal').classList.remove('open');document.body.style.overflow='';">×</button>
+        ${gallery(obj)}
+        <div class="immo-final-modal-body">
           ${has(obj.typ) ? `<div class="immo-card-type">${esc(obj.typ)}</div>` : ''}
           <h3>${esc(obj.titel)}</h3>
           ${has(obj.ort) ? `<p class="immo-modal-location">📍 ${esc(obj.ort)}</p>` : ''}
-          ${facts ? `<div class="immo-v4-modal-facts">${facts}</div>` : ''}
+          ${facts ? `<div class="immo-final-modal-facts">${facts}</div>` : ''}
           ${has(obj.beschreibung) ? `<p class="immo-modal-desc">${esc(obj.beschreibung)}</p>` : ''}
           <a href="#kontakt" onclick="document.getElementById('immoModal').classList.remove('open');document.body.style.overflow='';" class="immo-modal-cta">Jetzt anfragen</a>
         </div>
-      </div>`;
+      </div>
+    `;
 
     modal.classList.add('open');
     document.body.style.overflow = 'hidden';
@@ -555,7 +571,7 @@ document.addEventListener('DOMContentLoaded', () => {
         renderCards();
       })
       .catch(err => {
-        console.error('Immobilien V4 Fehler:', err);
+        console.error('Immobilien FINAL Fehler:', err);
         grid.innerHTML = '<div class="immo-empty">Aktuell sind keine Immobilien verfügbar.</div>';
       });
   });

@@ -16,7 +16,6 @@ export default async function handler(req, res) {
       },
       body: JSON.stringify({
         sorts: [
-          { property: "Status", direction: "ascending" },
           { timestamp: "created_time", direction: "descending" }
         ]
       })
@@ -24,75 +23,153 @@ export default async function handler(req, res) {
 
     if (!notionRes.ok) {
       const text = await notionRes.text();
-      return res.status(notionRes.status).json({ error: "Notion API Fehler", details: text });
+      return res.status(notionRes.status).json({
+        error: "Notion API Fehler",
+        details: text
+      });
     }
 
     const data = await notionRes.json();
 
-    const prop = (props, names) => {
-      for (const name of names) if (props[name]) return props[name];
+    function findProp(props, names) {
+      for (const name of names) {
+        if (Object.prototype.hasOwnProperty.call(props, name)) return props[name];
+      }
       return undefined;
-    };
+    }
 
-    const getTitle = p => p?.title?.map(t => t.plain_text).join("") || "";
-    const getText = p => p?.rich_text?.map(t => t.plain_text).join("") || "";
-    const getSelect = p => p?.select?.name || "";
-    const getNumber = p => typeof p?.number === "number" ? p.number : null;
-    const getFiles = p => (p?.files || []).map(file => {
-      if (file.type === "file") return file.file?.url || "";
-      if (file.type === "external") return file.external?.url || "";
-      return "";
-    }).filter(Boolean);
-    const getCover = page => {
+    function plain(prop) {
+      if (!prop) return "";
+      switch (prop.type) {
+        case "title":
+          return (prop.title || []).map(t => t.plain_text || "").join("").trim();
+        case "rich_text":
+          return (prop.rich_text || []).map(t => t.plain_text || "").join("").trim();
+        case "select":
+          return prop.select?.name || "";
+        case "multi_select":
+          return (prop.multi_select || []).map(s => s.name).join(", ");
+        case "number":
+          return prop.number === null || prop.number === undefined ? "" : String(prop.number);
+        case "date":
+          return prop.date?.start || "";
+        case "url":
+          return prop.url || "";
+        case "email":
+          return prop.email || "";
+        case "phone_number":
+          return prop.phone_number || "";
+        case "checkbox":
+          return prop.checkbox ? "true" : "";
+        default:
+          return "";
+      }
+    }
+
+    function number(prop) {
+      if (!prop) return null;
+      if (prop.type === "number") return typeof prop.number === "number" ? prop.number : null;
+      const raw = plain(prop);
+      if (!raw) return null;
+      const normalized = raw
+        .replace(/\./g, "")
+        .replace(",", ".")
+        .replace(/[^0-9.-]/g, "");
+      const n = Number(normalized);
+      return Number.isFinite(n) ? n : null;
+    }
+
+    function select(prop) {
+      if (!prop) return "";
+      if (prop.type === "select") return prop.select?.name || "";
+      return plain(prop);
+    }
+
+    function files(prop) {
+      if (!prop || prop.type !== "files") return [];
+      return (prop.files || []).map(file => {
+        if (file.type === "file") return file.file?.url || "";
+        if (file.type === "external") return file.external?.url || "";
+        return "";
+      }).filter(Boolean);
+    }
+
+    function cover(page) {
       if (!page.cover) return "";
       if (page.cover.type === "file") return page.cover.file?.url || "";
       if (page.cover.type === "external") return page.cover.external?.url || "";
       return "";
-    };
-    const formatNumber = value => new Intl.NumberFormat("de-DE", { maximumFractionDigits: 2 }).format(value);
+    }
 
-    const items = data.results.map((page, index) => {
-      const p = page.properties || {};
-      const preis = getNumber(prop(p, ["Preis"]));
-      const preisart = getSelect(prop(p, ["Preisart", "Preistyp"]));
-      const vermarktungsart = getSelect(prop(p, ["Vermarktungsart", "Vermarktung"]));
-      const bilder = [...getFiles(prop(p, ["Bild", "Bilder", "Foto", "Fotos"])), getCover(page)].filter(Boolean);
+    function formatNumber(value) {
+      if (value === null || value === undefined || value === "") return "";
+      return new Intl.NumberFormat("de-DE", { maximumFractionDigits: 2 }).format(value);
+    }
 
-      let preisText = "";
-      const preisartLower = (preisart || "").toLowerCase();
-      if (preisartLower.includes("anfrage") || preis === null) {
-        preisText = "auf Anfrage";
-      } else if (preisartLower.includes("m²") || preisartLower.includes("qm") || preisartLower.includes("pro")) {
-        preisText = `${formatNumber(preis)} €/m²${vermarktungsart === "Miete" ? " Miete" : ""}`;
-      } else {
-        preisText = `${formatNumber(preis)} €${vermarktungsart === "Miete" ? " Miete" : ""}`;
+    function priceText(preis, preisart, vermarktungsart) {
+      const art = String(preisart || "").toLowerCase();
+      const vermarktung = String(vermarktungsart || "");
+
+      if (art.includes("anfrage")) return "auf Anfrage";
+      if (preis === null || preis === undefined) return "auf Anfrage";
+
+      if (art.includes("m²") || art.includes("qm") || art.includes("pro")) {
+        return `${formatNumber(preis)} €/m²${vermarktung === "Miete" ? " Miete" : ""}`;
       }
+
+      return `${formatNumber(preis)} €${vermarktung === "Miete" ? " Miete" : ""}`;
+    }
+
+    const items = (data.results || []).map((page, index) => {
+      const p = page.properties || {};
+
+      const titel = plain(findProp(p, ["Titel", "Name"]));
+      const ort = plain(findProp(p, ["Ort", "Adresse", "Standort"]));
+      const typ = select(findProp(p, ["Typ", "Kategorie"]));
+      const vermarktungsart = select(findProp(p, ["Vermarktungsart", "Vermarktung"]));
+      const status = select(findProp(p, ["Status"])) || "Verfügbar";
+      const preis = number(findProp(p, ["Preis"]));
+      const preisart = select(findProp(p, ["Preisart", "Preistyp", "Preis Typ"]));
+      const flaeche = number(findProp(p, ["Fläche", "Flaeche"]));
+      const zimmer = number(findProp(p, ["Zimmer"]));
+      const etage = plain(findProp(p, ["Etage(n)", "Etagen", "Etage"]));
+      const lagerflaeche = number(findProp(p, ["Lagerfläche", "Lagerflaeche"]));
+      const teilbarAb = number(findProp(p, ["teilbar ab", "Teilbar ab", "Teilbar Ab"]));
+      const beschreibung = plain(findProp(p, ["Beschreibung", "Kurzbeschreibung"]));
+
+      const bilder = [
+        ...files(findProp(p, ["Bild", "Bilder", "Foto", "Fotos"])),
+        cover(page)
+      ].filter(Boolean);
 
       return {
         id: index + 1,
         notionId: page.id,
-        titel: getTitle(prop(p, ["Titel", "Name"])),
-        ort: getText(prop(p, ["Ort", "Adresse"])),
-        typ: getSelect(prop(p, ["Typ", "Kategorie"])),
+        titel,
+        ort,
+        typ,
         vermarktungsart,
-        status: getSelect(prop(p, ["Status"])) || "Verfügbar",
+        status,
         preis,
         preisart,
-        preisText,
-        flaeche: getNumber(prop(p, ["Fläche", "Flaeche"])),
-        zimmer: getNumber(prop(p, ["Zimmer"])),
-        etage: getText(prop(p, ["Etage(n)", "Etagen", "Etage"])),
-        lagerflaeche: getNumber(prop(p, ["Lagerfläche", "Lagerflaeche"])),
-        teilbarAb: getNumber(prop(p, ["teilbar ab", "Teilbar ab"])),
-        beschreibung: getText(prop(p, ["Beschreibung", "Kurzbeschreibung"])),
+        preisText: priceText(preis, preisart, vermarktungsart),
+        flaeche,
+        zimmer,
+        etage,
+        lagerflaeche,
+        teilbarAb,
+        beschreibung,
         bild: bilder[0] || "",
         bilder
       };
     }).filter(item => item.titel);
 
-    res.setHeader("Cache-Control", "s-maxage=60, stale-while-revalidate=300");
+    res.setHeader("Cache-Control", "s-maxage=30, stale-while-revalidate=120");
     return res.status(200).json(items);
   } catch (error) {
-    return res.status(500).json({ error: "Serverfehler", details: error.message });
+    return res.status(500).json({
+      error: "Serverfehler",
+      details: error.message
+    });
   }
 }
