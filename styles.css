@@ -1665,3 +1665,238 @@ img, svg { max-width:100%; height:auto; }
   grid-template-columns: repeat(2, minmax(0,1fr)) !important;
   gap: 1.1rem 1.4rem !important;
 }
+
+
+
+/* Immobilien Premium Card + Description */
+.immo-premium-card {
+  background: var(--cream);
+  border: 1px solid rgba(0,66,74,0.08);
+  cursor: pointer;
+  transition: transform .25s ease, box-shadow .25s ease;
+}
+
+.immo-premium-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 18px 45px rgba(0, 40, 45, 0.12);
+}
+
+.immo-premium-media {
+  position: relative;
+  overflow: hidden;
+  background: var(--green);
+}
+
+.immo-premium-media .immo-card-img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  transition: transform .45s ease;
+}
+
+.immo-premium-card:hover .immo-card-img {
+  transform: scale(1.035);
+}
+
+.immo-premium-status {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  z-index: 2;
+  color: #fff;
+  font-size: .58rem;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  padding: .45rem .65rem;
+  font-weight: 700;
+}
+
+.immo-premium-price-overlay {
+  position: absolute;
+  right: 1rem;
+  bottom: 1rem;
+  z-index: 2;
+  background: rgba(255,255,255,.92);
+  backdrop-filter: blur(8px);
+  padding: .8rem .95rem .85rem;
+  min-width: 8.5rem;
+  box-shadow: 0 12px 30px rgba(0,0,0,.14);
+}
+
+.immo-premium-price-overlay span {
+  display: block;
+  font-size: .56rem;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--gray);
+  margin-bottom: .2rem;
+}
+
+.immo-premium-price-overlay strong {
+  display: block;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.55rem;
+  line-height: 1;
+  color: var(--green);
+  font-weight: 600;
+}
+
+.immo-premium-body {
+  padding: 1.55rem 1.5rem 1.65rem;
+}
+
+.immo-premium-body h3 {
+  margin: .35rem 0 0;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.45rem;
+  line-height: 1.15;
+  color: var(--green);
+}
+
+.immo-premium-location {
+  margin: .55rem 0 0;
+  color: var(--gray);
+  font-size: .9rem;
+}
+
+.immo-premium-meta {
+  margin-top: 1.15rem;
+  padding-top: 1.05rem;
+  border-top: 1px solid rgba(0,66,74,.12);
+  display: flex;
+  flex-direction: column;
+  gap: .45rem;
+  color: var(--green);
+  font-size: .78rem;
+  letter-spacing: .04em;
+}
+
+.immo-premium-meta > span:first-child {
+  width: fit-content;
+  border: 1px solid rgba(0,66,74,.18);
+  padding: .28rem .55rem;
+  text-transform: uppercase;
+  font-size: .62rem;
+  letter-spacing: .14em;
+}
+
+.immo-premium-dot {
+  display: inline-block;
+  margin: 0 .45rem;
+  opacity: .55;
+}
+
+.immo-premium-modal {
+  position: relative;
+  background: var(--white);
+}
+
+.immo-premium-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  z-index: 5;
+  width: 2.4rem;
+  height: 2.4rem;
+  border: none;
+  background: var(--green);
+  color: var(--white);
+  font-size: 1.4rem;
+  cursor: pointer;
+}
+
+.immo-premium-modal-img {
+  width: 100%;
+  display: block;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+
+.immo-premium-modal-placeholder {
+  aspect-ratio: 16 / 9;
+  background: var(--green);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.immo-premium-modal-body {
+  padding: 2.2rem;
+}
+
+.immo-premium-modal-body h3 {
+  color: var(--green);
+  font-size: clamp(1.7rem, 4vw, 2.35rem);
+  margin: .25rem 0 0;
+}
+
+.immo-premium-modal-facts {
+  margin: 1.6rem 0 1.7rem;
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0,1fr));
+  border: 1px solid rgba(0,66,74,.12);
+  background: rgba(247,244,239,.55);
+}
+
+.immo-premium-modal-fact {
+  padding: 1rem 1.1rem;
+  border-right: 1px solid rgba(0,66,74,.10);
+  border-bottom: 1px solid rgba(0,66,74,.10);
+}
+
+.immo-premium-modal-fact:nth-child(2n) {
+  border-right: none;
+}
+
+.immo-premium-modal-fact span {
+  display: block;
+  font-size: .62rem;
+  color: var(--gray);
+  text-transform: uppercase;
+  letter-spacing: .13em;
+  margin-bottom: .35rem;
+}
+
+.immo-premium-modal-fact strong {
+  display: block;
+  font-family: 'Cormorant Garamond', serif;
+  color: var(--green);
+  font-size: 1.35rem;
+  line-height: 1.1;
+}
+
+.immo-premium-description {
+  margin-top: 1.4rem;
+  color: var(--gray);
+  font-size: .98rem;
+  line-height: 1.85;
+}
+
+.immo-premium-description p {
+  margin: 0 0 1.15rem;
+}
+
+.immo-premium-description p:last-child {
+  margin-bottom: 0;
+}
+
+@media (max-width: 700px) {
+  .immo-premium-price-overlay {
+    left: 1rem;
+    right: auto;
+    min-width: auto;
+  }
+
+  .immo-premium-modal-facts {
+    grid-template-columns: 1fr;
+  }
+
+  .immo-premium-modal-fact {
+    border-right: none;
+  }
+
+  .immo-premium-modal-body {
+    padding: 1.5rem;
+  }
+}

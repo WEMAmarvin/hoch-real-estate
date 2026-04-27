@@ -384,7 +384,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
-/* Immobilien FINAL – vollständige saubere Notion-Darstellung */
+
+
+
+/* Immobilien Premium Card + Description Formatting */
 (function () {
   const apiUrl = '/api/immobilien';
   let items = [];
@@ -411,34 +414,46 @@ document.addEventListener('DOMContentLoaded', () => {
       <svg viewBox="0 0 24 24"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 21v-8h6v8"/></svg>
     </div>`;
 
-  const cardFact = (label, value, suffix = '') => {
-    if (!has(value)) return '';
-    return `
-      <div class="immo-final-fact">
-        <span>${esc(label)}</span>
-        <strong>${esc(value)}${suffix}</strong>
-      </div>`;
-  };
-
-  const modalFact = (label, value, suffix = '') => {
-    if (!has(value)) return '';
-    return `
-      <div class="immo-final-modal-fact">
-        <span>${esc(label)}</span>
-        <strong>${esc(value)}${suffix}</strong>
-      </div>`;
-  };
-
   const imageFor = (obj) => {
     if (obj.bild) return obj.bild;
     if (Array.isArray(obj.bilder) && obj.bilder.length) return obj.bilder[0];
     return '';
   };
 
-  const priceFor = (obj) => {
-    if (has(obj.preisText)) return obj.preisText;
-    return 'auf Anfrage';
+  const priceFor = (obj) => has(obj.preisText) ? obj.preisText : 'auf Anfrage';
+
+  const compactFacts = (obj) => {
+    const parts = [];
+    if (has(obj.flaeche)) parts.push(`${esc(obj.flaeche)} m²`);
+    if (has(obj.zimmer)) parts.push(`${esc(obj.zimmer)} Zimmer`);
+    if (has(obj.etage)) parts.push(`${esc(obj.etage)}. Etage`);
+    return parts.join('<span class="immo-premium-dot">·</span>');
   };
+
+  const modalFact = (label, value, suffix = '') => {
+    if (!has(value)) return '';
+    return `
+      <div class="immo-premium-modal-fact">
+        <span>${esc(label)}</span>
+        <strong>${esc(value)}${suffix}</strong>
+      </div>`;
+  };
+
+  function formatDescription(text) {
+    if (!has(text)) return '';
+
+    const normalized = String(text).replace(/\r\n/g, '\n').replace(/\r/g, '\n').trim();
+
+    return normalized
+      .split(/\n\s*\n/g)
+      .map(block => block.trim())
+      .filter(Boolean)
+      .map(block => {
+        const safe = esc(block).replace(/\n/g, '<br>');
+        return `<p>${safe}</p>`;
+      })
+      .join('');
+  }
 
   function renderFilters() {
     const wrap = document.getElementById('immoFilter');
@@ -472,48 +487,36 @@ document.addEventListener('DOMContentLoaded', () => {
 
     grid.innerHTML = visible.map(obj => {
       const img = imageFor(obj);
-
-      const facts = [
-        cardFact('Fläche', obj.flaeche, ' m²'),
-        cardFact('Zimmer', obj.zimmer),
-        cardFact('Etage', obj.etage),
-        cardFact('Lagerfläche', obj.lagerflaeche, ' m²'),
-        cardFact('Teilbar ab', obj.teilbarAb, ' m²')
-      ].join('');
+      const facts = compactFacts(obj);
 
       return `
-        <article class="immo-card immo-final-card reveal visible" onclick="openImmoModal(${obj.id})">
-          <div class="immo-final-media">
+        <article class="immo-card immo-premium-card reveal visible" onclick="openImmoModal(${obj.id})">
+          <div class="immo-premium-media">
             ${img ? `<img class="immo-card-img" src="${esc(img)}" alt="${esc(obj.titel)}" loading="lazy">` : placeholder()}
-            ${has(obj.status) ? `<span class="immo-card-badge" style="background:${statusColor(obj.status)}">${esc(obj.status)}</span>` : ''}
+            ${has(obj.status) ? `<span class="immo-premium-status" style="background:${statusColor(obj.status)}">${esc(obj.status)}</span>` : ''}
+            <div class="immo-premium-price-overlay">
+              <span>Preis</span>
+              <strong>${esc(priceFor(obj))}</strong>
+            </div>
           </div>
-          <div class="immo-card-body immo-final-body">
+          <div class="immo-premium-body">
             ${has(obj.typ) ? `<div class="immo-card-type">${esc(obj.typ)}</div>` : ''}
-            <h3 class="immo-card-title">${esc(obj.titel)}</h3>
-            ${has(obj.ort) ? `<p class="immo-card-location">📍 ${esc(obj.ort)}</p>` : ''}
-            ${has(obj.vermarktungsart) ? `<span class="immo-final-market">${esc(obj.vermarktungsart)}</span>` : ''}
-            ${facts ? `<div class="immo-final-facts">${facts}</div>` : ''}
-            <div class="immo-final-price"><span>Preis</span><strong>${esc(priceFor(obj))}</strong></div>
+            <h3>${esc(obj.titel)}</h3>
+            ${has(obj.ort) ? `<p class="immo-premium-location">📍 ${esc(obj.ort)}</p>` : ''}
+            <div class="immo-premium-meta">
+              ${has(obj.vermarktungsart) ? `<span>${esc(obj.vermarktungsart)}</span>` : ''}
+              ${facts ? `<span>${facts}</span>` : ''}
+            </div>
           </div>
         </article>
       `;
     }).join('');
-
-    const prev = document.getElementById('immoPrev');
-    const next = document.getElementById('immoNext');
-    if (prev && next) {
-      setTimeout(() => {
-        const maxScroll = grid.scrollWidth - grid.clientWidth;
-        const hasOverflow = maxScroll > 4;
-        prev.style.display = next.style.display = hasOverflow ? 'inline-flex' : 'none';
-      }, 100);
-    }
   }
 
   function gallery(obj) {
     const imgs = Array.isArray(obj.bilder) && obj.bilder.length ? obj.bilder : (obj.bild ? [obj.bild] : []);
-    if (!imgs.length) return `<div class="immo-final-modal-placeholder">${placeholder()}</div>`;
-    return `<img class="immo-final-modal-img" src="${esc(imgs[0])}" alt="${esc(obj.titel)}">`;
+    if (!imgs.length) return `<div class="immo-premium-modal-placeholder">${placeholder()}</div>`;
+    return `<img class="immo-premium-modal-img" src="${esc(imgs[0])}" alt="${esc(obj.titel)}">`;
   }
 
   window.openImmoModal = function (id) {
@@ -531,20 +534,22 @@ document.addEventListener('DOMContentLoaded', () => {
       modalFact('Teilbar ab', obj.teilbarAb, ' m²')
     ].join('');
 
+    const desc = formatDescription(obj.beschreibung);
+
     const modal = document.getElementById('immoModal');
     const content = document.getElementById('immoModalContent');
     if (!modal || !content) return;
 
     content.innerHTML = `
-      <div class="immo-final-modal">
-        <button class="immo-final-close" onclick="document.getElementById('immoModal').classList.remove('open');document.body.style.overflow='';">×</button>
+      <div class="immo-premium-modal">
+        <button class="immo-premium-close" onclick="document.getElementById('immoModal').classList.remove('open');document.body.style.overflow='';">×</button>
         ${gallery(obj)}
-        <div class="immo-final-modal-body">
+        <div class="immo-premium-modal-body">
           ${has(obj.typ) ? `<div class="immo-card-type">${esc(obj.typ)}</div>` : ''}
           <h3>${esc(obj.titel)}</h3>
           ${has(obj.ort) ? `<p class="immo-modal-location">📍 ${esc(obj.ort)}</p>` : ''}
-          ${facts ? `<div class="immo-final-modal-facts">${facts}</div>` : ''}
-          ${has(obj.beschreibung) ? `<p class="immo-modal-desc">${esc(obj.beschreibung)}</p>` : ''}
+          ${facts ? `<div class="immo-premium-modal-facts">${facts}</div>` : ''}
+          ${desc ? `<div class="immo-premium-description">${desc}</div>` : ''}
           <a href="#kontakt" onclick="document.getElementById('immoModal').classList.remove('open');document.body.style.overflow='';" class="immo-modal-cta">Jetzt anfragen</a>
         </div>
       </div>
@@ -571,26 +576,8 @@ document.addEventListener('DOMContentLoaded', () => {
         renderCards();
       })
       .catch(err => {
-        console.error('Immobilien FINAL Fehler:', err);
+        console.error('Immobilien Premium Fehler:', err);
         grid.innerHTML = '<div class="immo-empty">Aktuell sind keine Immobilien verfügbar.</div>';
       });
   });
 })();
-
-
-
-/* Card Price Label Fix */
-document.addEventListener('DOMContentLoaded', () => {
-  const fixPriceLabels = () => {
-    document.querySelectorAll('.immo-final-price, .immo-v4-price, .immo-card-price').forEach(el => {
-      const alreadyLabelled = el.querySelector('span') && el.querySelector('strong');
-      if (alreadyLabelled) return;
-      const value = el.textContent.trim();
-      if (!value) return;
-      el.innerHTML = `<span>Preis</span><strong>${value}</strong>`;
-    });
-  };
-
-  fixPriceLabels();
-  setInterval(fixPriceLabels, 1000);
-});
