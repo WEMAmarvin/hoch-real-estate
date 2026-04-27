@@ -2089,3 +2089,272 @@ img, svg { max-width:100%; height:auto; }
     display: none;
   }
 }
+
+/* =========================================================
+   Premium Upgrade 2026-04-27
+   - Backup vorher erstellt
+   - Karten-Hover hochwertiger
+   - Detailansicht größer, ruhiger, wertiger
+   ========================================================= */
+
+/* Premium Hover für Immobilienkarten */
+.immo-premium-card {
+  position: relative;
+  overflow: hidden;
+  transform: translateY(0);
+  transition: transform .34s cubic-bezier(.2,.8,.2,1), box-shadow .34s cubic-bezier(.2,.8,.2,1), border-color .34s ease;
+  will-change: transform;
+}
+
+.immo-premium-card::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 3px;
+  background: var(--gold);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform .34s ease;
+}
+
+.immo-premium-card:hover {
+  transform: translateY(-8px);
+  border-color: rgba(200,164,107,.45);
+  box-shadow: 0 28px 70px rgba(0, 40, 45, .18);
+}
+
+.immo-premium-card:hover::after {
+  transform: scaleX(1);
+}
+
+.immo-premium-media::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(to top, rgba(0,44,50,.25), rgba(0,44,50,0));
+  opacity: 0;
+  transition: opacity .34s ease;
+  pointer-events: none;
+}
+
+.immo-premium-card:hover .immo-premium-media::before {
+  opacity: 1;
+}
+
+.immo-premium-media .immo-card-img {
+  transition: transform .65s cubic-bezier(.2,.8,.2,1), filter .65s ease;
+}
+
+.immo-premium-card:hover .immo-card-img {
+  transform: scale(1.065);
+  filter: saturate(.95) contrast(1.03);
+}
+
+.immo-premium-card:hover .immo-premium-price-overlay {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 38px rgba(0,0,0,.18);
+}
+
+.immo-premium-price-overlay {
+  transition: transform .34s ease, box-shadow .34s ease;
+}
+
+/* Premium Detailansicht */
+.immo-modal {
+  background: rgba(0, 44, 50, .86) !important;
+  backdrop-filter: blur(8px) saturate(.9);
+}
+
+.immo-modal-inner {
+  max-width: min(1040px, calc(100vw - 3rem)) !important;
+  width: 100% !important;
+  max-height: 90vh !important;
+  border: 1px solid rgba(200,164,107,.24);
+  box-shadow: 0 34px 110px rgba(0,0,0,.35);
+}
+
+.immo-modal-close {
+  top: 1rem !important;
+  right: 1rem !important;
+  background: rgba(0,66,74,.92) !important;
+  border: 1px solid rgba(255,255,255,.22) !important;
+  transition: background .25s ease, transform .25s ease !important;
+}
+
+.immo-modal-close:hover {
+  background: var(--gold) !important;
+  transform: rotate(90deg);
+}
+
+.immo-premium-modal {
+  background: var(--white);
+}
+
+.immo-premium-gallery {
+  aspect-ratio: 21 / 9 !important;
+  min-height: 390px;
+  border-bottom: 1px solid rgba(0,66,74,.10);
+}
+
+.immo-premium-gallery::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,44,50,.20), rgba(0,44,50,0) 46%);
+  pointer-events: none;
+  z-index: 2;
+}
+
+.immo-premium-gallery-img {
+  animation: immoGalleryFade .22s ease;
+}
+
+@keyframes immoGalleryFade {
+  from { opacity: .86; }
+  to { opacity: 1; }
+}
+
+.immo-premium-gallery-nav,
+.immo-premium-gallery-counter,
+.immo-premium-gallery-dots {
+  z-index: 5;
+}
+
+.immo-premium-modal-body {
+  padding: clamp(2.2rem, 4vw, 3.4rem) clamp(2.2rem, 5vw, 4rem) clamp(2.5rem, 5vw, 3.8rem) !important;
+}
+
+.immo-premium-modal-body .immo-card-type {
+  margin-bottom: .75rem;
+}
+
+.immo-premium-modal-body h3 {
+  max-width: 780px;
+  font-size: clamp(2rem, 3.7vw, 3rem) !important;
+  line-height: 1.02 !important;
+  letter-spacing: -.015em;
+}
+
+.immo-premium-modal-body .immo-modal-location {
+  margin-top: .75rem !important;
+  margin-bottom: 1.8rem !important;
+  font-size: .95rem;
+}
+
+.immo-premium-modal-facts {
+  margin: 2rem 0 2.4rem !important;
+  grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+  background: linear-gradient(135deg, rgba(247,244,239,.88), rgba(255,255,255,.78)) !important;
+  border: 1px solid rgba(0,66,74,.12) !important;
+}
+
+.immo-premium-modal-fact {
+  min-height: 104px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 1.2rem 1.25rem !important;
+}
+
+.immo-premium-modal-fact:nth-child(2n) {
+  border-right: 1px solid rgba(0,66,74,.10);
+}
+
+.immo-premium-modal-fact:nth-child(4n) {
+  border-right: none;
+}
+
+.immo-premium-modal-fact span {
+  font-size: .6rem !important;
+  color: rgba(82,91,102,.88) !important;
+}
+
+.immo-premium-modal-fact strong {
+  font-size: clamp(1.35rem, 2vw, 1.7rem) !important;
+}
+
+.immo-premium-description {
+  max-width: 760px;
+  margin-top: 0 !important;
+  color: #525b66 !important;
+  font-size: 1rem !important;
+  line-height: 1.95 !important;
+}
+
+.immo-premium-description p {
+  margin-bottom: 1.35rem !important;
+}
+
+.immo-premium-description p:last-child {
+  margin-bottom: 0 !important;
+}
+
+.immo-premium-cta-wrap {
+  margin-top: 3rem !important;
+  padding-top: 1.4rem !important;
+  border-top: 1px solid rgba(0,66,74,.10);
+}
+
+.immo-premium-cta-wrap .immo-modal-cta {
+  min-width: 190px;
+  padding: 1rem 2.2rem !important;
+  box-shadow: 0 14px 34px rgba(200,164,107,.22);
+}
+
+.immo-premium-cta-wrap .immo-modal-cta:hover {
+  transform: translateY(-1px);
+}
+
+@media (max-width: 900px) {
+  .immo-modal {
+    padding: 1rem !important;
+  }
+
+  .immo-modal-inner {
+    max-width: calc(100vw - 2rem) !important;
+  }
+
+  .immo-premium-gallery {
+    aspect-ratio: 16 / 10 !important;
+    min-height: 280px;
+  }
+
+  .immo-premium-modal-facts {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+
+  .immo-premium-modal-fact:nth-child(2n) {
+    border-right: none;
+  }
+
+  .immo-premium-modal-fact:nth-child(4n) {
+    border-right: none;
+  }
+}
+
+@media (max-width: 560px) {
+  .immo-premium-card:hover {
+    transform: none;
+  }
+
+  .immo-premium-gallery {
+    min-height: 230px;
+  }
+
+  .immo-premium-modal-body {
+    padding: 1.65rem !important;
+  }
+
+  .immo-premium-modal-facts {
+    grid-template-columns: 1fr !important;
+  }
+
+  .immo-premium-modal-fact,
+  .immo-premium-modal-fact:nth-child(2n),
+  .immo-premium-modal-fact:nth-child(4n) {
+    border-right: none !important;
+  }
+}
