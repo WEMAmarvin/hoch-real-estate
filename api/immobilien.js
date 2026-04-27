@@ -164,7 +164,8 @@ export default async function handler(req, res) {
       const preisart = select(findProp(p, ["Preisart", "Preistyp", "Preis Typ"]));
       const flaeche = number(findProp(p, ["Fläche", "Flaeche"]));
       const zimmer = number(findProp(p, ["Zimmer"]));
-      const etage = plain(findProp(p, ["Etage(n)", "Etagen", "Etage"]));
+      const etageRaw = plain(findProp(p, ["Etage(n)", "Etagen", "Etage"]));
+      const etage = etageRaw === "0" ? "Erdgeschoss" : etageRaw;
       const lagerflaeche = number(findProp(p, ["Lagerfläche", "Lagerflaeche"]));
       const teilbarAb = number(findProp(p, ["teilbar ab", "Teilbar ab", "Teilbar Ab"]));
 

@@ -387,7 +387,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
-/* Immobilien Premium Card + Description Formatting */
+
+
+
+/* Immobilien Premium V2 – Galerie + dynamische Fakten */
 (function () {
   const apiUrl = '/api/immobilien';
   let items = [];
@@ -420,14 +423,31 @@ document.addEventListener('DOMContentLoaded', () => {
     return '';
   };
 
+  const imagesFor = (obj) => {
+    if (Array.isArray(obj.bilder) && obj.bilder.length) return obj.bilder.filter(Boolean);
+    return obj.bild ? [obj.bild] : [];
+  };
+
   const priceFor = (obj) => has(obj.preisText) ? obj.preisText : 'auf Anfrage';
 
+  const getCardFacts = (obj) => {
+    const candidates = [
+      { label: 'Fläche', value: obj.flaeche, suffix: ' m²', priority: 1 },
+      { label: 'Zimmer', value: obj.zimmer, suffix: '', priority: has(obj.zimmer) ? 2 : 99 },
+      { label: 'Etage', value: obj.etage, suffix: '', priority: has(obj.etage) ? 3 : 99 },
+      { label: 'Lagerfläche', value: obj.lagerflaeche, suffix: ' m²', priority: has(obj.zimmer) || has(obj.etage) ? 4 : 2 },
+      { label: 'Teilbar ab', value: obj.teilbarAb, suffix: ' m²', priority: has(obj.zimmer) || has(obj.etage) ? 5 : 3 }
+    ];
+
+    return candidates
+      .filter(f => has(f.value))
+      .sort((a, b) => a.priority - b.priority)
+      .slice(0, 3);
+  };
+
   const compactFacts = (obj) => {
-    const parts = [];
-    if (has(obj.flaeche)) parts.push(`${esc(obj.flaeche)} m²`);
-    if (has(obj.zimmer)) parts.push(`${esc(obj.zimmer)} Zimmer`);
-    if (has(obj.etage)) parts.push(`${esc(obj.etage)}. Etage`);
-    return parts.join('<span class="immo-premium-dot">·</span>');
+    const facts = getCardFacts(obj).map(f => `${esc(f.value)}${f.suffix} ${esc(f.label === 'Teilbar ab' ? 'teilbar' : f.label)}`);
+    return facts.join('<span class="immo-premium-dot">·</span>');
   };
 
   const modalFact = (label, value, suffix = '') => {
@@ -497,12 +517,14 @@ document.addEventListener('DOMContentLoaded', () => {
     grid.innerHTML = visible.map(obj => {
       const img = imageFor(obj);
       const facts = compactFacts(obj);
+      const imgCount = imagesFor(obj).length;
 
       return `
         <article class="immo-card immo-premium-card reveal visible" onclick="openImmoModal(${obj.id})">
           <div class="immo-premium-media">
             ${img ? `<img class="immo-card-img" src="${esc(img)}" alt="${esc(obj.titel)}" loading="lazy">` : placeholder()}
             ${has(obj.status) ? `<span class="immo-premium-status" style="background:${statusColor(obj.status)}">${esc(obj.status)}</span>` : ''}
+            ${imgCount > 1 ? `<span class="immo-premium-image-count">${imgCount} Bilder</span>` : ''}
             <div class="immo-premium-price-overlay">
               <span>Preis</span>
               <strong>${esc(priceFor(obj))}</strong>
@@ -523,10 +545,54 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function gallery(obj) {
-    const imgs = Array.isArray(obj.bilder) && obj.bilder.length ? obj.bilder : (obj.bild ? [obj.bild] : []);
+    const imgs = imagesFor(obj);
     if (!imgs.length) return `<div class="immo-premium-modal-placeholder">${placeholder()}</div>`;
-    return `<img class="immo-premium-modal-img" src="${esc(imgs[0])}" alt="${esc(obj.titel)}">`;
+
+    const imageSlides = imgs.map((src, index) => `
+      <img class="immo-premium-gallery-img${index === 0 ? ' active' : ''}" src="${esc(src)}" alt="${esc(obj.titel)}" data-index="${index}">
+    `).join('');
+
+    const dots = imgs.map((_, index) => `
+      <button class="immo-premium-gallery-dot${index === 0 ? ' active' : ''}" type="button" onclick="immoPremiumGalleryGo(${index})" aria-label="Bild ${index + 1} anzeigen"></button>
+    `).join('');
+
+    return `
+      <div class="immo-premium-gallery" id="immoPremiumGallery">
+        ${imageSlides}
+        ${imgs.length > 1 ? `
+          <button class="immo-premium-gallery-nav prev" type="button" onclick="immoPremiumGalleryNav(-1)" aria-label="Vorheriges Bild">‹</button>
+          <button class="immo-premium-gallery-nav next" type="button" onclick="immoPremiumGalleryNav(1)" aria-label="Nächstes Bild">›</button>
+          <div class="immo-premium-gallery-counter"><span id="immoPremiumGalleryCurrent">1</span> / ${imgs.length}</div>
+          <div class="immo-premium-gallery-dots">${dots}</div>
+        ` : ''}
+      </div>
+    `;
   }
+
+  window.immoPremiumGalleryGo = function(index) {
+    const gallery = document.getElementById('immoPremiumGallery');
+    if (!gallery) return;
+    const imgs = gallery.querySelectorAll('.immo-premium-gallery-img');
+    const dots = gallery.querySelectorAll('.immo-premium-gallery-dot');
+    const counter = document.getElementById('immoPremiumGalleryCurrent');
+
+    imgs.forEach(img => img.classList.remove('active'));
+    dots.forEach(dot => dot.classList.remove('active'));
+
+    if (imgs[index]) imgs[index].classList.add('active');
+    if (dots[index]) dots[index].classList.add('active');
+    if (counter) counter.textContent = String(index + 1);
+  };
+
+  window.immoPremiumGalleryNav = function(direction) {
+    const gallery = document.getElementById('immoPremiumGallery');
+    if (!gallery) return;
+    const imgs = [...gallery.querySelectorAll('.immo-premium-gallery-img')];
+    if (!imgs.length) return;
+    const current = imgs.findIndex(img => img.classList.contains('active'));
+    const next = (current + direction + imgs.length) % imgs.length;
+    window.immoPremiumGalleryGo(next);
+  };
 
   window.openImmoModal = function (id) {
     const obj = items.find(i => Number(i.id) === Number(id));
