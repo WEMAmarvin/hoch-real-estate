@@ -1,0 +1,6 @@
+Landingpage neu aus dem bestehenden Mainpage-System aufgebaut:
+- kein isoliertes Fremdlayout
+- nutzt echte Mainpage-Komponenten: Hero, Logo, Über-uns-Grid, Leistungskarten, WEMA-Karten, Prozess, Kontakt mit Christian-Bild
+- Inhalte anhand Unternehmensvorstellung fokussiert
+- Navigation führt zurück zur Mainpage
+- CSS nur kleine native Landing-Ergänzungen, keine kaputten lpv2/v5 Layouts mehr
