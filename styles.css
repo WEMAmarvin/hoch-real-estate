@@ -2073,3 +2073,16 @@ img, svg { max-width:100%; height:auto; }
     display: none;
   }
 }
+
+
+/* Detail view spacing fix */
+.detail-content .cta,
+.detail-content .button,
+.detail-content .contact-button {
+    margin-top: 32px;
+}
+
+/* ensure paragraph spacing above button */
+.detail-content p:last-of-type {
+    margin-bottom: 24px;
+}
