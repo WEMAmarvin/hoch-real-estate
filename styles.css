@@ -1900,3 +1900,36 @@ img, svg { max-width:100%; height:auto; }
     padding: 1.5rem;
   }
 }
+
+
+
+/* Rich Text Beschreibung aus Notion */
+.immo-premium-description strong {
+  font-weight: 600;
+  color: var(--anthracite);
+}
+
+.immo-premium-description em {
+  font-style: italic;
+}
+
+.immo-premium-description u {
+  text-underline-offset: 0.18em;
+}
+
+.immo-premium-description s {
+  opacity: 0.75;
+}
+
+.immo-premium-description a {
+  color: var(--green);
+  text-decoration: none;
+  border-bottom: 1px solid var(--gold);
+}
+
+.immo-premium-description code {
+  font-family: monospace;
+  font-size: 0.9em;
+  background: rgba(0,66,74,0.08);
+  padding: 0.1rem 0.25rem;
+}

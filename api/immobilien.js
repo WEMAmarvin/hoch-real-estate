@@ -38,6 +38,16 @@ export default async function handler(req, res) {
       return undefined;
     }
 
+    function escapeHtml(value) {
+      return String(value ?? "").replace(/[&<>"']/g, m => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#39;"
+      }[m]));
+    }
+
     function plain(prop) {
       if (!prop) return "";
       switch (prop.type) {
@@ -64,6 +74,28 @@ export default async function handler(req, res) {
         default:
           return "";
       }
+    }
+
+    function richTextHtml(prop) {
+      if (!prop || prop.type !== "rich_text") return "";
+
+      return (prop.rich_text || []).map(part => {
+        let text = escapeHtml(part.plain_text || "");
+
+        const a = part.annotations || {};
+        if (a.code) text = `<code>${text}</code>`;
+        if (a.bold) text = `<strong>${text}</strong>`;
+        if (a.italic) text = `<em>${text}</em>`;
+        if (a.underline) text = `<u>${text}</u>`;
+        if (a.strikethrough) text = `<s>${text}</s>`;
+
+        if (part.href) {
+          const href = escapeHtml(part.href);
+          text = `<a href="${href}" target="_blank" rel="noopener noreferrer">${text}</a>`;
+        }
+
+        return text;
+      }).join("").trim();
     }
 
     function number(prop) {
@@ -135,7 +167,10 @@ export default async function handler(req, res) {
       const etage = plain(findProp(p, ["Etage(n)", "Etagen", "Etage"]));
       const lagerflaeche = number(findProp(p, ["Lagerfläche", "Lagerflaeche"]));
       const teilbarAb = number(findProp(p, ["teilbar ab", "Teilbar ab", "Teilbar Ab"]));
-      const beschreibung = plain(findProp(p, ["Beschreibung", "Kurzbeschreibung"]));
+
+      const beschreibungProp = findProp(p, ["Beschreibung", "Kurzbeschreibung"]);
+      const beschreibung = plain(beschreibungProp);
+      const beschreibungHtml = richTextHtml(beschreibungProp);
 
       const bilder = [
         ...files(findProp(p, ["Bild", "Bilder", "Foto", "Fotos"])),
@@ -159,6 +194,7 @@ export default async function handler(req, res) {
         lagerflaeche,
         teilbarAb,
         beschreibung,
+        beschreibungHtml,
         bild: bilder[0] || "",
         bilder
       };

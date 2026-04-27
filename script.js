@@ -439,10 +439,19 @@ document.addEventListener('DOMContentLoaded', () => {
       </div>`;
   };
 
-  function formatDescription(text) {
+  function formatDescription(text, isHtml = false) {
     if (!has(text)) return '';
 
     const normalized = String(text).replace(/\r\n/g, '\n').replace(/\r/g, '\n').trim();
+
+    if (isHtml) {
+      return normalized
+        .split(/\n\s*\n/g)
+        .map(block => block.trim())
+        .filter(Boolean)
+        .map(block => `<p>${block.replace(/\n/g, '<br>')}</p>`)
+        .join('');
+    }
 
     return normalized
       .split(/\n\s*\n/g)
@@ -534,7 +543,7 @@ document.addEventListener('DOMContentLoaded', () => {
       modalFact('Teilbar ab', obj.teilbarAb, ' m²')
     ].join('');
 
-    const desc = formatDescription(obj.beschreibung);
+    const desc = obj.beschreibungHtml ? formatDescription(obj.beschreibungHtml, true) : formatDescription(obj.beschreibung);
 
     const modal = document.getElementById('immoModal');
     const content = document.getElementById('immoModalContent');
