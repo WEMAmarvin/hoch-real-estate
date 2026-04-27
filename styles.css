@@ -665,3 +665,23 @@ section,#fokus{padding:3.8rem 1.15rem !important;}
 }
 @media (max-width:768px){#prozess .prozess-steps{margin-left:0 !important;margin-right:0 !important;padding-left:0 !important;padding-right:0 !important;scroll-padding-left:0 !important;}
 }
+
+
+/* ÜBER UNS FINAL: Textfarbe + Abstand */
+#ueber .ueber-text .section-lead {
+  color: var(--green) !important;
+  margin-bottom: 12px !important;
+}
+
+#ueber .ueber-text .section-lead strong {
+  color: var(--green) !important;
+  font-weight: 600 !important;
+}
+
+#ueber .ueber-text .ueber-copy {
+  color: var(--gray) !important;
+  font-weight: 400 !important;
+  font-size: 17px;
+  line-height: 1.82;
+  margin: 0 0 14px;
+}
