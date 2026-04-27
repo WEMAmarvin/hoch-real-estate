@@ -1,485 +1,165 @@
-
+// Reveal Animation
 const reveals = document.querySelectorAll('.reveal');
-const obs = new IntersectionObserver((entries) => {
-  entries.forEach((e,i) => {
-    if(e.isIntersecting) { setTimeout(()=>e.target.classList.add('visible'), i*70); obs.unobserve(e.target); }
-  });
-}, {threshold:0.08, rootMargin:'0px 0px -40px 0px'});
-reveals.forEach(el => obs.observe(el));
+if ('IntersectionObserver' in window) {
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach((entry, index) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), index * 70);
+        obs.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+  reveals.forEach(el => obs.observe(el));
+} else {
+  reveals.forEach(el => el.classList.add('visible'));
+}
 
+// CountUp Animation
 function countUp(el) {
-  const target = parseInt(el.dataset.target), suffix = el.dataset.suffix || '', duration = 1600, start = performance.now();
-  function ease(t) { return 1 - Math.pow(1-t, 4); }
+  const target = parseInt(el.dataset.target || '0', 10);
+  const suffix = el.dataset.suffix || '';
+  const duration = 1600;
+  const start = performance.now();
+
+  function ease(t) { return 1 - Math.pow(1 - t, 4); }
   function update(now) {
-    const p = Math.min((now-start)/duration, 1);
-    el.textContent = Math.round(ease(p)*target) + suffix;
-    if(p < 1) requestAnimationFrame(update);
+    const progress = Math.min((now - start) / duration, 1);
+    el.textContent = Math.round(ease(progress) * target) + suffix;
+    if (progress < 1) requestAnimationFrame(update);
   }
   requestAnimationFrame(update);
 }
-const cObs = new IntersectionObserver((entries) => {
-  entries.forEach(e => { if(e.isIntersecting) { e.target.querySelectorAll('[data-target]').forEach(countUp); cObs.unobserve(e.target); } });
-}, {threshold:0.4});
-document.querySelectorAll('.ueber-stats').forEach(el => cObs.observe(el));
 
-
-  // ═══════════════════════════════════════════════════════════
-  // IMMOBILIEN – Daten kommen automatisch aus Google Sheets
-  // Neue Immobilie hinzufügen: einfach neue Zeile in der
-  // Google Tabelle ausfüllen – die Website aktualisiert sich
-  // beim nächsten Laden automatisch.
-  // ═══════════════════════════════════════════════════════════
-
-  const IMMOBILIEN_API_URL = '/api/immobilien';
-
-  (function() {
-    let IMMOBILIEN = [];
-    let aktuellerFilter = 'Alle';
-
-    // CSV parsen
-    function parseCSV(text) {
-      const lines = text.trim().split('\n');
-      const headers = lines[0].split(',').map(h => h.trim().replace(/^"|"$/g, ''));
-      return lines.slice(1).map((line, i) => {
-        // Handles commas inside quoted fields
-        const cols = [];
-        let current = '';
-        let inQuotes = false;
-        for (let c of line) {
-          if (c === '"') { inQuotes = !inQuotes; }
-          else if (c === ',' && !inQuotes) { cols.push(current.trim()); current = ''; }
-          else { current += c; }
-        }
-        cols.push(current.trim());
-        const obj = { id: i + 1 };
-        headers.forEach((h, idx) => { obj[h.toLowerCase()] = (cols[idx] || '').replace(/^"|"$/g, ''); });
-        return obj;
-      }).filter(o => o.titel);
-    }
-
-    function alleTypen() {
-      return ['Alle', ...new Set(IMMOBILIEN.map(o => o.typ).filter(Boolean))];
-    }
-
-    function renderFilter() {
-      const wrap = document.getElementById('immoFilter');
-      if (!wrap) return;
-      wrap.innerHTML = '';
-      alleTypen().forEach(label => {
-        const btn = document.createElement('button');
-        btn.className = 'immo-filter-btn' + (label === aktuellerFilter ? ' active' : '');
-        btn.textContent = label;
-        btn.onclick = () => { aktuellerFilter = label; renderFilter(); renderGrid(); setTimeout(updateImmoCarouselButtons, 50); };
-        wrap.appendChild(btn);
-      });
-    }
-
-    // Google Drive Links automatisch umwandeln
-    function fixImageUrl(url) {
-      if (!url) return '';
-      // Format: https://drive.google.com/file/d/FILE_ID/view
-      const driveMatch = url.match(/\/file\/d\/([a-zA-Z0-9_-]+)/);
-      if (driveMatch) {
-        return `https://drive.google.com/thumbnail?id=${driveMatch[1]}&sz=w800`;
+if ('IntersectionObserver' in window) {
+  const cObs = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.querySelectorAll('[data-target]').forEach(countUp);
+        cObs.unobserve(entry.target);
       }
-      // Format: https://drive.google.com/open?id=FILE_ID
-      const openMatch = url.match(/[?&]id=([a-zA-Z0-9_-]+)/);
-      if (openMatch) {
-        return `https://drive.google.com/thumbnail?id=${openMatch[1]}&sz=w800`;
-      }
-      return url;
-    }
-
-    function buildGallery(bildStr, titel) {
-      if (!bildStr) return placeholderModal();
-      const bilder = bildStr.split(',').map(s => fixImageUrl(s.trim())).filter(Boolean);
-      if (bilder.length === 1) {
-        return `<img class="immo-modal-img" src="${bilder[0]}" alt="${titel}">`;
-      }
-      const imgs = bilder.map((src, i) =>
-        `<img class="immo-gallery-img" src="${src}" alt="${titel}" style="display:${i===0?'block':'none'}" data-idx="${i}">`
-      ).join('');
-      const dots = bilder.map((_, i) =>
-        `<div class="immo-gallery-dot${i===0?' active':''}" onclick="gallerGoto(${i})"></div>`
-      ).join('');
-      return `
-        <div class="immo-gallery" id="immoGallery">
-          ${imgs}
-          ${bilder.length > 1 ? `
-          <div class="immo-gallery-nav immo-gallery-prev" onclick="galleryNav(-1)">&#8249;</div>
-          <div class="immo-gallery-nav immo-gallery-next" onclick="galleryNav(1)">&#8250;</div>
-          <div class="immo-gallery-dots">${dots}</div>` : ''}
-        </div>`;
-    }
-
-    function placeholder() {
-      return `<div class="immo-card-img-placeholder">
-        <svg viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="1"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-      </div>`;
-    }
-
-    function placeholderModal() {
-      return `<div class="immo-modal-img-placeholder">
-        <svg viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.15)" stroke-width="1" width="64" height="64"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-      </div>`;
-    }
-
-    function statusColor(status) {
-      if (status === 'Verfügbar') return 'var(--green)';
-      if (status === 'Reserviert') return 'var(--gold)';
-      return '#888';
-    }
-
-
-    function updateImmoCarouselButtons() {
-      const grid = document.getElementById('immoGrid');
-      const prev = document.getElementById('immoPrev');
-      const next = document.getElementById('immoNext');
-      if (!grid || !prev || !next) return;
-      const maxScroll = grid.scrollWidth - grid.clientWidth;
-      const hasOverflow = maxScroll > 4;
-      prev.style.display = next.style.display = hasOverflow ? 'inline-flex' : 'none';
-      prev.disabled = !hasOverflow || grid.scrollLeft <= 4;
-      next.disabled = !hasOverflow || grid.scrollLeft >= maxScroll - 4;
-    }
-
-    function scrollImmoCarousel(direction) {
-      const grid = document.getElementById('immoGrid');
-      if (!grid) return;
-      const card = grid.querySelector('.immo-card');
-      const gap = 24;
-      const step = card ? card.getBoundingClientRect().width + gap : grid.clientWidth * 0.85;
-      grid.scrollBy({ left: direction * step, behavior: 'smooth' });
-      setTimeout(updateImmoCarouselButtons, 350);
-    }
-
-
-    function formatFact(label, value, suffix = '') {
-      if (value === null || value === undefined || value === '') return '';
-      return `<div class="immo-fact"><span>${label}</span><strong>${value}${suffix}</strong></div>`;
-    }
-
-    function preisAnzeige(obj) {
-      if (obj.preisText) return obj.preisText;
-      if (!obj.preis && obj.preisart === 'auf Anfrage') return 'auf Anfrage';
-      if (!obj.preis) return '';
-      if (obj.preisart === 'Preis pro m²') return `${obj.preis} €/m²`;
-      return `${obj.preis} €`;
-    }
-
-
-    function valueExists(value) {
-      return value !== null && value !== undefined && value !== '';
-    }
-
-    function fmtM2(value) {
-      return valueExists(value) ? `${value} m²` : '';
-    }
-
-    function fact(label, value, suffix = '') {
-      if (!valueExists(value)) return '';
-      return `<div class="immo-card-fact"><span class="immo-card-fact-val">${value}${suffix}</span><span class="immo-card-fact-key">${label}</span></div>`;
-    }
-
-    function modalFact(label, value, suffix = '') {
-      if (!valueExists(value)) return '';
-      return `<div class="immo-modal-fact"><span>${label}</span><strong>${value}${suffix}</strong></div>`;
-    }
-
-    function imageFor(obj) {
-      if (obj.bild) return fixImageUrl(String(obj.bild).split(',')[0].trim());
-      if (Array.isArray(obj.bilder) && obj.bilder.length) return fixImageUrl(obj.bilder[0]);
-      return '';
-    }
-
-    function preisAnzeige(obj) {
-      if (obj.preisText && obj.preisText !== 'null') return obj.preisText;
-      if (!valueExists(obj.preis)) return 'auf Anfrage';
-      if ((obj.preisart || '').toLowerCase().includes('m²') || (obj.preisart || '').toLowerCase().includes('qm') || (obj.preisart || '').toLowerCase().includes('pro')) {
-        return `${obj.preis} €/m²${obj.vermarktungsart === 'Miete' ? ' Miete' : ''}`;
-      }
-      return `${obj.preis} €${obj.vermarktungsart === 'Miete' ? ' Miete' : ''}`;
-    }
-
-    function renderGrid() {
-      const grid = document.getElementById('immoGrid');
-      if (!grid) return;
-      const gefiltert = aktuellerFilter === 'Alle'
-        ? IMMOBILIEN
-        : IMMOBILIEN.filter(o => o.typ === aktuellerFilter);
-
-      if (gefiltert.length === 0) {
-        grid.innerHTML = '<div class="immo-empty">Keine Objekte in dieser Kategorie verfügbar.</div>';
-        return;
-      }
-
-      grid.innerHTML = gefiltert.map(obj => {
-        const img = imageFor(obj);
-        const facts = [
-          fact('Fläche', obj.flaeche, ' m²'),
-          fact('Zimmer', obj.zimmer),
-          obj.etage ? fact('Etage', obj.etage) : '',
-          fact('Lager', obj.lagerflaeche, ' m²'),
-          fact('Teilbar ab', obj.teilbarAb, ' m²')
-        ].filter(Boolean).join('');
-
-        return `
-        <div class="immo-card reveal visible" onclick="openImmoModal(${obj.id})">
-          <div class="immo-card-media">
-            ${img
-              ? `<img class="immo-card-img" src="${img}" alt="${obj.titel}" loading="lazy">`
-              : placeholder()}
-            ${obj.status ? `<div class="immo-card-badge" style="background:${statusColor(obj.status)}">${obj.status}</div>` : ''}
-          </div>
-          <div class="immo-card-body">
-            ${obj.typ ? `<div class="immo-card-type">${obj.typ}</div>` : ''}
-            <div class="immo-card-title">${obj.titel}</div>
-            ${obj.ort ? `<div class="immo-card-location">📍 ${obj.ort}</div>` : ''}
-            ${obj.vermarktungsart ? `<div class="immo-card-market">${obj.vermarktungsart}</div>` : ''}
-            ${facts ? `<div class="immo-card-facts">${facts}</div>` : ''}
-            <div class="immo-card-price">${preisAnzeige(obj)}</div>
-          </div>
-        </div>`;
-      }).join('');
-
-      setTimeout(updateImmoCarouselButtons, 80);
-    }
-
-    window.openImmoModal = function(id) {
-      const obj = IMMOBILIEN.find(o => o.id === id);
-      if (!obj) return;
-
-      const facts = [
-        modalFact('Vermarktungsart', obj.vermarktungsart),
-        modalFact('Status', obj.status),
-        modalFact('Preis', preisAnzeige(obj)),
-        modalFact('Fläche', obj.flaeche, ' m²'),
-        modalFact('Zimmer', obj.zimmer),
-        modalFact('Etage(n)', obj.etage),
-        modalFact('Lagerfläche', obj.lagerflaeche, ' m²'),
-        modalFact('Teilbar ab', obj.teilbarAb, ' m²')
-      ].filter(Boolean).join('');
-
-      const bilderString = Array.isArray(obj.bilder) && obj.bilder.length ? obj.bilder.join(',') : obj.bild;
-
-      document.getElementById('immoModalContent').innerHTML = `
-        ${buildGallery(bilderString, obj.titel)}
-        <div class="immo-modal-body">
-          ${obj.typ ? `<div class="immo-card-type">${obj.typ}</div>` : ''}
-          <h3>${obj.titel}</h3>
-          ${obj.ort ? `<p class="immo-modal-location">📍 ${obj.ort}</p>` : ''}
-          ${facts ? `<div class="immo-modal-facts">${facts}</div>` : ''}
-          ${obj.beschreibung ? `<p class="immo-modal-desc">${obj.beschreibung}</p>` : ''}
-          <a href="#kontakt" onclick="document.getElementById('immoModal').classList.remove('open');document.body.style.overflow='';" class="immo-modal-cta">Jetzt anfragen</a>
-        </div>
-      `;
-      document.getElementById('immoModal').classList.add('open');
-      document.body.style.overflow = 'hidden';
-    };
-
-    window.galleryNav = function(dir) {
-      const gallery = document.getElementById('immoGallery');
-      if (!gallery) return;
-      const imgs = gallery.querySelectorAll('.immo-gallery-img');
-      const dots = gallery.querySelectorAll('.immo-gallery-dot');
-      let current = [...imgs].findIndex(img => img.style.display !== 'none');
-      imgs[current].style.display = 'none';
-      dots[current].classList.remove('active');
-      current = (current + dir + imgs.length) % imgs.length;
-      imgs[current].style.display = 'block';
-      dots[current].classList.add('active');
-    };
-
-    window.gallerGoto = function(idx) {
-      const gallery = document.getElementById('immoGallery');
-      if (!gallery) return;
-      const imgs = gallery.querySelectorAll('.immo-gallery-img');
-      const dots = gallery.querySelectorAll('.immo-gallery-dot');
-      imgs.forEach((img, i) => { img.style.display = i === idx ? 'block' : 'none'; });
-      dots.forEach((dot, i) => { dot.classList.toggle('active', i === idx); });
-    };
-
-    document.getElementById('immoClose').onclick = closeModal;
-    document.getElementById('immoModal').onclick = function(e) { if (e.target === this) closeModal(); };
-    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
-    function closeModal() {
-      document.getElementById('immoModal').classList.remove('open');
-      document.body.style.overflow = '';
-    }
-
-    const immoPrev = document.getElementById('immoPrev');
-    const immoNext = document.getElementById('immoNext');
-    const immoGridEl = document.getElementById('immoGrid');
-    if (immoPrev) immoPrev.addEventListener('click', () => scrollImmoCarousel(-1));
-    if (immoNext) immoNext.addEventListener('click', () => scrollImmoCarousel(1));
-    if (immoGridEl) immoGridEl.addEventListener('scroll', updateImmoCarouselButtons);
-    window.addEventListener('resize', updateImmoCarouselButtons);
-
-    // Lade-Indikator
-    const grid = document.getElementById('immoGrid');
-    if (grid) grid.innerHTML = '<div class="immo-empty" style="opacity:0.5;">Objekte werden geladen...</div>';
-
-    // Immobilien aus sicherer Notion-API laden
-    fetch(IMMOBILIEN_API_URL)
-      .then(r => {
-        if (!r.ok) throw new Error('API Fehler: ' + r.status);
-        return r.json();
-      })
-      .then(rows => {
-        IMMOBILIEN = (rows || []).filter(o => o.titel);
-        renderFilter();
-        renderGrid();
-      })
-      .catch(err => {
-        console.error('Notion API Fehler:', err);
-        if (grid) grid.innerHTML = '<div class="immo-empty">Aktuell sind keine Immobilien verfügbar.</div>';
-      });
-
-  })();
-
-
-  // ── PARALLAX ──
-  const heroImg = document.querySelector('.hero-architecture img');
-  const creamBgs = document.querySelectorAll('.cream-parallax-bg');
-
-  let ticking = false;
-  window.addEventListener('scroll', () => {
-    if (!ticking) {
-      requestAnimationFrame(() => {
-        const scrollY = window.scrollY;
-
-        // Hero parallax
-        if (heroImg) {
-          heroImg.style.transform = `scale(1.03) translateY(${scrollY * 0.35}px)`;
-        }
-
-        // Cream section parallax
-        creamBgs.forEach(bg => {
-          const section = bg.parentElement;
-          const rect = section.getBoundingClientRect();
-          const center = rect.top + rect.height / 2 - window.innerHeight / 2;
-          bg.style.transform = `translateY(${center * 0.15}px)`;
-        });
-
-        ticking = false;
-      });
-      ticking = true;
-    }
-  });
-
-
-
-
-// Online-ready safety: CountUp final values if observer is unavailable
-document.addEventListener('DOMContentLoaded', () => {
-  if (!('IntersectionObserver' in window)) {
-    document.querySelectorAll('[data-target]').forEach(el => {
-      el.textContent = (el.dataset.target || '') + (el.dataset.suffix || '');
     });
-  }
-});
+  }, { threshold: 0.4 });
+  document.querySelectorAll('.ueber-stats').forEach(el => cObs.observe(el));
+} else {
+  document.querySelectorAll('[data-target]').forEach(el => {
+    el.textContent = (el.dataset.target || '') + (el.dataset.suffix || '');
+  });
+}
 
-
-
-
-
-
-
-
-
-
-
-
-/* Immobilien Premium V2 – Galerie + dynamische Fakten */
+// Immobilien aus Notion
 (function () {
   const apiUrl = '/api/immobilien';
   let items = [];
+  let currentFilter = 'Alle';
+  let touchStartX = null;
 
-  const esc = (v) => String(v ?? '').replace(/[&<>"']/g, m => ({
+  const esc = (value) => String(value ?? '').replace(/[&<>"']/g, match => ({
     '&': '&amp;',
     '<': '&lt;',
     '>': '&gt;',
     '"': '&quot;',
     "'": '&#39;'
-  }[m]));
+  }[match]));
 
-  const has = (v) => v !== null && v !== undefined && v !== '' && v !== 'null';
+  const has = (value) => value !== null && value !== undefined && value !== '' && value !== 'null';
+
+  const formatNumber = (value) => {
+    if (!has(value)) return '';
+    if (typeof value === 'number') {
+      return new Intl.NumberFormat('de-DE', { maximumFractionDigits: 2 }).format(value);
+    }
+    const n = Number(String(value).replace(/\./g, '').replace(',', '.'));
+    return Number.isFinite(n)
+      ? new Intl.NumberFormat('de-DE', { maximumFractionDigits: 2 }).format(n)
+      : String(value);
+  };
 
   const statusColor = (status) => {
-    if (status === 'Verfügbar') return 'var(--green)';
-    if (status === 'Reserviert') return 'var(--gold)';
-    if (status === 'Diskret') return 'var(--anthracite)';
+    const normalized = String(status || '').toLowerCase();
+    if (normalized.includes('reserv')) return 'var(--gold)';
+    if (normalized.includes('diskret')) return 'var(--anthracite)';
+    if (normalized.includes('verkauft') || normalized.includes('vermietet')) return '#777';
     return 'var(--green)';
   };
 
-  const placeholder = () => `
-    <div class="immo-card-img-placeholder">
-      <svg viewBox="0 0 24 24"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 21v-8h6v8"/></svg>
-    </div>`;
+  const normalizeImageUrl = (url) => {
+    if (!url) return '';
+    const raw = String(url).trim();
 
-  const imageFor = (obj) => {
-    if (obj.bild) return obj.bild;
-    if (Array.isArray(obj.bilder) && obj.bilder.length) return obj.bilder[0];
-    return '';
+    // Funktioniert als Fallback, langfristig sollten Bilder direkt in Notion hochgeladen werden.
+    const driveFile = raw.match(/drive\.google\.com\/file\/d\/([a-zA-Z0-9_-]+)/);
+    if (driveFile) return `https://drive.google.com/thumbnail?id=${driveFile[1]}&sz=w1600`;
+
+    const driveOpen = raw.match(/drive\.google\.com\/open\?id=([a-zA-Z0-9_-]+)/);
+    if (driveOpen) return `https://drive.google.com/thumbnail?id=${driveOpen[1]}&sz=w1600`;
+
+    return raw;
   };
 
   const imagesFor = (obj) => {
-    if (Array.isArray(obj.bilder) && obj.bilder.length) return obj.bilder.filter(Boolean);
-    return obj.bild ? [obj.bild] : [];
+    const rawImages = Array.isArray(obj.bilder) && obj.bilder.length
+      ? obj.bilder
+      : (obj.bild ? [obj.bild] : []);
+
+    return [...new Set(rawImages.map(normalizeImageUrl).filter(Boolean))];
   };
+
+  const imageFor = (obj) => imagesFor(obj)[0] || '';
 
   const priceFor = (obj) => has(obj.preisText) ? obj.preisText : 'auf Anfrage';
 
+  const placeholder = () => `
+    <div class="immo-card-img-placeholder" aria-label="Kein Bild vorhanden">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+        <path d="M3 21h18M5 21V7l7-4 7 4v14M9 21v-8h6v8"/>
+      </svg>
+    </div>`;
+
   const getCardFacts = (obj) => {
+    const hasRoomsOrFloor = has(obj.zimmer) || has(obj.etage);
     const candidates = [
       { label: 'Fläche', value: obj.flaeche, suffix: ' m²', priority: 1 },
       { label: 'Zimmer', value: obj.zimmer, suffix: '', priority: has(obj.zimmer) ? 2 : 99 },
       { label: 'Etage', value: obj.etage, suffix: '', priority: has(obj.etage) ? 3 : 99 },
-      { label: 'Lagerfläche', value: obj.lagerflaeche, suffix: ' m²', priority: has(obj.zimmer) || has(obj.etage) ? 4 : 2 },
-      { label: 'Teilbar ab', value: obj.teilbarAb, suffix: ' m²', priority: has(obj.zimmer) || has(obj.etage) ? 5 : 3 }
+      { label: 'Lagerfläche', value: obj.lagerflaeche, suffix: ' m²', priority: hasRoomsOrFloor ? 4 : 2 },
+      { label: 'Teilbar ab', value: obj.teilbarAb, suffix: ' m²', priority: hasRoomsOrFloor ? 5 : 3 }
     ];
 
     return candidates
-      .filter(f => has(f.value))
+      .filter(fact => has(fact.value))
       .sort((a, b) => a.priority - b.priority)
       .slice(0, 3);
   };
 
-  const compactFacts = (obj) => {
-    const facts = getCardFacts(obj).map(f => `${esc(f.value)}${f.suffix} ${esc(f.label === 'Teilbar ab' ? 'teilbar' : f.label)}`);
-    return facts.join('<span class="immo-premium-dot">·</span>');
-  };
+  const compactFacts = (obj) => getCardFacts(obj)
+    .map(fact => {
+      const value = fact.suffix ? formatNumber(fact.value) : esc(fact.value);
+      const label = fact.label === 'Teilbar ab' ? 'teilbar' : fact.label;
+      return `${value}${fact.suffix} ${esc(label)}`;
+    })
+    .join('<span class="immo-premium-dot">·</span>');
 
   const modalFact = (label, value, suffix = '') => {
     if (!has(value)) return '';
+    const outputValue = suffix ? formatNumber(value) : esc(value);
     return `
       <div class="immo-premium-modal-fact">
         <span>${esc(label)}</span>
-        <strong>${esc(value)}${suffix}</strong>
+        <strong>${outputValue}${suffix}</strong>
       </div>`;
   };
 
   function formatDescription(text, isHtml = false) {
     if (!has(text)) return '';
-
     const normalized = String(text).replace(/\r\n/g, '\n').replace(/\r/g, '\n').trim();
-
-    if (isHtml) {
-      return normalized
-        .split(/\n\s*\n/g)
-        .map(block => block.trim())
-        .filter(Boolean)
-        .map(block => `<p>${block.replace(/\n/g, '<br>')}</p>`)
-        .join('');
-    }
 
     return normalized
       .split(/\n\s*\n/g)
       .map(block => block.trim())
       .filter(Boolean)
       .map(block => {
-        const safe = esc(block).replace(/\n/g, '<br>');
-        return `<p>${safe}</p>`;
+        const content = isHtml ? block.replace(/\n/g, '<br>') : esc(block).replace(/\n/g, '<br>');
+        return `<p>${content}</p>`;
       })
       .join('');
   }
@@ -488,43 +168,45 @@ document.addEventListener('DOMContentLoaded', () => {
     const wrap = document.getElementById('immoFilter');
     if (!wrap) return;
 
-    const types = ['Alle', ...new Set(items.map(i => i.typ).filter(Boolean))];
+    const types = ['Alle', ...new Set(items.map(item => item.typ).filter(Boolean))];
 
-    wrap.innerHTML = types.map((type, i) => `
-      <button class="immo-filter-btn${i === 0 ? ' active' : ''}" data-type="${esc(type)}">${esc(type)}</button>
+    wrap.innerHTML = types.map(type => `
+      <button class="immo-filter-btn${type === currentFilter ? ' active' : ''}" data-type="${esc(type)}" type="button">${esc(type)}</button>
     `).join('');
 
     wrap.querySelectorAll('button').forEach(btn => {
       btn.addEventListener('click', () => {
-        wrap.querySelectorAll('button').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        renderCards(btn.dataset.type || 'Alle');
+        currentFilter = btn.dataset.type || 'Alle';
+        renderFilters();
+        renderCards();
+        setTimeout(updateCarouselButtons, 80);
       });
     });
   }
 
-  function renderCards(filter = 'Alle') {
+  function renderCards() {
     const grid = document.getElementById('immoGrid');
     if (!grid) return;
 
-    const visible = filter === 'Alle' ? items : items.filter(i => i.typ === filter);
+    const visible = currentFilter === 'Alle' ? items : items.filter(item => item.typ === currentFilter);
 
     if (!visible.length) {
       grid.innerHTML = '<div class="immo-empty">Aktuell sind keine Immobilien in dieser Kategorie verfügbar.</div>';
+      updateCarouselButtons();
       return;
     }
 
     grid.innerHTML = visible.map(obj => {
       const img = imageFor(obj);
       const facts = compactFacts(obj);
-      const imgCount = imagesFor(obj).length;
+      const imageCount = imagesFor(obj).length;
 
       return `
-        <article class="immo-card immo-premium-card reveal visible" onclick="openImmoModal(${obj.id})">
+        <article class="immo-card immo-premium-card reveal visible" onclick="openImmoModal(${Number(obj.id)})">
           <div class="immo-premium-media">
             ${img ? `<img class="immo-card-img" src="${esc(img)}" alt="${esc(obj.titel)}" loading="lazy">` : placeholder()}
             ${has(obj.status) ? `<span class="immo-premium-status" style="background:${statusColor(obj.status)}">${esc(obj.status)}</span>` : ''}
-            ${imgCount > 1 ? `<span class="immo-premium-image-count">${imgCount} Bilder</span>` : ''}
+            ${imageCount > 1 ? `<span class="immo-premium-image-count">${imageCount} Bilder</span>` : ''}
             <div class="immo-premium-price-overlay">
               <span>Preis</span>
               <strong>${esc(priceFor(obj))}</strong>
@@ -534,14 +216,16 @@ document.addEventListener('DOMContentLoaded', () => {
             ${has(obj.typ) ? `<div class="immo-card-type">${esc(obj.typ)}</div>` : ''}
             <h3>${esc(obj.titel)}</h3>
             ${has(obj.ort) ? `<p class="immo-premium-location">📍 ${esc(obj.ort)}</p>` : ''}
-            <div class="immo-premium-meta">
-              ${has(obj.vermarktungsart) ? `<span>${esc(obj.vermarktungsart)}</span>` : ''}
-              ${facts ? `<span>${facts}</span>` : ''}
-            </div>
+            ${(has(obj.vermarktungsart) || facts) ? `
+              <div class="immo-premium-meta">
+                ${has(obj.vermarktungsart) ? `<span>${esc(obj.vermarktungsart)}</span>` : ''}
+                ${facts ? `<span>${facts}</span>` : ''}
+              </div>` : ''}
           </div>
-        </article>
-      `;
+        </article>`;
     }).join('');
+
+    updateCarouselButtons();
   }
 
   function gallery(obj) {
@@ -553,49 +237,58 @@ document.addEventListener('DOMContentLoaded', () => {
     `).join('');
 
     const dots = imgs.map((_, index) => `
-      <button class="immo-premium-gallery-dot${index === 0 ? ' active' : ''}" type="button" onclick="immoPremiumGalleryGo(${index})" aria-label="Bild ${index + 1} anzeigen"></button>
+      <button class="immo-premium-gallery-dot${index === 0 ? ' active' : ''}" type="button" onclick="event.stopPropagation(); immoPremiumGalleryGo(${index});" aria-label="Bild ${index + 1} anzeigen"></button>
     `).join('');
 
     return `
       <div class="immo-premium-gallery" id="immoPremiumGallery">
         ${imageSlides}
         ${imgs.length > 1 ? `
-          <button class="immo-premium-gallery-nav prev" type="button" onclick="immoPremiumGalleryNav(-1)" aria-label="Vorheriges Bild">‹</button>
-          <button class="immo-premium-gallery-nav next" type="button" onclick="immoPremiumGalleryNav(1)" aria-label="Nächstes Bild">›</button>
+          <button class="immo-premium-gallery-nav prev" type="button" onclick="event.stopPropagation(); immoPremiumGalleryNav(-1);" aria-label="Vorheriges Bild">‹</button>
+          <button class="immo-premium-gallery-nav next" type="button" onclick="event.stopPropagation(); immoPremiumGalleryNav(1);" aria-label="Nächstes Bild">›</button>
           <div class="immo-premium-gallery-counter"><span id="immoPremiumGalleryCurrent">1</span> / ${imgs.length}</div>
           <div class="immo-premium-gallery-dots">${dots}</div>
         ` : ''}
-      </div>
-    `;
+      </div>`;
   }
 
   window.immoPremiumGalleryGo = function(index) {
-    const gallery = document.getElementById('immoPremiumGallery');
-    if (!gallery) return;
-    const imgs = gallery.querySelectorAll('.immo-premium-gallery-img');
-    const dots = gallery.querySelectorAll('.immo-premium-gallery-dot');
+    const galleryEl = document.getElementById('immoPremiumGallery');
+    if (!galleryEl) return;
+
+    const imgs = galleryEl.querySelectorAll('.immo-premium-gallery-img');
+    const dots = galleryEl.querySelectorAll('.immo-premium-gallery-dot');
     const counter = document.getElementById('immoPremiumGalleryCurrent');
+    if (!imgs.length || !imgs[index]) return;
 
     imgs.forEach(img => img.classList.remove('active'));
     dots.forEach(dot => dot.classList.remove('active'));
-
-    if (imgs[index]) imgs[index].classList.add('active');
+    imgs[index].classList.add('active');
     if (dots[index]) dots[index].classList.add('active');
     if (counter) counter.textContent = String(index + 1);
   };
 
   window.immoPremiumGalleryNav = function(direction) {
-    const gallery = document.getElementById('immoPremiumGallery');
-    if (!gallery) return;
-    const imgs = [...gallery.querySelectorAll('.immo-premium-gallery-img')];
+    const galleryEl = document.getElementById('immoPremiumGallery');
+    if (!galleryEl) return;
+
+    const imgs = [...galleryEl.querySelectorAll('.immo-premium-gallery-img')];
     if (!imgs.length) return;
-    const current = imgs.findIndex(img => img.classList.contains('active'));
+
+    const current = Math.max(0, imgs.findIndex(img => img.classList.contains('active')));
     const next = (current + direction + imgs.length) % imgs.length;
     window.immoPremiumGalleryGo(next);
   };
 
-  window.openImmoModal = function (id) {
-    const obj = items.find(i => Number(i.id) === Number(id));
+  function closeModal() {
+    const modal = document.getElementById('immoModal');
+    if (!modal) return;
+    modal.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  window.openImmoModal = function(id) {
+    const obj = items.find(item => Number(item.id) === Number(id));
     if (!obj) return;
 
     const facts = [
@@ -607,9 +300,11 @@ document.addEventListener('DOMContentLoaded', () => {
       modalFact('Etage(n)', obj.etage),
       modalFact('Lagerfläche', obj.lagerflaeche, ' m²'),
       modalFact('Teilbar ab', obj.teilbarAb, ' m²')
-    ].join('');
+    ].filter(Boolean).join('');
 
-    const desc = obj.beschreibungHtml ? formatDescription(obj.beschreibungHtml, true) : formatDescription(obj.beschreibung);
+    const description = obj.beschreibungHtml
+      ? formatDescription(obj.beschreibungHtml, true)
+      : formatDescription(obj.beschreibung, false);
 
     const modal = document.getElementById('immoModal');
     const content = document.getElementById('immoModalContent');
@@ -617,42 +312,127 @@ document.addEventListener('DOMContentLoaded', () => {
 
     content.innerHTML = `
       <div class="immo-premium-modal">
-        <button class="immo-premium-close" onclick="document.getElementById('immoModal').classList.remove('open');document.body.style.overflow='';">×</button>
         ${gallery(obj)}
         <div class="immo-premium-modal-body">
           ${has(obj.typ) ? `<div class="immo-card-type">${esc(obj.typ)}</div>` : ''}
           <h3>${esc(obj.titel)}</h3>
           ${has(obj.ort) ? `<p class="immo-modal-location">📍 ${esc(obj.ort)}</p>` : ''}
           ${facts ? `<div class="immo-premium-modal-facts">${facts}</div>` : ''}
-          ${desc ? `<div class="immo-premium-description">${desc}</div>` : ''}
+          ${description ? `<div class="immo-premium-description">${description}</div>` : ''}
           <a href="#kontakt" onclick="document.getElementById('immoModal').classList.remove('open');document.body.style.overflow='';" class="immo-modal-cta">Jetzt anfragen</a>
         </div>
-      </div>
-    `;
+      </div>`;
 
     modal.classList.add('open');
     document.body.style.overflow = 'hidden';
   };
 
-  document.addEventListener('DOMContentLoaded', () => {
+  function updateCarouselButtons() {
+    const grid = document.getElementById('immoGrid');
+    const prev = document.getElementById('immoPrev');
+    const next = document.getElementById('immoNext');
+    if (!grid || !prev || !next) return;
+
+    const maxScroll = grid.scrollWidth - grid.clientWidth;
+    const hasOverflow = maxScroll > 4;
+    prev.style.display = next.style.display = hasOverflow ? 'inline-flex' : 'none';
+    prev.disabled = !hasOverflow || grid.scrollLeft <= 4;
+    next.disabled = !hasOverflow || grid.scrollLeft >= maxScroll - 4;
+  }
+
+  function scrollCarousel(direction) {
     const grid = document.getElementById('immoGrid');
     if (!grid) return;
 
+    const card = grid.querySelector('.immo-card');
+    const gap = 24;
+    const step = card ? card.getBoundingClientRect().width + gap : grid.clientWidth * 0.85;
+    grid.scrollBy({ left: direction * step, behavior: 'smooth' });
+    setTimeout(updateCarouselButtons, 350);
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const grid = document.getElementById('immoGrid');
+    const modal = document.getElementById('immoModal');
+    const closeBtn = document.getElementById('immoClose');
+    const prev = document.getElementById('immoPrev');
+    const next = document.getElementById('immoNext');
+
+    if (closeBtn) closeBtn.addEventListener('click', closeModal);
+    if (modal) {
+      modal.addEventListener('click', event => {
+        if (event.target === modal) closeModal();
+      });
+      modal.addEventListener('touchstart', event => {
+        touchStartX = event.changedTouches[0]?.screenX ?? null;
+      }, { passive: true });
+      modal.addEventListener('touchend', event => {
+        if (touchStartX === null) return;
+        const touchEndX = event.changedTouches[0]?.screenX ?? touchStartX;
+        const diff = touchEndX - touchStartX;
+        if (Math.abs(diff) > 45) window.immoPremiumGalleryNav(diff > 0 ? -1 : 1);
+        touchStartX = null;
+      }, { passive: true });
+    }
+
+    if (prev) prev.addEventListener('click', () => scrollCarousel(-1));
+    if (next) next.addEventListener('click', () => scrollCarousel(1));
+    if (grid) grid.addEventListener('scroll', updateCarouselButtons);
+    window.addEventListener('resize', updateCarouselButtons);
+
+    document.addEventListener('keydown', event => {
+      const isOpen = document.getElementById('immoModal')?.classList.contains('open');
+      if (!isOpen) return;
+      if (event.key === 'Escape') closeModal();
+      if (event.key === 'ArrowLeft') window.immoPremiumGalleryNav(-1);
+      if (event.key === 'ArrowRight') window.immoPremiumGalleryNav(1);
+    });
+
+    if (!grid) return;
     grid.innerHTML = '<div class="immo-empty" style="opacity:.55;">Objekte werden geladen...</div>';
 
     fetch(apiUrl)
-      .then(r => {
-        if (!r.ok) throw new Error('API Fehler ' + r.status);
-        return r.json();
+      .then(response => {
+        if (!response.ok) throw new Error('API Fehler ' + response.status);
+        return response.json();
       })
       .then(data => {
-        items = Array.isArray(data) ? data.filter(i => i && i.titel) : [];
+        items = Array.isArray(data) ? data.filter(item => item && item.titel) : [];
         renderFilters();
         renderCards();
       })
-      .catch(err => {
-        console.error('Immobilien Premium Fehler:', err);
+      .catch(error => {
+        console.error('Immobilien konnten nicht geladen werden:', error);
         grid.innerHTML = '<div class="immo-empty">Aktuell sind keine Immobilien verfügbar.</div>';
+        updateCarouselButtons();
       });
   });
+})();
+
+// Parallax
+(function () {
+  const heroImg = document.querySelector('.hero-architecture img');
+  const creamBgs = document.querySelectorAll('.cream-parallax-bg');
+  let ticking = false;
+
+  window.addEventListener('scroll', () => {
+    if (ticking) return;
+    requestAnimationFrame(() => {
+      const scrollY = window.scrollY;
+
+      if (heroImg) {
+        heroImg.style.transform = `scale(1.03) translateY(${scrollY * 0.35}px)`;
+      }
+
+      creamBgs.forEach(bg => {
+        const section = bg.parentElement;
+        const rect = section.getBoundingClientRect();
+        const center = rect.top + rect.height / 2 - window.innerHeight / 2;
+        bg.style.transform = `translateY(${center * 0.15}px)`;
+      });
+
+      ticking = false;
+    });
+    ticking = true;
+  }, { passive: true });
 })();

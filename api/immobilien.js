@@ -15,18 +15,13 @@ export default async function handler(req, res) {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        sorts: [
-          { timestamp: "created_time", direction: "descending" }
-        ]
+        sorts: [{ timestamp: "created_time", direction: "descending" }]
       })
     });
 
     if (!notionRes.ok) {
       const text = await notionRes.text();
-      return res.status(notionRes.status).json({
-        error: "Notion API Fehler",
-        details: text
-      });
+      return res.status(notionRes.status).json({ error: "Notion API Fehler", details: text });
     }
 
     const data = await notionRes.json();
@@ -51,29 +46,25 @@ export default async function handler(req, res) {
     function plain(prop) {
       if (!prop) return "";
       switch (prop.type) {
-        case "title":
-          return (prop.title || []).map(t => t.plain_text || "").join("").trim();
-        case "rich_text":
-          return (prop.rich_text || []).map(t => t.plain_text || "").join("").trim();
-        case "select":
-          return prop.select?.name || "";
-        case "multi_select":
-          return (prop.multi_select || []).map(s => s.name).join(", ");
-        case "number":
-          return prop.number === null || prop.number === undefined ? "" : String(prop.number);
-        case "date":
-          return prop.date?.start || "";
-        case "url":
-          return prop.url || "";
-        case "email":
-          return prop.email || "";
-        case "phone_number":
-          return prop.phone_number || "";
-        case "checkbox":
-          return prop.checkbox ? "true" : "";
-        default:
-          return "";
+        case "title": return (prop.title || []).map(t => t.plain_text || "").join("").trim();
+        case "rich_text": return (prop.rich_text || []).map(t => t.plain_text || "").join("").trim();
+        case "select": return prop.select?.name || "";
+        case "multi_select": return (prop.multi_select || []).map(s => s.name).join(", ");
+        case "number": return prop.number === null || prop.number === undefined ? "" : String(prop.number);
+        case "date": return prop.date?.start || "";
+        case "url": return prop.url || "";
+        case "email": return prop.email || "";
+        case "phone_number": return prop.phone_number || "";
+        case "checkbox": return prop.checkbox ? "true" : "";
+        default: return "";
       }
+    }
+
+    function safeHref(url) {
+      const href = String(url || "").trim();
+      if (!href) return "";
+      if (/^(https?:|mailto:|tel:)/i.test(href)) return href;
+      return "";
     }
 
     function richTextHtml(prop) {
@@ -81,17 +72,17 @@ export default async function handler(req, res) {
 
       return (prop.rich_text || []).map(part => {
         let text = escapeHtml(part.plain_text || "");
+        const annotations = part.annotations || {};
 
-        const a = part.annotations || {};
-        if (a.code) text = `<code>${text}</code>`;
-        if (a.bold) text = `<strong>${text}</strong>`;
-        if (a.italic) text = `<em>${text}</em>`;
-        if (a.underline) text = `<u>${text}</u>`;
-        if (a.strikethrough) text = `<s>${text}</s>`;
+        if (annotations.code) text = `<code>${text}</code>`;
+        if (annotations.bold) text = `<strong>${text}</strong>`;
+        if (annotations.italic) text = `<em>${text}</em>`;
+        if (annotations.underline) text = `<u>${text}</u>`;
+        if (annotations.strikethrough) text = `<s>${text}</s>`;
 
-        if (part.href) {
-          const href = escapeHtml(part.href);
-          text = `<a href="${href}" target="_blank" rel="noopener noreferrer">${text}</a>`;
+        const href = safeHref(part.href);
+        if (href) {
+          text = `<a href="${escapeHtml(href)}" target="_blank" rel="noopener noreferrer">${text}</a>`;
         }
 
         return text;
@@ -103,10 +94,7 @@ export default async function handler(req, res) {
       if (prop.type === "number") return typeof prop.number === "number" ? prop.number : null;
       const raw = plain(prop);
       if (!raw) return null;
-      const normalized = raw
-        .replace(/\./g, "")
-        .replace(",", ".")
-        .replace(/[^0-9.-]/g, "");
+      const normalized = raw.replace(/\./g, "").replace(",", ".").replace(/[^0-9.-]/g, "");
       const n = Number(normalized);
       return Number.isFinite(n) ? n : null;
     }
@@ -117,13 +105,26 @@ export default async function handler(req, res) {
       return plain(prop);
     }
 
+    function splitUrls(value) {
+      return String(value || "").split(/[\n,]+/).map(v => v.trim()).filter(Boolean);
+    }
+
     function files(prop) {
-      if (!prop || prop.type !== "files") return [];
-      return (prop.files || []).map(file => {
-        if (file.type === "file") return file.file?.url || "";
-        if (file.type === "external") return file.external?.url || "";
-        return "";
-      }).filter(Boolean);
+      if (!prop) return [];
+
+      if (prop.type === "files") {
+        return (prop.files || []).map(file => {
+          if (file.type === "file") return file.file?.url || "";
+          if (file.type === "external") return file.external?.url || "";
+          return "";
+        }).filter(Boolean);
+      }
+
+      // Fallback, falls Bild versehentlich als URL- oder Textfeld angelegt ist.
+      if (prop.type === "url") return splitUrls(prop.url);
+      if (prop.type === "rich_text" || prop.type === "title") return splitUrls(plain(prop));
+
+      return [];
     }
 
     function cover(page) {
@@ -140,16 +141,17 @@ export default async function handler(req, res) {
 
     function priceText(preis, preisart, vermarktungsart) {
       const art = String(preisart || "").toLowerCase();
-      const vermarktung = String(vermarktungsart || "");
+      const vermarktung = String(vermarktungsart || "").toLowerCase();
+      const mietSuffix = vermarktung.includes("miete") ? " Miete" : "";
 
       if (art.includes("anfrage")) return "auf Anfrage";
-      if (preis === null || preis === undefined) return "auf Anfrage";
+      if (preis === null || preis === undefined || preis === "") return "auf Anfrage";
 
-      if (art.includes("m²") || art.includes("qm") || art.includes("pro")) {
-        return `${formatNumber(preis)} €/m²${vermarktung === "Miete" ? " Miete" : ""}`;
+      if (art.includes("m²") || art.includes("m2") || art.includes("qm") || art.includes("pro")) {
+        return `${formatNumber(preis)} €/m²${mietSuffix}`;
       }
 
-      return `${formatNumber(preis)} €${vermarktung === "Miete" ? " Miete" : ""}`;
+      return `${formatNumber(preis)} €${mietSuffix}`;
     }
 
     const items = (data.results || []).map((page, index) => {
@@ -159,13 +161,13 @@ export default async function handler(req, res) {
       const ort = plain(findProp(p, ["Ort", "Adresse", "Standort"]));
       const typ = select(findProp(p, ["Typ", "Kategorie"]));
       const vermarktungsart = select(findProp(p, ["Vermarktungsart", "Vermarktung"]));
-      const status = select(findProp(p, ["Status"])) || "Verfügbar";
+      const status = select(findProp(p, ["Status"]));
       const preis = number(findProp(p, ["Preis"]));
       const preisart = select(findProp(p, ["Preisart", "Preistyp", "Preis Typ"]));
       const flaeche = number(findProp(p, ["Fläche", "Flaeche"]));
       const zimmer = number(findProp(p, ["Zimmer"]));
       const etageRaw = plain(findProp(p, ["Etage(n)", "Etagen", "Etage"]));
-      const etage = etageRaw === "0" ? "Erdgeschoss" : etageRaw;
+      const etage = String(etageRaw).trim() === "0" ? "Erdgeschoss" : etageRaw;
       const lagerflaeche = number(findProp(p, ["Lagerfläche", "Lagerflaeche"]));
       const teilbarAb = number(findProp(p, ["teilbar ab", "Teilbar ab", "Teilbar Ab"]));
 
@@ -173,10 +175,10 @@ export default async function handler(req, res) {
       const beschreibung = plain(beschreibungProp);
       const beschreibungHtml = richTextHtml(beschreibungProp);
 
-      const bilder = [
+      const bilder = [...new Set([
         ...files(findProp(p, ["Bild", "Bilder", "Foto", "Fotos"])),
         cover(page)
-      ].filter(Boolean);
+      ].filter(Boolean))];
 
       return {
         id: index + 1,
@@ -204,9 +206,6 @@ export default async function handler(req, res) {
     res.setHeader("Cache-Control", "s-maxage=30, stale-while-revalidate=120");
     return res.status(200).json(items);
   } catch (error) {
-    return res.status(500).json({
-      error: "Serverfehler",
-      details: error.message
-    });
+    return res.status(500).json({ error: "Serverfehler", details: error.message });
   }
 }
