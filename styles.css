@@ -1154,3 +1154,73 @@ img, svg { max-width:100%; height:auto; }
   .ueber-stats { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); }
   .ueber-stat { border-right: none; padding: 1rem 0.5rem; }
 }
+
+
+
+/* Immobilien v2 – saubere Notion-Darstellung */
+.immo-card-media {
+  position: relative;
+  overflow: hidden;
+  background: var(--green);
+}
+
+.immo-card-market {
+  display: inline-block;
+  margin-top: 0.5rem;
+  font-size: 0.62rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--green);
+  border: 1px solid rgba(0,66,74,0.18);
+  padding: 0.25rem 0.55rem;
+}
+
+.immo-card-price {
+  margin-top: 1.15rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(0,66,74,0.1);
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.55rem;
+  font-weight: 600;
+  color: var(--green);
+}
+
+.immo-card-facts {
+  margin-top: 1rem;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0,1fr));
+  gap: 0.7rem;
+}
+
+.immo-card-fact {
+  min-width: 0;
+}
+
+.immo-card-fact-val {
+  display: block;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--green);
+  line-height: 1;
+}
+
+.immo-card-fact-key {
+  display: block;
+  margin-top: 0.25rem;
+  font-size: 0.58rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gray);
+}
+
+.immo-modal-desc {
+  margin-top: 1.4rem;
+  color: var(--gray);
+  line-height: 1.8;
+}
+
+.immo-modal-location {
+  margin: 0.2rem 0 1.2rem;
+  color: var(--gray);
+}

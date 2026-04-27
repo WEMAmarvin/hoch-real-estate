@@ -167,6 +167,40 @@ document.querySelectorAll('.ueber-stats').forEach(el => cObs.observe(el));
       return `${obj.preis} €`;
     }
 
+
+    function valueExists(value) {
+      return value !== null && value !== undefined && value !== '';
+    }
+
+    function fmtM2(value) {
+      return valueExists(value) ? `${value} m²` : '';
+    }
+
+    function fact(label, value, suffix = '') {
+      if (!valueExists(value)) return '';
+      return `<div class="immo-card-fact"><span class="immo-card-fact-val">${value}${suffix}</span><span class="immo-card-fact-key">${label}</span></div>`;
+    }
+
+    function modalFact(label, value, suffix = '') {
+      if (!valueExists(value)) return '';
+      return `<div class="immo-modal-fact"><span>${label}</span><strong>${value}${suffix}</strong></div>`;
+    }
+
+    function imageFor(obj) {
+      if (obj.bild) return fixImageUrl(String(obj.bild).split(',')[0].trim());
+      if (Array.isArray(obj.bilder) && obj.bilder.length) return fixImageUrl(obj.bilder[0]);
+      return '';
+    }
+
+    function preisAnzeige(obj) {
+      if (obj.preisText && obj.preisText !== 'null') return obj.preisText;
+      if (!valueExists(obj.preis)) return 'auf Anfrage';
+      if ((obj.preisart || '').toLowerCase().includes('m²') || (obj.preisart || '').toLowerCase().includes('qm') || (obj.preisart || '').toLowerCase().includes('pro')) {
+        return `${obj.preis} €/m²${obj.vermarktungsart === 'Miete' ? ' Miete' : ''}`;
+      }
+      return `${obj.preis} €${obj.vermarktungsart === 'Miete' ? ' Miete' : ''}`;
+    }
+
     function renderGrid() {
       const grid = document.getElementById('immoGrid');
       if (!grid) return;
@@ -179,53 +213,64 @@ document.querySelectorAll('.ueber-stats').forEach(el => cObs.observe(el));
         return;
       }
 
-      grid.innerHTML = gefiltert.map(obj => `
+      grid.innerHTML = gefiltert.map(obj => {
+        const img = imageFor(obj);
+        const facts = [
+          fact('Fläche', obj.flaeche, ' m²'),
+          fact('Zimmer', obj.zimmer),
+          obj.etage ? fact('Etage', obj.etage) : '',
+          fact('Lager', obj.lagerflaeche, ' m²'),
+          fact('Teilbar ab', obj.teilbarAb, ' m²')
+        ].filter(Boolean).join('');
+
+        return `
         <div class="immo-card reveal visible" onclick="openImmoModal(${obj.id})">
-          <div style="position:relative;overflow:hidden;">
-            ${obj.bild
-              ? `<img class="immo-card-img" src="${fixImageUrl(obj.bild.split(',')[0].trim())}" alt="${obj.titel}">`
+          <div class="immo-card-media">
+            ${img
+              ? `<img class="immo-card-img" src="${img}" alt="${obj.titel}" loading="lazy">`
               : placeholder()}
-            <div class="immo-card-badge" style="background:${statusColor(obj.status)}">${obj.status || 'Verfügbar'}</div>
+            ${obj.status ? `<div class="immo-card-badge" style="background:${statusColor(obj.status)}">${obj.status}</div>` : ''}
           </div>
           <div class="immo-card-body">
-            <div class="immo-card-type">${obj.typ}</div>
+            ${obj.typ ? `<div class="immo-card-type">${obj.typ}</div>` : ''}
             <div class="immo-card-title">${obj.titel}</div>
-            <div class="immo-card-location">📍 ${obj.ort}</div>
-            <div class="immo-card-facts">
-              ${obj.flaeche ? `<div class="immo-card-fact"><span class="immo-card-fact-val">${obj.flaeche}</span><span class="immo-card-fact-key">Fläche</span></div>` : ''}
-              ${obj.zimmer ? `<div class="immo-card-fact"><span class="immo-card-fact-val">${obj.zimmer}</span><span class="immo-card-fact-key">Zimmer</span></div>` : ''}
-              ${obj.etage  ? `<div class="immo-card-fact"><span class="immo-card-fact-val">${obj.etage}</span><span class="immo-card-fact-key">Etage</span></div>` : ''}
-            </div>
-            <div class="immo-card-price">${obj.preis}</div>
-            <div class="immo-card-cta">Details ansehen →</div>
+            ${obj.ort ? `<div class="immo-card-location">📍 ${obj.ort}</div>` : ''}
+            ${obj.vermarktungsart ? `<div class="immo-card-market">${obj.vermarktungsart}</div>` : ''}
+            ${facts ? `<div class="immo-card-facts">${facts}</div>` : ''}
+            <div class="immo-card-price">${preisAnzeige(obj)}</div>
           </div>
-        </div>
-      `).join('');
-      grid.scrollLeft = 0;
-      setTimeout(updateImmoCarouselButtons, 60);
+        </div>`;
+      }).join('');
+
+      setTimeout(updateImmoCarouselButtons, 80);
     }
 
     window.openImmoModal = function(id) {
       const obj = IMMOBILIEN.find(o => o.id === id);
       if (!obj) return;
+
       const facts = [
-        ...(obj.flaeche ? [{val: obj.flaeche, key: 'Fläche'}] : []),
-        ...(obj.zimmer  ? [{val: obj.zimmer,  key: 'Zimmer'}] : []),
-        ...(obj.etage   ? [{val: obj.etage,   key: 'Etage'}] : []),
-        ...(obj.typ     ? [{val: obj.typ,     key: 'Kategorie'}] : []),
-      ];
+        modalFact('Vermarktungsart', obj.vermarktungsart),
+        modalFact('Status', obj.status),
+        modalFact('Preis', preisAnzeige(obj)),
+        modalFact('Fläche', obj.flaeche, ' m²'),
+        modalFact('Zimmer', obj.zimmer),
+        modalFact('Etage(n)', obj.etage),
+        modalFact('Lagerfläche', obj.lagerflaeche, ' m²'),
+        modalFact('Teilbar ab', obj.teilbarAb, ' m²')
+      ].filter(Boolean).join('');
+
+      const bilderString = Array.isArray(obj.bilder) && obj.bilder.length ? obj.bilder.join(',') : obj.bild;
+
       document.getElementById('immoModalContent').innerHTML = `
-        ${buildGallery(obj.bild, obj.titel)}
+        ${buildGallery(bilderString, obj.titel)}
         <div class="immo-modal-body">
-          <div class="immo-modal-type">${obj.typ} · ${obj.status || 'Verfügbar'}</div>
-          <div class="immo-modal-title">${obj.titel}</div>
-          <div class="immo-modal-location">📍 ${obj.ort}</div>
-          <div class="immo-modal-facts">
-            ${facts.map(f => `<div class="immo-modal-fact"><span class="immo-modal-fact-val">${f.val}</span><span class="immo-modal-fact-key">${f.key}</span></div>`).join('')}
-          </div>
-          <p class="immo-modal-desc">${obj.beschreibung}</p>
-          <div class="immo-modal-price">${obj.preis}</div>
-          <a href="mailto:c.hoch@friends-of-work.de?subject=Anfrage: ${encodeURIComponent(obj.titel)}" class="immo-modal-cta">Jetzt anfragen</a>
+          ${obj.typ ? `<div class="immo-card-type">${obj.typ}</div>` : ''}
+          <h3>${obj.titel}</h3>
+          ${obj.ort ? `<p class="immo-modal-location">📍 ${obj.ort}</p>` : ''}
+          ${facts ? `<div class="immo-modal-facts">${facts}</div>` : ''}
+          ${obj.beschreibung ? `<p class="immo-modal-desc">${obj.beschreibung}</p>` : ''}
+          <a href="#kontakt" onclick="document.getElementById('immoModal').classList.remove('open');document.body.style.overflow='';" class="immo-modal-cta">Jetzt anfragen</a>
         </div>
       `;
       document.getElementById('immoModal').classList.add('open');

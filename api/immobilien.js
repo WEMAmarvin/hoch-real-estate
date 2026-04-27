@@ -29,36 +29,40 @@ export default async function handler(req, res) {
 
     const data = await notionRes.json();
 
-    const getTitle = (p) => p?.title?.[0]?.plain_text || "";
-    const getText = (p) => p?.rich_text?.map(t => t.plain_text).join("") || "";
-    const getSelect = (p) => p?.select?.name || "";
-    const getNumber = (p) => typeof p?.number === "number" ? p.number : null;
-    const getFiles = (p) => {
-      const files = p?.files || [];
-      return files.map(file => {
-        if (file.type === "file") return file.file?.url || "";
-        if (file.type === "external") return file.external?.url || "";
-        return "";
-      }).filter(Boolean);
+    const prop = (props, names) => {
+      for (const name of names) if (props[name]) return props[name];
+      return undefined;
     };
 
-    const formatNumber = (value) => {
-      if (value === null || value === undefined || value === "") return "";
-      return new Intl.NumberFormat("de-DE", { maximumFractionDigits: 2 }).format(value);
+    const getTitle = p => p?.title?.map(t => t.plain_text).join("") || "";
+    const getText = p => p?.rich_text?.map(t => t.plain_text).join("") || "";
+    const getSelect = p => p?.select?.name || "";
+    const getNumber = p => typeof p?.number === "number" ? p.number : null;
+    const getFiles = p => (p?.files || []).map(file => {
+      if (file.type === "file") return file.file?.url || "";
+      if (file.type === "external") return file.external?.url || "";
+      return "";
+    }).filter(Boolean);
+    const getCover = page => {
+      if (!page.cover) return "";
+      if (page.cover.type === "file") return page.cover.file?.url || "";
+      if (page.cover.type === "external") return page.cover.external?.url || "";
+      return "";
     };
+    const formatNumber = value => new Intl.NumberFormat("de-DE", { maximumFractionDigits: 2 }).format(value);
 
     const items = data.results.map((page, index) => {
       const p = page.properties || {};
-
-      const preis = getNumber(p["Preis"]);
-      const preisart = getSelect(p["Preisart"]);
-      const vermarktungsart = getSelect(p["Vermarktungsart"]);
-      const bilder = getFiles(p["Bild"]);
+      const preis = getNumber(prop(p, ["Preis"]));
+      const preisart = getSelect(prop(p, ["Preisart", "Preistyp"]));
+      const vermarktungsart = getSelect(prop(p, ["Vermarktungsart", "Vermarktung"]));
+      const bilder = [...getFiles(prop(p, ["Bild", "Bilder", "Foto", "Fotos"])), getCover(page)].filter(Boolean);
 
       let preisText = "";
-      if (preisart === "auf Anfrage" || preis === null) {
+      const preisartLower = (preisart || "").toLowerCase();
+      if (preisartLower.includes("anfrage") || preis === null) {
         preisText = "auf Anfrage";
-      } else if (preisart === "Preis pro m²") {
+      } else if (preisartLower.includes("m²") || preisartLower.includes("qm") || preisartLower.includes("pro")) {
         preisText = `${formatNumber(preis)} €/m²${vermarktungsart === "Miete" ? " Miete" : ""}`;
       } else {
         preisText = `${formatNumber(preis)} €${vermarktungsart === "Miete" ? " Miete" : ""}`;
@@ -67,20 +71,20 @@ export default async function handler(req, res) {
       return {
         id: index + 1,
         notionId: page.id,
-        titel: getTitle(p["Titel"]),
-        ort: getText(p["Ort"]),
-        typ: getSelect(p["Typ"]),
+        titel: getTitle(prop(p, ["Titel", "Name"])),
+        ort: getText(prop(p, ["Ort", "Adresse"])),
+        typ: getSelect(prop(p, ["Typ", "Kategorie"])),
         vermarktungsart,
-        status: getSelect(p["Status"]) || "Verfügbar",
+        status: getSelect(prop(p, ["Status"])) || "Verfügbar",
         preis,
         preisart,
         preisText,
-        flaeche: getNumber(p["Fläche"]),
-        zimmer: getNumber(p["Zimmer"]),
-        etage: getText(p["Etage(n)"]),
-        lagerflaeche: getNumber(p["Lagerfläche"]),
-        teilbarAb: getNumber(p["teilbar ab"]),
-        beschreibung: getText(p["Beschreibung"]),
+        flaeche: getNumber(prop(p, ["Fläche", "Flaeche"])),
+        zimmer: getNumber(prop(p, ["Zimmer"])),
+        etage: getText(prop(p, ["Etage(n)", "Etagen", "Etage"])),
+        lagerflaeche: getNumber(prop(p, ["Lagerfläche", "Lagerflaeche"])),
+        teilbarAb: getNumber(prop(p, ["teilbar ab", "Teilbar ab"])),
+        beschreibung: getText(prop(p, ["Beschreibung", "Kurzbeschreibung"])),
         bild: bilder[0] || "",
         bilder
       };
