@@ -7,24 +7,49 @@ export default async function handler(req, res) {
       return res.status(500).json({ error: "NOTION_TOKEN fehlt in den Environment Variables." });
     }
 
-    const notionRes = await fetch(`https://api.notion.com/v1/databases/${databaseId}/query`, {
-      method: "POST",
-      headers: {
-        "Authorization": `Bearer ${notionToken}`,
-        "Notion-Version": "2022-06-28",
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        sorts: [{ timestamp: "created_time", direction: "descending" }]
-      })
-    });
-
-    if (!notionRes.ok) {
-      const text = await notionRes.text();
-      return res.status(notionRes.status).json({ error: "Notion API Fehler", details: text });
+    if (req.method && req.method !== "GET") {
+      res.setHeader("Allow", "GET");
+      return res.status(405).json({ error: "Methode nicht erlaubt." });
     }
 
-    const data = await notionRes.json();
+    const notionHeaders = {
+      "Authorization": `Bearer ${notionToken}`,
+      "Notion-Version": "2022-06-28",
+      "Content-Type": "application/json"
+    };
+
+    async function queryNotionDatabase() {
+      const results = [];
+      let startCursor = undefined;
+
+      do {
+        const notionRes = await fetch(`https://api.notion.com/v1/databases/${databaseId}/query`, {
+          method: "POST",
+          headers: notionHeaders,
+          body: JSON.stringify({
+            page_size: 100,
+            start_cursor: startCursor,
+            sorts: [{ timestamp: "created_time", direction: "descending" }]
+          })
+        });
+
+        if (!notionRes.ok) {
+          const text = await notionRes.text();
+          const error = new Error("Notion API Fehler");
+          error.statusCode = notionRes.status;
+          error.details = text;
+          throw error;
+        }
+
+        const pageData = await notionRes.json();
+        results.push(...(pageData.results || []));
+        startCursor = pageData.has_more ? pageData.next_cursor : undefined;
+      } while (startCursor);
+
+      return results;
+    }
+
+    const notionPages = await queryNotionDatabase();
 
     function findProp(props, names) {
       for (const name of names) {
@@ -154,7 +179,7 @@ export default async function handler(req, res) {
       return `${formatNumber(preis)} €${mietSuffix}`;
     }
 
-    const items = (data.results || []).map((page, index) => {
+    const items = notionPages.map((page, index) => {
       const p = page.properties || {};
 
       const titel = plain(findProp(p, ["Titel", "Name"]));
@@ -203,9 +228,12 @@ export default async function handler(req, res) {
       };
     }).filter(item => item.titel);
 
-    res.setHeader("Cache-Control", "s-maxage=30, stale-while-revalidate=120");
+    res.setHeader("Cache-Control", "s-maxage=60, stale-while-revalidate=300");
     return res.status(200).json(items);
   } catch (error) {
+    if (error.statusCode) {
+      return res.status(error.statusCode).json({ error: error.message, details: error.details || "" });
+    }
     return res.status(500).json({ error: "Serverfehler", details: error.message });
   }
 }

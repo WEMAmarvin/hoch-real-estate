@@ -2513,3 +2513,29 @@ img, svg { max-width:100%; height:auto; }
     grid-template-columns: 1fr !important;
   }
 }
+
+/* =========================================================
+   Technische Optimierung ohne Designänderung
+   - bessere Accessibility bei reduzierter Bewegung
+   - stabileres Rendering für dynamische Bildinhalte
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+img {
+  max-width: 100%;
+}

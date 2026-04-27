@@ -1,6 +1,7 @@
 // Reveal Animation
+const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 const reveals = document.querySelectorAll('.reveal');
-if ('IntersectionObserver' in window) {
+if (!prefersReducedMotion && 'IntersectionObserver' in window) {
   const obs = new IntersectionObserver((entries) => {
     entries.forEach((entry, index) => {
       if (entry.isIntersecting) {
@@ -18,7 +19,7 @@ if ('IntersectionObserver' in window) {
 function countUp(el) {
   const target = parseInt(el.dataset.target || '0', 10);
   const suffix = el.dataset.suffix || '';
-  const duration = 1600;
+  const duration = prefersReducedMotion ? 1 : 1600;
   const start = performance.now();
 
   function ease(t) { return 1 - Math.pow(1 - t, 4); }
@@ -206,9 +207,9 @@ if ('IntersectionObserver' in window) {
       const imageCount = imagesFor(obj).length;
 
       return `
-        <article class="immo-card immo-premium-card reveal visible" onclick="openImmoModal(${Number(obj.id)})">
+        <article class="immo-card immo-premium-card reveal visible" data-immo-id="${Number(obj.id)}" role="button" tabindex="0">
           <div class="immo-premium-media">
-            ${img ? `<img class="immo-card-img" src="${esc(img)}" alt="${esc(obj.titel)}" loading="lazy">` : placeholder()}
+            ${img ? `<img class="immo-card-img" src="${esc(img)}" alt="${esc(obj.titel)}" loading="lazy" decoding="async">` : placeholder()}
             ${has(obj.status) ? `<span class="immo-premium-status" style="background:${statusColor(obj.status)}">${esc(obj.status)}</span>` : ''}
             ${imageCount > 1 ? `<span class="immo-premium-image-count">${imageCount} Bilder</span>` : ''}
             <div class="immo-premium-price-overlay">
@@ -218,7 +219,7 @@ if ('IntersectionObserver' in window) {
           </div>
           <div class="immo-premium-body">
             ${has(obj.typ) ? `<div class="immo-card-type">${esc(obj.typ)}</div>` : ''}
-            <h3>${esc(obj.titel)}</h3>
+            <h3 id="immoModalTitle">${esc(obj.titel)}</h3>
             ${has(obj.ort) ? `<p class="immo-premium-location">📍 ${esc(obj.ort)}</p>` : ''}
             ${(has(obj.vermarktungsart) || facts) ? `
               <div class="immo-premium-meta">
@@ -237,7 +238,7 @@ if ('IntersectionObserver' in window) {
     if (!imgs.length) return `<div class="immo-premium-modal-placeholder">${placeholder()}</div>`;
 
     const imageSlides = imgs.map((src, index) => `
-      <img class="immo-premium-gallery-img${index === 0 ? ' active' : ''}" src="${esc(src)}" alt="${esc(obj.titel)}" data-index="${index}">
+      <img class="immo-premium-gallery-img${index === 0 ? ' active' : ''}" src="${esc(src)}" alt="${esc(obj.titel)}" data-index="${index}" decoding="async">
     `).join('');
 
     const dots = imgs.map((_, index) => `
@@ -288,6 +289,7 @@ if ('IntersectionObserver' in window) {
     const modal = document.getElementById('immoModal');
     if (!modal) return;
     modal.classList.remove('open');
+    modal.setAttribute('hidden', '');
     document.body.style.overflow = '';
   }
 
@@ -319,18 +321,20 @@ if ('IntersectionObserver' in window) {
         ${gallery(obj)}
         <div class="immo-premium-modal-body">
           ${has(obj.typ) ? `<div class="immo-card-type">${esc(obj.typ)}</div>` : ''}
-          <h3>${esc(obj.titel)}</h3>
+          <h3 id="immoModalTitle">${esc(obj.titel)}</h3>
           ${has(obj.ort) ? `<p class="immo-modal-location">📍 ${esc(obj.ort)}</p>` : ''}
           ${facts ? `<div class="immo-premium-modal-facts">${facts}</div>` : ''}
           ${description ? `<div class="immo-premium-description">${description}</div>` : ''}
           <div class="immo-premium-cta-wrap">
-            <a href="#kontakt" onclick="document.getElementById('immoModal').classList.remove('open');document.body.style.overflow='';" class="immo-modal-cta">Jetzt anfragen</a>
+            <a href="#kontakt" onclick="document.getElementById('immoModal').classList.remove('open');document.getElementById('immoModal').setAttribute('hidden','');document.body.style.overflow='';" class="immo-modal-cta">Jetzt anfragen</a>
           </div>
         </div>
       </div>`;
 
+    modal.removeAttribute('hidden');
     modal.classList.add('open');
     document.body.style.overflow = 'hidden';
+    modal.querySelector('.immo-modal-inner')?.focus({ preventScroll: true });
   };
 
   function updateCarouselButtons() {
@@ -383,7 +387,20 @@ if ('IntersectionObserver' in window) {
 
     if (prev) prev.addEventListener('click', () => scrollCarousel(-1));
     if (next) next.addEventListener('click', () => scrollCarousel(1));
-    if (grid) grid.addEventListener('scroll', updateCarouselButtons);
+    if (grid) {
+      grid.addEventListener('scroll', updateCarouselButtons, { passive: true });
+      grid.addEventListener('click', event => {
+        const card = event.target.closest('[data-immo-id]');
+        if (card) window.openImmoModal(card.dataset.immoId);
+      });
+      grid.addEventListener('keydown', event => {
+        if (event.key !== 'Enter' && event.key !== ' ') return;
+        const card = event.target.closest('[data-immo-id]');
+        if (!card) return;
+        event.preventDefault();
+        window.openImmoModal(card.dataset.immoId);
+      });
+    }
     window.addEventListener('resize', updateCarouselButtons);
 
     document.addEventListener('keydown', event => {
@@ -397,7 +414,10 @@ if ('IntersectionObserver' in window) {
     if (!grid) return;
     grid.innerHTML = '<div class="immo-empty" style="opacity:.55;">Objekte werden geladen...</div>';
 
-    fetch(apiUrl)
+    const controller = new AbortController();
+    const timeout = window.setTimeout(() => controller.abort(), 9000);
+
+    fetch(apiUrl, { signal: controller.signal, headers: { 'Accept': 'application/json' } })
       .then(response => {
         if (!response.ok) throw new Error('API Fehler ' + response.status);
         return response.json();
@@ -408,15 +428,17 @@ if ('IntersectionObserver' in window) {
         renderCards();
       })
       .catch(error => {
-        console.error('Immobilien konnten nicht geladen werden:', error);
+        if (error.name !== 'AbortError') console.error('Immobilien konnten nicht geladen werden:', error);
         grid.innerHTML = '<div class="immo-empty">Aktuell sind keine Immobilien verfügbar.</div>';
         updateCarouselButtons();
-      });
+      })
+      .finally(() => window.clearTimeout(timeout));
   });
 })();
 
 // Parallax
 (function () {
+  if (prefersReducedMotion) return;
   const heroImg = document.querySelector('.hero-architecture img');
   const creamBgs = document.querySelectorAll('.cream-parallax-bg');
   let ticking = false;
