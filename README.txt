@@ -12,3 +12,4 @@ Wichtig:
 - Bitte den gesamten Ordner hochladen.
 - Nicht nur die index.html einzeln verwenden.
 - Immobilien werden online über die bestehende externe Datenquelle geladen.
+ 
