@@ -1,0 +1,23 @@
+MOBILE UX SAFE FIX
+
+Diese Version basiert auf der von dir hochgeladenen Datei:
+hoch-real-estate-mobile-ux-final-real-implemented.zip
+
+Gezielt geändert:
+1. Prozess-Bereich mobil:
+   - horizontal wischbarer Ablauf
+   - keine Wildcard-Selektoren
+   - Prozesspfeile bleiben kontrolliert erhalten
+   - kompaktere Schritt-Karten
+
+2. Immobilien-Bereich mobil:
+   - Karten sichtbar kompakter
+   - geringere Bildhöhe
+   - weniger Padding
+   - kompaktere Typografie/Fakten
+   - Preis-Overlay kleiner
+
+Wichtig:
+- Kein globales [class*='...'] mehr.
+- WEMA, Leistungsportfolio, Marktsegmente und Immobilienkompetenz wurden nicht breit überschrieben.
+- Desktop-Layout wird nicht verändert.
