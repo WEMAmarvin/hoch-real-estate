@@ -1,0 +1,7 @@
+Landingpage V2 Premium wurde im System des Onepagers umgesetzt:
+- bestehende Hauptseite, Assets, API und Struktur bleiben erhalten
+- Landingpage ersetzt /gewerbeimmobilien-beratung-oldenburg.html
+- Footer-Link auf Hauptseite integriert
+- Navigation der Landingpage führt zurück auf Hauptseite-Anker
+- Inhalte anhand der Unternehmensvorstellung geschärft: End-to-End, Vermittlung, Analyse, Projekt & Umsetzung, Operative Services, WEMA-Synergie, Prozess
+- CSS ist mit .lpv2-* gekapselt, damit die Hauptseite nicht beschädigt wird
