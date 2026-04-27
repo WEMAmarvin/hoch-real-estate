@@ -378,3 +378,185 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 });
+
+
+
+/* Immobilien V4 Override – ersetzt alte Kartendarstellung und Modal vollständig */
+(function () {
+  const apiUrl = '/api/immobilien';
+
+  const esc = (v) => String(v ?? '').replace(/[&<>"']/g, m => ({
+    '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+  }[m]));
+
+  const has = (v) => v !== null && v !== undefined && v !== '' && v !== 'null';
+
+  const statusColorV4 = (status) => {
+    if (status === 'Verfügbar') return 'var(--green)';
+    if (status === 'Reserviert') return 'var(--gold)';
+    if (status === 'Diskret') return 'var(--anthracite)';
+    return 'var(--green)';
+  };
+
+  const placeholderV4 = () => `
+    <div class="immo-card-img-placeholder">
+      <svg viewBox="0 0 24 24"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 21v-8h6v8"/></svg>
+    </div>`;
+
+  const cardFact = (label, value, suffix = '') => {
+    if (!has(value)) return '';
+    return `
+      <div class="immo-v4-fact">
+        <span>${esc(label)}</span>
+        <strong>${esc(value)}${suffix}</strong>
+      </div>`;
+  };
+
+  const modalFact = (label, value, suffix = '') => {
+    if (!has(value)) return '';
+    return `
+      <div class="immo-v4-modal-fact">
+        <span>${esc(label)}</span>
+        <strong>${esc(value)}${suffix}</strong>
+      </div>`;
+  };
+
+  const buildPrice = (obj) => {
+    if (has(obj.preisText) && obj.preisText !== 'null') return obj.preisText;
+    if (!has(obj.preis)) return 'auf Anfrage';
+    const art = String(obj.preisart || '').toLowerCase();
+    if (art.includes('m²') || art.includes('qm') || art.includes('pro')) {
+      return `${obj.preis} €/m²${obj.vermarktungsart === 'Miete' ? ' Miete' : ''}`;
+    }
+    return `${obj.preis} €${obj.vermarktungsart === 'Miete' ? ' Miete' : ''}`;
+  };
+
+  const buildImage = (obj) => {
+    if (obj.bild) return obj.bild;
+    if (Array.isArray(obj.bilder) && obj.bilder.length) return obj.bilder[0];
+    return '';
+  };
+
+  const buildGalleryV4 = (obj) => {
+    const imgs = Array.isArray(obj.bilder) && obj.bilder.length ? obj.bilder : (obj.bild ? [obj.bild] : []);
+    if (!imgs.length) return `<div class="immo-v4-modal-placeholder">${placeholderV4()}</div>`;
+    return `<img class="immo-v4-modal-img" src="${esc(imgs[0])}" alt="${esc(obj.titel)}">`;
+  };
+
+  let items = [];
+
+  function renderFilters() {
+    const wrap = document.getElementById('immoFilter');
+    if (!wrap) return;
+    const types = ['Alle', ...new Set(items.map(i => i.typ).filter(Boolean))];
+    wrap.innerHTML = types.map((type, i) => `
+      <button class="immo-filter-btn${i === 0 ? ' active' : ''}" data-type="${esc(type)}">${esc(type)}</button>
+    `).join('');
+
+    wrap.querySelectorAll('button').forEach(btn => {
+      btn.addEventListener('click', () => {
+        wrap.querySelectorAll('button').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        renderCards(btn.dataset.type);
+      });
+    });
+  }
+
+  function renderCards(filter = 'Alle') {
+    const grid = document.getElementById('immoGrid');
+    if (!grid) return;
+
+    const visible = filter === 'Alle' ? items : items.filter(i => i.typ === filter);
+
+    if (!visible.length) {
+      grid.innerHTML = '<div class="immo-empty">Aktuell sind keine Immobilien in dieser Kategorie verfügbar.</div>';
+      return;
+    }
+
+    grid.innerHTML = visible.map(obj => {
+      const img = buildImage(obj);
+      const facts = [
+        cardFact('Fläche', obj.flaeche, ' m²'),
+        cardFact('Zimmer', obj.zimmer),
+        cardFact('Etage', obj.etage),
+        cardFact('Lagerfläche', obj.lagerflaeche, ' m²'),
+        cardFact('Teilbar ab', obj.teilbarAb, ' m²')
+      ].join('');
+
+      return `
+        <article class="immo-card immo-v4-card reveal visible" onclick="openImmoModal(${obj.id})">
+          <div class="immo-v4-media">
+            ${img ? `<img class="immo-card-img" src="${esc(img)}" alt="${esc(obj.titel)}" loading="lazy">` : placeholderV4()}
+            ${has(obj.status) ? `<span class="immo-card-badge" style="background:${statusColorV4(obj.status)}">${esc(obj.status)}</span>` : ''}
+          </div>
+          <div class="immo-card-body immo-v4-body">
+            ${has(obj.typ) ? `<div class="immo-card-type">${esc(obj.typ)}</div>` : ''}
+            <h3 class="immo-card-title">${esc(obj.titel)}</h3>
+            ${has(obj.ort) ? `<p class="immo-card-location">📍 ${esc(obj.ort)}</p>` : ''}
+            ${has(obj.vermarktungsart) ? `<span class="immo-v4-market">${esc(obj.vermarktungsart)}</span>` : ''}
+            ${facts ? `<div class="immo-v4-facts">${facts}</div>` : ''}
+            <div class="immo-v4-price">${esc(buildPrice(obj))}</div>
+          </div>
+        </article>`;
+    }).join('');
+  }
+
+  window.openImmoModal = function (id) {
+    const obj = items.find(i => Number(i.id) === Number(id));
+    if (!obj) return;
+
+    const facts = [
+      modalFact('Vermarktungsart', obj.vermarktungsart),
+      modalFact('Status', obj.status),
+      modalFact('Preis', buildPrice(obj)),
+      modalFact('Fläche', obj.flaeche, ' m²'),
+      modalFact('Zimmer', obj.zimmer),
+      modalFact('Etage(n)', obj.etage),
+      modalFact('Lagerfläche', obj.lagerflaeche, ' m²'),
+      modalFact('Teilbar ab', obj.teilbarAb, ' m²')
+    ].join('');
+
+    const modal = document.getElementById('immoModal');
+    const content = document.getElementById('immoModalContent');
+    if (!modal || !content) return;
+
+    content.innerHTML = `
+      <div class="immo-v4-modal">
+        <button class="immo-v4-close" onclick="document.getElementById('immoModal').classList.remove('open');document.body.style.overflow='';">×</button>
+        ${buildGalleryV4(obj)}
+        <div class="immo-v4-modal-body">
+          ${has(obj.typ) ? `<div class="immo-card-type">${esc(obj.typ)}</div>` : ''}
+          <h3>${esc(obj.titel)}</h3>
+          ${has(obj.ort) ? `<p class="immo-modal-location">📍 ${esc(obj.ort)}</p>` : ''}
+          ${facts ? `<div class="immo-v4-modal-facts">${facts}</div>` : ''}
+          ${has(obj.beschreibung) ? `<p class="immo-modal-desc">${esc(obj.beschreibung)}</p>` : ''}
+          <a href="#kontakt" onclick="document.getElementById('immoModal').classList.remove('open');document.body.style.overflow='';" class="immo-modal-cta">Jetzt anfragen</a>
+        </div>
+      </div>`;
+
+    modal.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  };
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const grid = document.getElementById('immoGrid');
+    if (!grid) return;
+
+    grid.innerHTML = '<div class="immo-empty" style="opacity:.55;">Objekte werden geladen...</div>';
+
+    fetch(apiUrl)
+      .then(r => {
+        if (!r.ok) throw new Error('API Fehler ' + r.status);
+        return r.json();
+      })
+      .then(data => {
+        items = Array.isArray(data) ? data.filter(i => i && i.titel) : [];
+        renderFilters();
+        renderCards();
+      })
+      .catch(err => {
+        console.error('Immobilien V4 Fehler:', err);
+        grid.innerHTML = '<div class="immo-empty">Aktuell sind keine Immobilien verfügbar.</div>';
+      });
+  });
+})();

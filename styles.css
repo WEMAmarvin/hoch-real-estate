@@ -1224,3 +1224,162 @@ img, svg { max-width:100%; height:auto; }
   margin: 0.2rem 0 1.2rem;
   color: var(--gray);
 }
+
+
+
+/* Immobilien V4 – erzwingt neue Darstellung */
+.immo-v4-card {
+  background: var(--cream);
+  border: 1px solid rgba(0,66,74,0.08);
+}
+
+.immo-v4-media {
+  position: relative;
+  overflow: hidden;
+  background: var(--green);
+}
+
+.immo-v4-body {
+  padding: 1.5rem;
+}
+
+.immo-v4-market {
+  display: inline-block;
+  margin-top: 0.75rem;
+  font-size: 0.62rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--green);
+  border: 1px solid rgba(0,66,74,0.18);
+  padding: 0.3rem 0.6rem;
+}
+
+.immo-v4-facts {
+  margin-top: 1.2rem;
+  padding-top: 1.1rem;
+  border-top: 1px solid rgba(0,66,74,0.10);
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0,1fr));
+  gap: 1rem 1.2rem;
+}
+
+.immo-v4-fact span {
+  display: block;
+  font-size: 0.58rem;
+  color: var(--gray);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  margin-bottom: 0.25rem;
+}
+
+.immo-v4-fact strong {
+  display: block;
+  font-family: 'Cormorant Garamond', serif;
+  color: var(--green);
+  font-size: 1.35rem;
+  line-height: 1.05;
+  font-weight: 600;
+}
+
+.immo-v4-price {
+  margin-top: 1.2rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(0,66,74,0.10);
+  font-family: 'Cormorant Garamond', serif;
+  color: var(--green);
+  font-size: 1.65rem;
+  font-weight: 600;
+}
+
+.immo-v4-modal {
+  position: relative;
+  background: var(--white);
+}
+
+.immo-v4-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  z-index: 5;
+  width: 2.4rem;
+  height: 2.4rem;
+  border: none;
+  background: var(--green);
+  color: var(--white);
+  font-size: 1.4rem;
+  cursor: pointer;
+}
+
+.immo-v4-modal-img {
+  width: 100%;
+  display: block;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+
+.immo-v4-modal-placeholder {
+  aspect-ratio: 16 / 9;
+  background: var(--green);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.immo-v4-modal-body {
+  padding: 2.1rem;
+}
+
+.immo-v4-modal-body h3 {
+  color: var(--green);
+  font-size: clamp(1.7rem, 4vw, 2.35rem);
+  margin-top: 0.25rem;
+}
+
+.immo-v4-modal-facts {
+  margin: 1.6rem 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0,1fr));
+  border: 1px solid rgba(0,66,74,0.12);
+  background: rgba(247,244,239,0.55);
+}
+
+.immo-v4-modal-fact {
+  padding: 1rem 1.1rem;
+  border-right: 1px solid rgba(0,66,74,0.10);
+  border-bottom: 1px solid rgba(0,66,74,0.10);
+}
+
+.immo-v4-modal-fact:nth-child(2n) {
+  border-right: none;
+}
+
+.immo-v4-modal-fact span {
+  display: block;
+  font-size: 0.62rem;
+  color: var(--gray);
+  text-transform: uppercase;
+  letter-spacing: 0.13em;
+  margin-bottom: 0.35rem;
+}
+
+.immo-v4-modal-fact strong {
+  display: block;
+  font-family: 'Cormorant Garamond', serif;
+  color: var(--green);
+  font-size: 1.35rem;
+  line-height: 1.1;
+}
+
+@media (max-width: 700px) {
+  .immo-v4-modal-facts {
+    grid-template-columns: 1fr;
+  }
+
+  .immo-v4-modal-fact {
+    border-right: none;
+  }
+
+  .immo-v4-modal-body {
+    padding: 1.5rem;
+  }
+}
