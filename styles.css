@@ -3389,3 +3389,120 @@ margin:20px 0;
 content:"• ";
 color:#c9a269;
 }
+
+
+/* === LPV4 PREMIUM REFINEMENT === */
+
+.lpv2-container {
+  max-width: 1100px;
+}
+
+.lpv2-split {
+  align-items: center;
+}
+
+.lpv2-copy {
+  max-width: 520px;
+}
+
+.lpv2-page h2 {
+  max-width: 520px;
+}
+
+.lpv2-card {
+  transition: all 0.25s ease;
+}
+
+.lpv2-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 24px rgba(0,0,0,0.06);
+}
+
+/* ICON SYSTEM */
+.lpv4-icon {
+  display:inline-block;
+  width:10px;
+  height:10px;
+  background:#c9a269;
+  border-radius:50%;
+  margin-right:10px;
+  transform:translateY(-2px);
+}
+
+/* CONTACT FIX */
+.lpv2-contact-card {
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+
+/* PROCESS IMPROVEMENT */
+.lpv2-process-row span {
+  font-size:14px;
+  color:#6f7585;
+}
+
+/* TYPO FIX */
+.lpv2-copy p {
+  max-width:520px;
+}
+
+
+
+/* === LPV5 FINAL PREMIUM === */
+
+.lpv2-hero-image {
+  transform: scale(1.05);
+  filter: brightness(0.9);
+}
+
+/* ICON SYSTEM */
+.lpv5-icon {
+  width:18px;
+  height:18px;
+  margin-right:12px;
+  vertical-align:middle;
+}
+
+/* CARD PREMIUM */
+.lpv2-card {
+  border-radius:4px;
+}
+
+.lpv2-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 18px 40px rgba(0,0,0,0.08);
+}
+
+/* CONTACT PREMIUM */
+.lpv5-contact-row {
+  display:flex;
+  gap:20px;
+  align-items:flex-start;
+}
+
+.lpv5-contact-img {
+  width:90px;
+  height:110px;
+  object-fit:cover;
+  border-radius:4px;
+}
+
+.lpv5-contact-info {
+  flex:1;
+}
+
+/* HERO TEXT POLISH */
+.lpv2-hero h1 {
+  letter-spacing:-0.06em;
+}
+
+.lpv2-lead {
+  font-size:21px;
+}
+
+/* GLOBAL RHYTHM */
+.lpv2-section {
+  padding:120px 0;
+}
+
