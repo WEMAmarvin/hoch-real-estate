@@ -493,7 +493,7 @@ document.addEventListener('DOMContentLoaded', () => {
             ${has(obj.ort) ? `<p class="immo-card-location">📍 ${esc(obj.ort)}</p>` : ''}
             ${has(obj.vermarktungsart) ? `<span class="immo-final-market">${esc(obj.vermarktungsart)}</span>` : ''}
             ${facts ? `<div class="immo-final-facts">${facts}</div>` : ''}
-            <div class="immo-final-price">${esc(priceFor(obj))}</div>
+            <div class="immo-final-price"><span>Preis</span><strong>${esc(priceFor(obj))}</strong></div>
           </div>
         </article>
       `;
@@ -576,3 +576,21 @@ document.addEventListener('DOMContentLoaded', () => {
       });
   });
 })();
+
+
+
+/* Card Price Label Fix */
+document.addEventListener('DOMContentLoaded', () => {
+  const fixPriceLabels = () => {
+    document.querySelectorAll('.immo-final-price, .immo-v4-price, .immo-card-price').forEach(el => {
+      const alreadyLabelled = el.querySelector('span') && el.querySelector('strong');
+      if (alreadyLabelled) return;
+      const value = el.textContent.trim();
+      if (!value) return;
+      el.innerHTML = `<span>Preis</span><strong>${value}</strong>`;
+    });
+  };
+
+  fixPriceLabels();
+  setInterval(fixPriceLabels, 1000);
+});

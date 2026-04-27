@@ -1542,3 +1542,126 @@ img, svg { max-width:100%; height:auto; }
     padding: 1.5rem;
   }
 }
+
+
+
+/* Immobilien Card Polish – klarere Gliederung */
+.immo-final-body {
+  padding: 1.65rem 1.55rem 1.75rem;
+}
+
+.immo-final-market {
+  margin-top: 1rem;
+  margin-bottom: 0.15rem;
+  background: rgba(0,66,74,0.03);
+}
+
+.immo-final-facts {
+  margin-top: 1.25rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid rgba(0,66,74,0.12);
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0,1fr));
+  gap: 1.1rem 1.4rem;
+}
+
+.immo-final-fact span {
+  display: block;
+  font-size: 0.6rem;
+  color: var(--gray);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  margin-bottom: 0.35rem;
+}
+
+.immo-final-fact strong {
+  display: block;
+  font-family: 'Cormorant Garamond', serif;
+  color: var(--green);
+  font-size: 1.42rem;
+  line-height: 1.05;
+  font-weight: 600;
+}
+
+.immo-final-price {
+  margin-top: 1.35rem;
+  padding: 1.15rem 1.2rem;
+  border: 1px solid rgba(0,66,74,0.14);
+  background: rgba(255,255,255,0.45);
+  font-family: inherit;
+  color: var(--green);
+}
+
+.immo-final-price span {
+  display: block;
+  font-size: 0.62rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--gray);
+  margin-bottom: 0.35rem;
+}
+
+.immo-final-price strong {
+  display: block;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.75rem;
+  line-height: 1.05;
+  font-weight: 600;
+  color: var(--green);
+}
+
+.immo-card-title {
+  margin-top: 0.35rem;
+}
+
+.immo-card-location {
+  margin-top: 0.4rem;
+}
+
+
+
+/* Finaler Immobilienkarten-Preisblock */
+.immo-final-price,
+.immo-v4-price,
+.immo-card-price {
+  margin-top: 1.35rem !important;
+  padding: 1.15rem 1.2rem !important;
+  border: 1px solid rgba(0,66,74,0.14) !important;
+  background: rgba(255,255,255,0.5) !important;
+  font-family: inherit !important;
+  color: var(--green) !important;
+}
+
+.immo-final-price span,
+.immo-v4-price span,
+.immo-card-price span {
+  display: block !important;
+  font-size: 0.62rem !important;
+  letter-spacing: 0.16em !important;
+  text-transform: uppercase !important;
+  color: var(--gray) !important;
+  margin-bottom: 0.35rem !important;
+  font-family: inherit !important;
+}
+
+.immo-final-price strong,
+.immo-v4-price strong,
+.immo-card-price strong {
+  display: block !important;
+  font-family: 'Cormorant Garamond', serif !important;
+  font-size: 1.75rem !important;
+  line-height: 1.05 !important;
+  font-weight: 600 !important;
+  color: var(--green) !important;
+}
+
+.immo-final-facts,
+.immo-v4-facts,
+.immo-card-facts {
+  margin-top: 1.25rem !important;
+  padding-top: 1.25rem !important;
+  border-top: 1px solid rgba(0,66,74,0.12) !important;
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0,1fr)) !important;
+  gap: 1.1rem 1.4rem !important;
+}
