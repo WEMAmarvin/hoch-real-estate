@@ -1,0 +1,5 @@
+Landingpage vollständig entfernt:
+- gewerbeimmobilien-beratung-oldenburg.html gelöscht
+- Footer-Link zur Landingpage aus index.html entfernt
+- Landingpage-spezifische CSS-Blöcke entfernt
+- Onepager-Struktur, Assets, API und Immobilienlogik bleiben erhalten

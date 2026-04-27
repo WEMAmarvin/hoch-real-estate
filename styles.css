@@ -1062,8 +1062,6 @@ section {
 .nav-logo { cursor: pointer; text-decoration: none; }
 
 
-
-
 /* Online-ready Feinschliff */
 html, body { width:100%; max-width:100%; overflow-x:hidden; }
 img, svg { max-width:100%; height:auto; }
@@ -1155,7 +1153,6 @@ img, svg { max-width:100%; height:auto; }
 }
 
 
-
 /* Immobilien v2 – saubere Notion-Darstellung */
 .immo-card-media {
   position: relative;
@@ -1223,7 +1220,6 @@ img, svg { max-width:100%; height:auto; }
   margin: 0.2rem 0 1.2rem;
   color: var(--gray);
 }
-
 
 
 /* Immobilien V4 – erzwingt neue Darstellung */
@@ -1384,7 +1380,6 @@ img, svg { max-width:100%; height:auto; }
 }
 
 
-
 /* Immobilien FINAL – vollständige saubere Darstellung */
 .immo-final-card {
   background: var(--cream);
@@ -1543,7 +1538,6 @@ img, svg { max-width:100%; height:auto; }
 }
 
 
-
 /* Immobilien Card Polish – klarere Gliederung */
 .immo-final-body {
   padding: 1.65rem 1.55rem 1.75rem;
@@ -1618,7 +1612,6 @@ img, svg { max-width:100%; height:auto; }
 }
 
 
-
 /* Finaler Immobilienkarten-Preisblock */
 .immo-final-price,
 .immo-v4-price,
@@ -1664,7 +1657,6 @@ img, svg { max-width:100%; height:auto; }
   grid-template-columns: repeat(2, minmax(0,1fr)) !important;
   gap: 1.1rem 1.4rem !important;
 }
-
 
 
 /* Immobilien Premium Card + Description */
@@ -1951,7 +1943,6 @@ img, svg { max-width:100%; height:auto; }
 }
 
 
-
 /* Rich Text Beschreibung aus Notion */
 .immo-premium-description strong {
   font-weight: 600;
@@ -1982,7 +1973,6 @@ img, svg { max-width:100%; height:auto; }
   background: rgba(0,66,74,0.08);
   padding: 0.1rem 0.25rem;
 }
-
 
 
 /* Immobilien Galerie + dynamische Fakten */
@@ -2893,103 +2883,3 @@ img, svg { max-width:100%; height:auto; }
   }
 }
 /* END MOBILE EDGE SPACING CORRECTION */
-
-
-
-/* === NATIVE LANDINGPAGE FROM MAINPAGE SYSTEM === */
-.native-landing .landing-hero-native .hero-content {
-  max-width: 1180px;
-}
-
-.native-landing .landing-hero-native .hero-logo {
-  margin-bottom: 26px;
-}
-
-.native-landing .landing-hero-native h1 {
-  max-width: 980px;
-}
-
-.native-landing .landing-hero-native .hero-subline {
-  max-width: 720px;
-}
-
-.native-landing .hero-actions {
-  display: flex;
-  gap: 18px;
-  align-items: center;
-  flex-wrap: wrap;
-}
-
-.native-landing .hero-secondary {
-  color: rgba(255,255,255,.82);
-  text-decoration: none;
-  border-bottom: 1px solid rgba(255,255,255,.28);
-  padding-bottom: 5px;
-  letter-spacing: .04em;
-}
-
-.native-landing .landing-about-native .ueber-logo-box {
-  min-height: 100%;
-}
-
-.native-landing .landing-about-native .landing-logo-box {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.native-landing .landing-about-native .landing-logo-box svg {
-  max-width: 260px;
-  height: auto;
-}
-
-.native-landing .landing-situation-native .landing-three-grid {
-  grid-template-columns: repeat(3, 1fr);
-}
-
-.native-landing #wema .wema-grid {
-  grid-template-columns: repeat(3, 1fr);
-}
-
-.native-landing #kontakt {
-  scroll-margin-top: 80px;
-}
-
-.native-landing .seo-footer-link {
-  margin-top: 10px;
-  font-size: 13px;
-  opacity: .58;
-}
-
-.native-landing .seo-footer-link a {
-  color: inherit;
-  text-decoration: none;
-}
-
-@media (max-width: 900px) {
-  .native-landing .hero-actions {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .native-landing .hero-secondary {
-    align-self: flex-start;
-  }
-
-  .native-landing .landing-situation-native .landing-three-grid,
-  .native-landing #wema .wema-grid {
-    display: flex;
-    overflow-x: auto;
-    gap: 16px;
-    margin-left: -20px;
-    margin-right: -20px;
-    padding: 0 20px 8px;
-    scroll-snap-type: x mandatory;
-  }
-
-  .native-landing .landing-situation-native .leistung-card,
-  .native-landing #wema .wema-card {
-    flex: 0 0 84%;
-    scroll-snap-align: start;
-  }
-}
