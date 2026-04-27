@@ -323,7 +323,9 @@ if ('IntersectionObserver' in window) {
           ${has(obj.ort) ? `<p class="immo-modal-location">📍 ${esc(obj.ort)}</p>` : ''}
           ${facts ? `<div class="immo-premium-modal-facts">${facts}</div>` : ''}
           ${description ? `<div class="immo-premium-description">${description}</div>` : ''}
-          <a href="#kontakt" onclick="document.getElementById('immoModal').classList.remove('open');document.body.style.overflow='';" class="immo-modal-cta">Jetzt anfragen</a>
+          <div class="immo-premium-cta-wrap">
+            <a href="#kontakt" onclick="document.getElementById('immoModal').classList.remove('open');document.body.style.overflow='';" class="immo-modal-cta">Jetzt anfragen</a>
+          </div>
         </div>
       </div>`;
 
