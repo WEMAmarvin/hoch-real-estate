@@ -835,3 +835,95 @@ footer img.logo-img-horizontal {
     max-width: none !important;
   }
 }
+
+
+/* LOGO SCALE ADJUSTMENT FINAL
+   Hero: +30% echte Größe
+   Header/Footer: +50% sichtbare Größe ohne Container-Höhe zu verändern
+*/
+
+/* Header-Höhe bleibt unverändert */
+nav {
+  min-height: 88px !important;
+  height: 88px !important;
+  overflow: visible !important;
+}
+
+nav .nav-logo {
+  height: 56px !important;
+  display: flex !important;
+  align-items: center !important;
+  overflow: visible !important;
+}
+
+nav .nav-logo img.logo-img-horizontal {
+  height: 56px !important;
+  max-height: 56px !important;
+  width: auto !important;
+  max-width: none !important;
+  transform: scale(1.5);
+  transform-origin: left center;
+}
+
+/* Hero-Logo +30% */
+#hero .hero-logo img.logo-img-vertical {
+  height: 319px !important;
+  max-height: 319px !important;
+  width: auto !important;
+  max-width: none !important;
+}
+
+/* Footer-Höhe bleibt unverändert, Logo wächst visuell */
+footer .footer-top {
+  overflow: visible !important;
+}
+
+footer .footer-top > div:first-child {
+  height: 56px !important;
+  display: flex !important;
+  align-items: center !important;
+  overflow: visible !important;
+}
+
+footer .footer-top img.logo-img-horizontal,
+footer img.logo-img-horizontal {
+  height: 56px !important;
+  max-height: 56px !important;
+  width: auto !important;
+  max-width: none !important;
+  transform: scale(1.5);
+  transform-origin: left center;
+}
+
+@media (max-width: 768px) {
+  nav {
+    min-height: 76px !important;
+    height: 76px !important;
+  }
+
+  nav .nav-logo {
+    height: 44px !important;
+  }
+
+  nav .nav-logo img.logo-img-horizontal {
+    height: 44px !important;
+    max-height: 44px !important;
+    transform: scale(1.35);
+  }
+
+  #hero .hero-logo img.logo-img-vertical {
+    height: 247px !important;
+    max-height: 247px !important;
+  }
+
+  footer .footer-top > div:first-child {
+    height: 44px !important;
+  }
+
+  footer .footer-top img.logo-img-horizontal,
+  footer img.logo-img-horizontal {
+    height: 44px !important;
+    max-height: 44px !important;
+    transform: scale(1.35);
+  }
+}
