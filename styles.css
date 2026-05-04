@@ -733,3 +733,47 @@ section,#fokus{padding:3.8rem 1.15rem !important;}
     width: 260px;
   }
 }
+
+
+/* LOGO SIZE BALANCE FINAL */
+.nav-logo .logo-img-horizontal {
+  width: 170px !important;
+  max-width: 170px !important;
+}
+
+.logo-img-vertical {
+  width: 220px !important;
+  max-width: 100% !important;
+}
+
+.hero .logo-img-vertical,
+.hero-logo .logo-img-vertical {
+  width: 220px !important;
+  max-width: 100% !important;
+  margin: 0 auto 30px !important;
+  opacity: 0.92;
+}
+
+.ueber-logo-box .logo-img-vertical {
+  width: 280px !important;
+  max-width: 100% !important;
+}
+
+.footer-logo .logo-img-horizontal,
+.footer-logo .logo-img {
+  width: 170px !important;
+  max-width: 170px !important;
+}
+
+@media (max-width: 768px) {
+  .nav-logo .logo-img-horizontal {
+    width: 145px !important;
+    max-width: 145px !important;
+  }
+
+  .logo-img-vertical,
+  .hero .logo-img-vertical,
+  .hero-logo .logo-img-vertical {
+    width: 190px !important;
+  }
+}
