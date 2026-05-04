@@ -781,3 +781,40 @@ footer img.logo-img-horizontal {
     max-width: 150px !important;
   }
 }
+
+
+/* FINAL LOGO SIZE TUNING */
+
+.nav-logo img.logo-img-horizontal {
+  height: 52px !important;
+  max-height: 52px !important;
+  width: auto !important;
+}
+
+.hero-logo img.logo-img-vertical,
+#hero .logo-img-vertical {
+  height: 220px !important;
+  max-height: 220px !important;
+  width: auto !important;
+}
+
+footer img.logo-img-horizontal {
+  height: 50px !important;
+  max-height: 50px !important;
+  width: auto !important;
+}
+
+@media (max-width: 768px) {
+  .nav-logo img.logo-img-horizontal {
+    height: 44px !important;
+  }
+
+  .hero-logo img.logo-img-vertical,
+  #hero .logo-img-vertical {
+    height: 180px !important;
+  }
+
+  footer img.logo-img-horizontal {
+    height: 42px !important;
+  }
+}
