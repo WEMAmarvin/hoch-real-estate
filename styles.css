@@ -685,3 +685,51 @@ section,#fokus{padding:3.8rem 1.15rem !important;}
   line-height: 1.82;
   margin: 0 0 14px;
 }
+
+
+/* LOGO REPLACEMENT FINAL */
+.logo-img {
+  display: block;
+  height: auto;
+  object-fit: contain;
+}
+
+.nav-logo .logo-img-horizontal {
+  width: 200px;
+  max-width: 200px;
+}
+
+.logo-img-vertical {
+  width: 320px;
+  max-width: 100%;
+}
+
+.footer-logo .logo-img-horizontal,
+.footer-logo .logo-img {
+  width: 200px;
+  max-width: 200px;
+}
+
+.ueber-logo-box .logo-img-vertical {
+  width: 320px;
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+.hero-logo .logo-img-vertical,
+.hero .logo-img-vertical {
+  width: 320px;
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+  .nav-logo .logo-img-horizontal {
+    width: 170px;
+    max-width: 170px;
+  }
+
+  .logo-img-vertical {
+    width: 260px;
+  }
+}
