@@ -687,93 +687,97 @@ section,#fokus{padding:3.8rem 1.15rem !important;}
 }
 
 
-/* LOGO REPLACEMENT FINAL */
-.logo-img {
+
+
+
+/* LOGO SIZING FINAL — PNG assets constrained directly */
+
+/* Header zurück auf ursprüngliche Höhe halten */
+nav {
+  min-height: 80px;
+}
+
+.nav-logo {
+  display: flex;
+  align-items: center;
+  flex: 0 0 auto;
+}
+
+.nav-logo img.logo-img-horizontal {
   display: block;
-  height: auto;
+  width: auto !important;
+  height: 42px !important;
+  max-height: 42px !important;
+  max-width: 190px !important;
   object-fit: contain;
 }
 
-.nav-logo .logo-img-horizontal {
-  width: 200px;
-  max-width: 200px;
+/* Hero-Logo bewusst kleiner und ruhiger */
+.hero-logo {
+  margin-bottom: 1.6rem !important;
 }
 
-.logo-img-vertical {
-  width: 320px;
-  max-width: 100%;
+.hero-logo img.logo-img-vertical,
+#hero .logo-img-vertical {
+  display: block;
+  width: auto !important;
+  height: 190px !important;
+  max-height: 190px !important;
+  max-width: 260px !important;
+  object-fit: contain;
+  margin: 0 auto;
+  opacity: 0.94;
+  filter: drop-shadow(0 4px 24px rgba(0,0,0,0.3));
 }
 
-.footer-logo .logo-img-horizontal,
-.footer-logo .logo-img {
-  width: 200px;
-  max-width: 200px;
-}
-
-.ueber-logo-box .logo-img-vertical {
-  width: 320px;
-  max-width: 100%;
+/* Über-uns-Logo darf größer sein, aber nicht aufblasen */
+.ueber-logo-box img.logo-img-vertical {
+  display: block;
+  width: auto !important;
+  height: 240px !important;
+  max-height: 240px !important;
+  max-width: 340px !important;
+  object-fit: contain;
   margin: 0 auto;
 }
 
-.hero-logo .logo-img-vertical,
-.hero .logo-img-vertical {
-  width: 320px;
-  max-width: 100%;
-  margin: 0 auto;
+/* Footer: direkt auf das vorhandene Footer-Image zielen */
+footer img.logo-img-horizontal {
+  display: block;
+  width: auto !important;
+  height: 42px !important;
+  max-height: 42px !important;
+  max-width: 190px !important;
+  object-fit: contain;
 }
 
 @media (max-width: 768px) {
-  .nav-logo .logo-img-horizontal {
-    width: 170px;
-    max-width: 170px;
+  nav {
+    min-height: 72px;
   }
 
-  .logo-img-vertical {
-    width: 260px;
-  }
-}
-
-
-/* LOGO SIZE BALANCE FINAL */
-.nav-logo .logo-img-horizontal {
-  width: 170px !important;
-  max-width: 170px !important;
-}
-
-.logo-img-vertical {
-  width: 220px !important;
-  max-width: 100% !important;
-}
-
-.hero .logo-img-vertical,
-.hero-logo .logo-img-vertical {
-  width: 220px !important;
-  max-width: 100% !important;
-  margin: 0 auto 30px !important;
-  opacity: 0.92;
-}
-
-.ueber-logo-box .logo-img-vertical {
-  width: 280px !important;
-  max-width: 100% !important;
-}
-
-.footer-logo .logo-img-horizontal,
-.footer-logo .logo-img {
-  width: 170px !important;
-  max-width: 170px !important;
-}
-
-@media (max-width: 768px) {
-  .nav-logo .logo-img-horizontal {
-    width: 145px !important;
-    max-width: 145px !important;
+  .nav-logo img.logo-img-horizontal {
+    height: 34px !important;
+    max-height: 34px !important;
+    max-width: 150px !important;
   }
 
-  .logo-img-vertical,
-  .hero .logo-img-vertical,
-  .hero-logo .logo-img-vertical {
-    width: 190px !important;
+  .hero-logo img.logo-img-vertical,
+  #hero .logo-img-vertical {
+    height: 155px !important;
+    max-height: 155px !important;
+    max-width: 220px !important;
+  }
+
+  .ueber-logo-box img.logo-img-vertical {
+    height: 200px !important;
+    max-height: 200px !important;
+    max-width: 290px !important;
+  }
+
+  footer img.logo-img-horizontal {
+    height: 34px !important;
+    max-height: 34px !important;
+    max-width: 150px !important;
   }
 }
