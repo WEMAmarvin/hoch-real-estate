@@ -783,38 +783,55 @@ footer img.logo-img-horizontal {
 }
 
 
-/* FINAL LOGO SIZE TUNING */
 
-.nav-logo img.logo-img-horizontal {
-  height: 52px !important;
-  max-height: 52px !important;
-  width: auto !important;
+/* LOGO SIZE TUNING — VISIBLE FIX */
+nav {
+  min-height: 88px !important;
 }
 
-.hero-logo img.logo-img-vertical,
-#hero .logo-img-vertical {
-  height: 220px !important;
-  max-height: 220px !important;
+nav .nav-logo img.logo-img-horizontal {
+  height: 56px !important;
+  max-height: 56px !important;
   width: auto !important;
+  max-width: none !important;
 }
 
+#hero .hero-logo img.logo-img-vertical {
+  height: 245px !important;
+  max-height: 245px !important;
+  width: auto !important;
+  max-width: none !important;
+}
+
+footer .footer-top img.logo-img-horizontal,
 footer img.logo-img-horizontal {
-  height: 50px !important;
-  max-height: 50px !important;
+  height: 56px !important;
+  max-height: 56px !important;
   width: auto !important;
+  max-width: none !important;
 }
 
 @media (max-width: 768px) {
-  .nav-logo img.logo-img-horizontal {
+  nav {
+    min-height: 76px !important;
+  }
+
+  nav .nav-logo img.logo-img-horizontal {
     height: 44px !important;
+    max-height: 44px !important;
+    max-width: none !important;
   }
 
-  .hero-logo img.logo-img-vertical,
-  #hero .logo-img-vertical {
-    height: 180px !important;
+  #hero .hero-logo img.logo-img-vertical {
+    height: 190px !important;
+    max-height: 190px !important;
+    max-width: none !important;
   }
 
+  footer .footer-top img.logo-img-horizontal,
   footer img.logo-img-horizontal {
-    height: 42px !important;
+    height: 44px !important;
+    max-height: 44px !important;
+    max-width: none !important;
   }
 }
