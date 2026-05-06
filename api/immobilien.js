@@ -180,6 +180,9 @@ export default async function handler(req, res) {
         cover(page)
       ].filter(Boolean))];
 
+      const exposeFiles = files(findProp(p, ["Expose", "Exposé", "Exposé PDF", "Expose PDF"]));
+      const exposeUrl = exposeFiles[0] || "";
+
       return {
         id: index + 1,
         notionId: page.id,
@@ -199,7 +202,8 @@ export default async function handler(req, res) {
         beschreibung,
         beschreibungHtml,
         bild: bilder[0] || "",
-        bilder
+        bilder,
+        exposeUrl
       };
     }).filter(item => item.titel);
 

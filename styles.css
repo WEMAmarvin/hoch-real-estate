@@ -927,3 +927,35 @@ footer img.logo-img-horizontal {
     transform: scale(1.35);
   }
 }
+
+
+/* IMMOBILIEN DETAIL: Exposé Download Button */
+.immo-premium-cta-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+}
+
+.immo-modal-cta-secondary {
+  background: transparent !important;
+  color: var(--gold) !important;
+  border: 1px solid var(--gold) !important;
+}
+
+.immo-modal-cta-secondary:hover {
+  background: var(--gold) !important;
+  color: var(--white) !important;
+}
+
+@media (max-width: 640px) {
+  .immo-premium-cta-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .immo-premium-cta-actions .immo-modal-cta {
+    width: 100%;
+    text-align: center;
+  }
+}
