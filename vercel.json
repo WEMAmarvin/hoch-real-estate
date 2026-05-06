@@ -11,6 +11,10 @@
     {
       "source": "/api/expose-v2",
       "destination": "/api/expose-v2.js"
+    },
+    {
+      "source": "/api/expose-v3",
+      "destination": "/api/expose-v3.js"
     }
   ],
   "headers": [
