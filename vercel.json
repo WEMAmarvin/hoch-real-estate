@@ -3,6 +3,14 @@
     {
       "source": "/api/immobilien",
       "destination": "/api/immobilien.js"
+    },
+    {
+      "source": "/api/expose",
+      "destination": "/api/expose.js"
+    },
+    {
+      "source": "/api/expose-v2",
+      "destination": "/api/expose-v2.js"
     }
   ],
   "headers": [
