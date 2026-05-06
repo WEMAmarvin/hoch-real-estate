@@ -2,5 +2,8 @@
   "name": "hoch-real-estate-advisory",
   "version": "1.0.0",
   "private": true,
-  "type": "module"
+  "type": "module",
+  "dependencies": {
+    "pdfkit": "^0.15.0"
+  }
 }
