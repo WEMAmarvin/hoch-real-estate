@@ -23,6 +23,14 @@
     {
       "source": "/api/expose-html-v4",
       "destination": "/api/expose-html-v4.js"
+    },
+    {
+      "source": "/api/expose-html-v5",
+      "destination": "/api/expose-html-v5.js"
+    },
+    {
+      "source": "/api/template-check",
+      "destination": "/api/template-check.js"
     }
   ],
   "headers": [
