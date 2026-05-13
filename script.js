@@ -325,7 +325,7 @@ if ('IntersectionObserver' in window) {
           ${description ? `<div class="immo-premium-description">${description}</div>` : ''}
           <div class="immo-premium-cta-wrap immo-premium-cta-actions">
             <a href="#kontakt" onclick="document.getElementById('immoModal').classList.remove('open');document.body.style.overflow='';" class="immo-modal-cta">Jetzt anfragen</a>
-            <a href="/api/expose-html?id=${encodeURIComponent(obj.notionId)}" target="_blank" rel="noopener noreferrer" class="immo-modal-cta immo-modal-cta-secondary">Exposé herunterladen</a>
+            <a href="/api/expose-html-v4?id=${encodeURIComponent(obj.notionId)}" target="_blank" rel="noopener noreferrer" class="immo-modal-cta immo-modal-cta-secondary">Exposé herunterladen</a>
           </div>
         </div>
       </div>`;
