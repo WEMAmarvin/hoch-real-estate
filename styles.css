@@ -959,3 +959,17 @@ footer img.logo-img-horizontal {
     text-align: center;
   }
 }
+
+
+/* CHRISTIAN NOTES REFINEMENTS */
+.service-card p,
+.wema-card p,
+.network-card p {
+  hyphens: auto;
+}
+
+.market-intro-note {
+  color: var(--gray);
+  font-size: 0.92rem;
+  line-height: 1.7;
+}

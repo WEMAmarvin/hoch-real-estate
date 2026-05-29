@@ -31,6 +31,10 @@
     {
       "source": "/api/template-check",
       "destination": "/api/template-check.js"
+    },
+    {
+      "source": "/api/expose-html-v6",
+      "destination": "/api/expose-html-v6.js"
     }
   ],
   "headers": [
