@@ -1,0 +1,15 @@
+EXPOSÉ V8 – professionelle Bereinigung
+
+Geändert:
+- neuer Endpunkt: /api/expose-html-v8
+- Download-Button auf V8 umgestellt
+- sichtbare Platzhalter wie (MIETE), (BESCHREIBUNG), (BILDER), (OBJEKTDATEN) entfernt
+- Cover-Überlagerung/OLDENBURG-Dopplung entfernt
+- leere fünfte PDF-Seite verhindert: letzte Seite hat keinen page-break-after mehr
+- Objektdaten auf 9 Kacheln begrenzt, damit nichts unten aus der Seite läuft
+- Kontaktseite typografisch entzerrt, keine Überschneidung bei Rolle/Telefon
+- Preisblock näher an der Canva-Optik umgesetzt
+
+Wichtig:
+Das Exposé ist weiterhin ein HTML/CSS-Template, das automatisch mit Notion-Daten befüllt wird.
+Die Optik ist auf A4 und Browser-/Vercel-Rendering optimiert.
