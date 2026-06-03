@@ -1,0 +1,16 @@
+EXPOSÉ V10 – Canva-Design wiederhergestellt
+
+Diese Version stellt bewusst wieder die ursprünglich angedachte 4-Seiten-Canva-Struktur her.
+
+Behoben:
+- V9-Struktur mit auseinandergezogenen Zusatzseiten zurückgenommen.
+- Exposé besteht wieder aus Cover, Beschreibung/Preis, Bilder/Objektdaten, Kontakt.
+- Bilder werden wieder direkt auf der vorgesehenen Bilderseite eingesetzt.
+- Keine künstliche Seite „Weitere Objektdaten“ mehr.
+- Beschreibung skaliert moderat, ohne das Design zu sprengen.
+- Wohnungs-Floskel entfernt; Claim wird nur angezeigt, wenn in Notion vorhanden.
+- Kontaktinfos bleiben dynamisch mit Fallback.
+- Button/API zeigen auf /api/expose-html-v10.
+
+Hinweis:
+Für die 1:1-Optik werden nur die wichtigsten 9 Objektdaten auf der Canva-Datenseite gezeigt. Das ist Absicht, damit das Design nicht wieder auseinanderläuft.
