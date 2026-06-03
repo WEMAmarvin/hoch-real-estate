@@ -39,6 +39,10 @@
     {
       "source": "/api/expose-html-v10",
       "destination": "/api/expose-html-v10.js"
+    },
+    {
+      "source": "/api/expose-html-v11",
+      "destination": "/api/expose-html-v11.js"
     }
   ],
   "headers": [

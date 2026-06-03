@@ -1,0 +1,42 @@
+HOCH Real Estate Advisory – Exposé V11 Canva Locked
+
+Ziel:
+- Keine neue Layoutinterpretation mehr.
+- Die vier Canva-Seiten bleiben die feste Master-Struktur.
+- Daten werden in definierte Container eingesetzt, nicht umgekehrt.
+
+Geändert:
+- Neuer Endpunkt: /api/expose-html-v11
+- Download-Button in script.js auf V11 umgestellt.
+- index.html Cache-Buster auf V11 gesetzt.
+- vercel.json um Route /api/expose-html-v11 ergänzt.
+
+Seite 1:
+- Ort wird wieder separat unter dem Titel ausgegeben.
+- Cover-Logo, Exposé-Titel und Objekttext näher an der gelieferten Canva-Referenz ausgerichtet.
+- Titel/Ort bleiben zentriert und in festen Containern.
+
+Seite 2:
+- Beschreibung bleibt immer auf der Seite.
+- Schriftgrößen-Skalierung erweitert: short / medium / long / xlong.
+- Titel erhält eigene Skalierung: short / medium / tight.
+- Keine Zusatzseite für lange Beschreibung.
+- Keine fest verdrahtete Wohnungsfloskel mehr.
+- Claim ist dynamisch: Notion-Claim, sonst Gewerbe-/Wohn-Fallback.
+- Highlights werden genutzt, wenn in Notion gepflegt; sonst automatisch aus Objektdaten generiert.
+
+Seite 3:
+- Festes Canva-Bildraster: Bild 1 groß oben, Bild 2–4 unten.
+- Keine freien Bildraster-Experimente mehr.
+- Fehlende Bilder erhalten dezente Platzhalter im Corporate-Stil.
+- Objektdaten sind fest auf 9 Karten gemappt:
+  Typ, Ort, Vermarktung, Preis, Fläche, Zimmer, Etage, Lagerfläche, Teilbar ab.
+- Fehlende Werte werden als Gedankenstrich „—“ gezeigt, nicht leer.
+
+Seite 4:
+- Kontaktseite bleibt in der bestehenden Canva-Struktur.
+- Kontaktdaten bleiben dynamisch mit Fallback.
+
+Wichtig:
+- V11 ist bewusst keine flexible Weblayout-Version.
+- Es ist eine pixel-locked Canva-Template-Version mit dynamischen Datenfeldern.
