@@ -1,0 +1,19 @@
+EXPOSÉ V9 – professionelle Fehlerbehebung
+
+Geändert:
+- Neuer Endpunkt: /api/expose-html-v9
+- Download-Button in script.js auf V9 umgestellt
+- Cache-Buster in index.html aktualisiert
+- vercel.json um V9-Route ergänzt
+
+Behoben / verbessert:
+- Beschreibung wird nicht mehr per CSS abgeschnitten. Lange Texte werden serverseitig auf zusätzliche Beschreibungsseiten verteilt.
+- Objektdaten werden nicht mehr auf 9 Felder begrenzt. Alle vorhandenen relevanten Felder werden übernommen und auf Folgeseiten verteilt.
+- Bilder werden nicht mehr auf 6 bzw. 12 Bilder begrenzt. Alle vorhandenen Bilder werden in 6er-Galerieseiten verteilt.
+- Fester Text „Erlebe urbanes Wohnen neu!“ entfernt. Stattdessen wird ein dynamischer Claim/Untertitel aus Notion genutzt; falls leer: neutraler professioneller Hinweis.
+- Kontaktinformationen können nun aus Notion übernommen werden, mit Christian-Hoch-Fallback.
+- Objektbeschreibung, Galerien und Objektdaten wurden voneinander getrennt, damit keine Elemente mehr unten aus der Seite laufen.
+- HTML-Titel neutralisiert: nicht mehr als interne V8-Version sichtbar.
+
+Hinweis:
+V9 priorisiert saubere automatische Ausgabe bei variabler Datenmenge. Für absolute Pixelgleichheit mit Canva müssten die Canva-Designs als echte Layer-Templates inklusive Koordinaten/Schriften final eingebunden werden.
