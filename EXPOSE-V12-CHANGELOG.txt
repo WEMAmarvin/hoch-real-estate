@@ -1,0 +1,26 @@
+HOCH Real Estate Advisory – Exposé V12
+
+Ziel: V11 nicht neu erfinden, sondern gezielt typografisch und inhaltlich schärfen.
+
+Änderungen:
+- Neuer Endpunkt: /api/expose-html-v12
+- Download-Button auf V12 umgestellt
+- Preisblock überarbeitet:
+  - Kein doppeltes „Auf Anfrage | Auf Anfrage" mehr
+  - Bei fehlendem Preis: Label + „Auf Anfrage" in einer sauberen Box
+  - Bei vorhandenem Preis: Preiswert + verständliches Label wie „Mietpreis", „Kaufpreis" oder „Preis pro m²"
+- Georgia-Überschriften feinjustiert:
+  - geringere Zeilenhöhe
+  - reduziertes Letterspacing
+  - näher an der Canva-Wirkung
+- Inter-Fließtext auf Seite 2 feinjustiert:
+  - bessere Lesbarkeit
+  - ruhigere Zeilenhöhe
+  - weniger HTML-artige Anmutung
+- Abstände auf Seite 2 angepasst:
+  - Kicker/Titel/Beschreibung wirken weniger gequetscht
+  - Preisblock und Claim optisch besser getrennt
+- Objektdaten-Kacheln feinjustiert:
+  - etwas mehr Innenabstand
+  - ruhigere Schriftgewichtung
+- Kontakt-Headline minimal an Georgia/Canva angenähert
