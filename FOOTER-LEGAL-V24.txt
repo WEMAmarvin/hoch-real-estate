@@ -1,0 +1,1 @@
+V24: Impressum/Datenschutz als eigener sichtbarer Footer-Block eingebaut; Cache-Buster auf v24 aktualisiert.
