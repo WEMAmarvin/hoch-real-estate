@@ -1092,3 +1092,106 @@ a[target="_blank"]{text-decoration-thickness:0.06em;text-underline-offset:0.18em
     top: 76px;
   }
 }
+
+/* CONTENT UPDATE V17 — Reliable Mobile Hamburger Menu Fix */
+@media (max-width: 900px) {
+  nav {
+    height: 76px !important;
+    min-height: 76px !important;
+    padding: 0 1.25rem !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    overflow: visible !important;
+  }
+
+  nav .nav-logo {
+    flex: 0 1 auto !important;
+    max-width: calc(100% - 72px) !important;
+    overflow: visible !important;
+    z-index: 111 !important;
+  }
+
+  nav .nav-logo img.logo-img-horizontal {
+    height: 42px !important;
+    max-height: 42px !important;
+    width: auto !important;
+    max-width: 155px !important;
+    transform: none !important;
+    object-fit: contain !important;
+  }
+
+  nav .mobile-nav-toggle {
+    display: inline-flex !important;
+    position: relative !important;
+    flex: 0 0 46px !important;
+    width: 46px !important;
+    height: 46px !important;
+    min-width: 46px !important;
+    max-width: 46px !important;
+    min-height: 46px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: 1px solid rgba(200,164,107,0.48) !important;
+    border-radius: 0 !important;
+    background: rgba(255,255,255,0.055) !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex-direction: column !important;
+    gap: 6px !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
+    z-index: 120 !important;
+    -webkit-appearance: none !important;
+    appearance: none !important;
+  }
+
+  nav .mobile-nav-toggle span {
+    display: block !important;
+    width: 23px !important;
+    height: 2px !important;
+    min-height: 2px !important;
+    border-radius: 999px !important;
+    background: #ffffff !important;
+    opacity: 1 !important;
+    transform-origin: center !important;
+  }
+
+  nav .mobile-nav-toggle.is-open span:nth-child(1) {
+    transform: translateY(8px) rotate(45deg) !important;
+  }
+
+  nav .mobile-nav-toggle.is-open span:nth-child(2) {
+    opacity: 0 !important;
+  }
+
+  nav .mobile-nav-toggle.is-open span:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg) !important;
+  }
+
+  .mobile-menu {
+    top: 76px !important;
+    z-index: 115 !important;
+  }
+}
+
+@media (max-width: 430px) {
+  nav {
+    padding: 0 1rem !important;
+  }
+
+  nav .nav-logo img.logo-img-horizontal {
+    max-width: 145px !important;
+    height: 40px !important;
+    max-height: 40px !important;
+  }
+
+  nav .mobile-nav-toggle {
+    flex-basis: 44px !important;
+    width: 44px !important;
+    height: 44px !important;
+    min-width: 44px !important;
+    max-width: 44px !important;
+  }
+}
