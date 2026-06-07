@@ -1,0 +1,15 @@
+V20 – Favicon / Browser-Tab-Icon
+
+Umgesetzt:
+- HOCH-Favicon aus dem Logo-Signet erstellt.
+- favicon.ico mit 16x16, 32x32 und 48x48 integriert.
+- PNG-Favicons 16x16 und 32x32 ergänzt.
+- Apple Touch Icon 180x180 ergänzt.
+- Android/PWA Icons 192x192 und 512x512 ergänzt.
+- site.webmanifest erstellt.
+- index.html Head-Tags tatsächlich ergänzt.
+- CSS/JS Cache-Buster auf v20 erhöht.
+- package.json Version auf 1.0.20 gesetzt.
+
+Hinweis:
+Browser cachen Favicons sehr aggressiv. Nach Upload ggf. Hard Refresh, Cache löschen oder Browser neu starten.
