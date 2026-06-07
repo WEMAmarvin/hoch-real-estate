@@ -443,3 +443,45 @@ if ('IntersectionObserver' in window) {
     ticking = true;
   }, { passive: true });
 })();
+
+// Mobile Dropdown Navigation — V16
+(function () {
+  const toggle = document.querySelector('.mobile-nav-toggle');
+  const menu = document.getElementById('mobile-menu');
+  if (!toggle || !menu) return;
+
+  const closeMenu = () => {
+    toggle.classList.remove('is-open');
+    menu.classList.remove('is-open');
+    toggle.setAttribute('aria-expanded', 'false');
+    toggle.setAttribute('aria-label', 'Menü öffnen');
+    menu.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('mobile-menu-open');
+  };
+
+  const openMenu = () => {
+    toggle.classList.add('is-open');
+    menu.classList.add('is-open');
+    toggle.setAttribute('aria-expanded', 'true');
+    toggle.setAttribute('aria-label', 'Menü schließen');
+    menu.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('mobile-menu-open');
+  };
+
+  toggle.addEventListener('click', () => {
+    if (menu.classList.contains('is-open')) closeMenu();
+    else openMenu();
+  });
+
+  menu.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', closeMenu);
+  });
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') closeMenu();
+  });
+
+  window.addEventListener('resize', () => {
+    if (window.innerWidth > 900) closeMenu();
+  });
+})();
