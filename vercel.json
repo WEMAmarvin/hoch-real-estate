@@ -7,6 +7,14 @@
     {
       "source": "/api/expose-html-v12",
       "destination": "/api/expose-html-v12.js"
+    },
+    {
+      "source": "/datenschutz",
+      "destination": "/datenschutz.html"
+    },
+    {
+      "source": "/impressum",
+      "destination": "/impressum.html"
     }
   ],
   "headers": [

@@ -1,0 +1,14 @@
+V21 – Impressum & Datenschutz Musterseiten
+
+Umgesetzt:
+- impressum.html als Musterseite mit Platzhaltern erstellt
+- datenschutz.html als Musterseite mit Platzhaltern erstellt
+- Footer-Verlinkung zu /impressum und /datenschutz ergänzt
+- Vercel-Rewrites für /impressum und /datenschutz ergänzt
+- sitemap.xml um Impressum und Datenschutz erweitert
+- styles.css um responsive Legal-Page-Styling ergänzt
+- Cache-Buster auf v21 aktualisiert
+- package.json auf 1.0.21 aktualisiert
+
+Hinweis:
+- Rechtliche Platzhalter müssen vor finaler Veröffentlichung geprüft und ergänzt werden.
