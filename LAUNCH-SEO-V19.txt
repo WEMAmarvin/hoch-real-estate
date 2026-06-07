@@ -1,0 +1,13 @@
+V19 – echte Launch-SEO- und Technik-Umsetzung
+- index.html tatsächlich bearbeitet und Cache-Buster auf v19 gesetzt.
+- Ungültigen HTML-Tag im Hero-Bereich korrigiert.
+- Hauptinhalt mit <main id="main-content"> ausgezeichnet.
+- Skip-Link für Tastatur-/Screenreader-Nutzung ergänzt.
+- JSON-LD von Einzelschema auf @graph erweitert: Organization, RealEstateAgent, WebSite, WebPage und Service-ItemList.
+- Open-Graph-Bildmaße ergänzt.
+- Externe Fokusbilder mit width/height ergänzt, um Layout-Shifts zu reduzieren.
+- robots.txt präzisiert: /api/ von Indexierung ausgeschlossen, Sitemap referenziert.
+- sitemap.xml um Image-Sitemap-Einträge ergänzt.
+- package.json auf Version 1.0.19 gesetzt.
+- CSS um Skip-Link, Focus-Styles, reduced-motion und globale Bildabsicherung ergänzt.
+- vercel.json um explizite Header für robots.txt und sitemap.xml ergänzt.

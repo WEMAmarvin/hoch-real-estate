@@ -1,0 +1,12 @@
+V18 – Technische Optimierung & SEO
+- SEO Head erweitert: Canonical, Robots-Meta, Open Graph, Twitter Card.
+- Strukturierte Daten als JSON-LD für HOCH Real Estate Advisory ergänzt.
+- robots.txt und sitemap.xml hinzugefügt.
+- Script-Cache-Buster bereinigt und auf v18 gesetzt.
+- Bild-/Logo-Preloads für Hero-Bereich ergänzt.
+- Preconnect/DNS-Prefetch für Google Fonts und externe Fokusbilder ergänzt.
+- Wichtige lokale Bilder mit width/height ergänzt, um Layout-Shifts zu reduzieren.
+- Modal mit ARIA-Rolle und Close-Button mit Label versehen.
+- Sicherheitsheader erweitert: Permissions-Policy, HSTS, API no-store.
+- CSS ergänzt: Focus-Styles, content-visibility, reduced-motion Support, Mobile-Scroll-Stabilisierung.
+- package.json bereinigt: ungenutzte pdfkit-Abhängigkeit entfernt.

@@ -1195,3 +1195,80 @@ a[target="_blank"]{text-decoration-thickness:0.06em;text-underline-offset:0.18em
     max-width: 44px !important;
   }
 }
+
+/* TECH-SEO UPDATE V18: Performance, Accessibility & Mobile Stabilität */
+html {
+  scroll-behavior: smooth;
+  text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+
+section {
+  scroll-margin-top: 92px;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 4px;
+}
+
+.site-header {
+  position: relative;
+  z-index: 1000;
+}
+
+#ueber,
+#leistungen,
+#fokus,
+#prozess,
+#wema,
+#netzwerk,
+#immobilien,
+#kontakt {
+  content-visibility: auto;
+  contain-intrinsic-size: 900px;
+}
+
+.immo-modal.open {
+  content-visibility: visible;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.001ms !important;
+  }
+
+  .hero-architecture img,
+  .cream-parallax-bg {
+    transform: none !important;
+  }
+}
+
+@media (max-width: 900px) {
+  section {
+    scroll-margin-top: 78px;
+  }
+
+  body.mobile-menu-open {
+    overflow: hidden;
+  }
+}
+
+
+/* V19 Launch SEO & Accessibility refinements */
+.skip-link{position:fixed;top:0;left:0;z-index:9999;transform:translateY(-120%);background:var(--gold);color:#fff;padding:.85rem 1rem;font-family:'Outfit',sans-serif;font-size:.85rem;font-weight:600;text-decoration:none;letter-spacing:.04em;transition:transform .2s ease;}
+.skip-link:focus{transform:translateY(0);outline:2px solid #fff;outline-offset:2px;}
+main{display:block;}
+img{max-width:100%;height:auto;}
+a:focus-visible,button:focus-visible{outline:2px solid var(--gold);outline-offset:4px;}
+@media (prefers-reduced-motion: reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.01ms!important;}}
