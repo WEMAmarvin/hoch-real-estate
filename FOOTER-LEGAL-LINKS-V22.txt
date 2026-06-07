@@ -1,0 +1,10 @@
+V22 – Footer Legal Links
+
+Tatsächlich umgesetzt und geprüft:
+- Impressum-Link im Footer der Startseite vorhanden
+- Datenschutz-Link im Footer der Startseite vorhanden
+- Impressum-Link im Footer der Impressumsseite vorhanden
+- Datenschutz-Link im Footer der Datenschutzseite vorhanden
+- Routen /impressum und /datenschutz in vercel.json vorhanden
+- sitemap.xml enthält /impressum und /datenschutz
+- Responsive Styling der Footer-Rechtslinks vorhanden
