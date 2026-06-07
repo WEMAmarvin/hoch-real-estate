@@ -5,46 +5,6 @@
       "destination": "/api/immobilien.js"
     },
     {
-      "source": "/api/expose",
-      "destination": "/api/expose.js"
-    },
-    {
-      "source": "/api/expose-v2",
-      "destination": "/api/expose-v2.js"
-    },
-    {
-      "source": "/api/expose-v3",
-      "destination": "/api/expose-v3.js"
-    },
-    {
-      "source": "/api/expose-html",
-      "destination": "/api/expose-html.js"
-    },
-    {
-      "source": "/api/expose-html-v4",
-      "destination": "/api/expose-html-v4.js"
-    },
-    {
-      "source": "/api/expose-html-v5",
-      "destination": "/api/expose-html-v5.js"
-    },
-    {
-      "source": "/api/template-check",
-      "destination": "/api/template-check.js"
-    },
-    {
-      "source": "/api/expose-html-v6",
-      "destination": "/api/expose-html-v6.js"
-    },
-    {
-      "source": "/api/expose-html-v10",
-      "destination": "/api/expose-html-v10.js"
-    },
-    {
-      "source": "/api/expose-html-v11",
-      "destination": "/api/expose-html-v11.js"
-    },
-    {
       "source": "/api/expose-html-v12",
       "destination": "/api/expose-html-v12.js"
     }
@@ -87,6 +47,10 @@
         {
           "key": "X-Frame-Options",
           "value": "DENY"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
         }
       ]
     }

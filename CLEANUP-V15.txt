@@ -1,0 +1,14 @@
+HOCH Real Estate Advisory – Cleanup V15
+
+Umgesetzt:
+- Alte Exposé-API-Dateien entfernt; aktiv bleibt /api/expose-html-v12.
+- vercel.json auf aktive API-Routen reduziert.
+- Ungenutzte Exposé-Referenz-SVGs entfernt.
+- Ungenutzte JPG/PNG-Duplikate entfernt; WebP-Assets bleiben aktiv.
+- Externe Links mit rel="noopener noreferrer" abgesichert.
+- Referrer-Policy für externe Fokusbilder ergänzt.
+- Allgemeine Referrer-Policy in vercel.json ergänzt.
+- Mobile-Stability-CSS-Layer ergänzt: Overflow-Schutz, stabile horizontale Scrollbereiche, bessere Wortumbrüche.
+
+Hinweis:
+Die Fokusfeld-Bilder bleiben als externe Unsplash-Quellen eingebunden, weil im Projekt keine finalen lokalen Ersatzbilder mit passenden Motiven vorliegen. Sobald finale Bilddateien vorliegen, können diese direkt lokal in /assets/ eingebunden werden.

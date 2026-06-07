@@ -973,3 +973,25 @@ footer img.logo-img-horizontal {
   font-size: 0.92rem;
   line-height: 1.7;
 }
+
+
+/* V15 CLEANUP & MOBILE STABILITY LAYER
+   Final, intentionally narrow overrides to prevent horizontal overflow and stabilize mobile card behavior. */
+*{box-sizing:border-box;}
+html,body{max-width:100%;overflow-x:hidden;}
+img,video,svg{max-width:100%;}
+a[target="_blank"]{text-decoration-thickness:0.06em;text-underline-offset:0.18em;}
+@media (max-width:900px){
+  body{min-width:0;}
+  .section-inner,.hero-content,.kontakt-inner,.footer-top{max-width:100%;min-width:0;}
+  .leistungen-grid,.fokus-grid,.prozess-steps,.netzwerk-grid,.immo-grid,.immo-filter{overscroll-behavior-inline:contain;}
+  .leistungen-grid > *, .fokus-grid > *, .prozess-steps > *, .netzwerk-grid > *, .immo-grid > *{min-width:0;}
+  .section-title,.hero-title,.fokus-title,.leistung-title,.wema-card-title,.netzwerk-card-title,.immo-card-title{overflow-wrap:break-word;hyphens:auto;}
+  .kontakt-card,.kontakt-info,.wema-card,.leistung-card,.netzwerk-card,.immo-card,.immo-premium-card{max-width:100%;}
+  .fokus-card img{transform:none;}
+}
+@media (max-width:520px){
+  .kontakt-inner{gap:1.75rem !important;}
+  .kontakt-photo{height:240px !important;}
+  footer{padding-inline:1.15rem;}
+}
