@@ -1,0 +1,7 @@
+V23 – Footer Legal Links sichtbar korrigiert
+
+- Rechtliche Links aus separatem Zwischenbereich in footer-bottom verschoben
+- Impressum und Datenschutz nun direkt neben Copyright sichtbar
+- Mobile Darstellung korrigiert
+- Cache-Buster auf v23 aktualisiert
+- package.json auf 1.0.23 gesetzt

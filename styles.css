@@ -1299,3 +1299,47 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--gold);outline-offse
 .legal-note{border-left:3px solid var(--gold);background:rgba(200,164,107,.08);padding:1rem 1.2rem;margin:0 0 2rem;}
 .legal-note p{margin:0;color:var(--anthracite);}
 @media(max-width:900px){.legal-main{padding-top:6rem;}.legal-hero{padding:4.5rem 1.5rem 3rem;}.legal-content{padding:2.5rem 1.15rem 4rem;}.legal-card{padding:2rem 1.35rem;}.footer-legal{justify-content:flex-start;flex-wrap:wrap;gap:.9rem 1.1rem;}.legal-card h2{font-size:1.7rem;}}
+
+
+/* V23: Footer Legal Links sichtbar und robust */
+.footer-bottom-with-legal{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:1.5rem;
+  padding:1.35rem 0;
+  border-top:1px solid rgba(255,255,255,0.06);
+}
+.footer-legal-inline{
+  display:flex;
+  align-items:center;
+  justify-content:flex-end;
+  gap:.65rem;
+  flex-wrap:wrap;
+}
+.footer-legal-inline a,
+.footer-legal-inline span{
+  font-size:.72rem;
+  font-weight:400;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  color:rgba(255,255,255,.56);
+  text-decoration:none;
+}
+.footer-legal-inline a{
+  transition:color .25s ease;
+}
+.footer-legal-inline a:hover,
+.footer-legal-inline a:focus-visible{
+  color:var(--gold);
+}
+@media(max-width:700px){
+  .footer-bottom-with-legal{
+    flex-direction:column;
+    align-items:flex-start;
+    gap:.8rem;
+  }
+  .footer-legal-inline{
+    justify-content:flex-start;
+  }
+}
