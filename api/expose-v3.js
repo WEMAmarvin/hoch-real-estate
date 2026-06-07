@@ -422,7 +422,7 @@ export default async function handler(req, res) {
 
       const contact = [
         "+49 (0) 171 5744 947",
-        "c.hoch@friends-of-work.de",
+        "christian@hoch-real-estate.de",
         "www.hoch-real-estate.de",
         "Emsstraße 18, 26135 Oldenburg"
       ];

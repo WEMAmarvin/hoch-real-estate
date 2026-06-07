@@ -1,0 +1,10 @@
+HOCH Real Estate Advisory – Content Update V13
+
+Umgesetzt:
+- Leistungsportfolio: Kachel „Gewerbeimmobilien Vermittlung“ neu formuliert und bundesweite Tätigkeit integriert.
+- WEMA-Synergien: Kacheln 1, 2, 4 und 5 inhaltlich erweitert.
+- Marktsegmente: Bilder für Gastronomie & Retail, Industrie & Logistik sowie Gesundheit & Praxen auf Außenansichten umgestellt.
+- Kontaktbereich: E-Mail auf christian@hoch-real-estate.de geändert.
+- Kontaktbereich: Instagram @hoch.realestate ergänzt.
+- Footer: E-Mail aktualisiert und Instagram ergänzt.
+- Exposé-Fallback-Mail in API-Dateien auf christian@hoch-real-estate.de aktualisiert.

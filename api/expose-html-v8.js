@@ -253,7 +253,7 @@ html,body{margin:0;padding:0;background:#bfbfbf;color:var(--dark);font-family:In
   <div class="contact-role">Geschäftsführer</div>
   <div class="contact-lines">
     <div class="contact-line"><span class="dot"></span><span>+49 (0) 171 5744 947</span></div>
-    <div class="contact-line"><span class="dot"></span><span>c.hoch@friends-of-work.de</span></div>
+    <div class="contact-line"><span class="dot"></span><span>christian@hoch-real-estate.de</span></div>
     <div class="contact-line"><span class="dot"></span><span>www.hoch-real-estate.de</span></div>
     <div class="contact-line"><span class="dot"></span><span>Emsstraße 18, 26135 Oldenburg</span></div>
   </div>
