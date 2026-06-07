@@ -1,0 +1,10 @@
+HOCH Real Estate Advisory – Content Update V14
+
+Geändert:
+- Fokusfeld Office & Co-Work: Bild ersetzt durch moderne Bürogebäude-Außenansicht.
+- Fokusfeld Hotel & Hospitality: Bild ersetzt durch harmonischere Hotel-Außenansicht.
+- Fokusfeld Gastronomie & Retail: Bild ersetzt durch Restaurant-Außenansicht.
+- Fokusfeld Industrie & Logistik: Bild ersetzt durch moderne Lagerhalle / Loading-Dock-Außenansicht.
+- Alt-Texte der Fokusfeld-Bilder entsprechend angepasst.
+
+Basis: V13 Content Update.
