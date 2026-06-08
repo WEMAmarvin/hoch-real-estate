@@ -1,0 +1,6 @@
+V31 – Exposé PDF Download Fix
+- Frontend lädt PDF jetzt per fetch/blob statt per einfachem download-Link.
+- Fehlerhafte HTML/404-Antworten werden nicht mehr als .html gespeichert.
+- Neuer Endpunkt /api/expose-pdf-v2.
+- PDF-Endpunkt erzeugt HTML intern aus expose-html-v14, statt per öffentlichem Fetch auf die eigene URL.
+- Content-Type application/pdf + Content-Disposition attachment.

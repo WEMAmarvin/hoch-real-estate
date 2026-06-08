@@ -1378,3 +1378,13 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--gold);outline-offse
     padding:1.05rem 0 .9rem;
   }
 }
+
+/* V31: Exposé Download Button als echter Button, optisch identisch zum Link */
+button.immo-modal-cta {
+  border: 0;
+  cursor: pointer;
+  font-family: inherit;
+}
+button.immo-modal-cta-secondary {
+  background: transparent;
+}
