@@ -1,0 +1,6 @@
+V13 Expose Fix
+- Beschreibung auf Seite 2 in gemeinsamen skalierenden Inhaltsbereich verschoben
+- Schriftgrößen-/Zeilenhöhen-Skalierung erweitert, damit Texte nicht abgeschnitten werden
+- Kontaktbereich neu strukturiert, keine überlappenden Daten mehr
+- Kontakt-Icons durch echte SVG-Icons ersetzt (Telefon, Mail, Web, Standort)
+- Exposé-Button auf /api/expose-html-v13 umgestellt
