@@ -1,0 +1,1 @@
+V30: Exposé-Download liefert jetzt echtes PDF aus. Neuer Endpunkt /api/expose-pdf-v1 rendert /api/expose-html-v14 serverseitig als PDF und setzt Content-Type application/pdf sowie Content-Disposition attachment. Der Exposé-Button zeigt auf den PDF-Endpunkt.

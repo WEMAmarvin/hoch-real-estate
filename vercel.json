@@ -1,6 +1,14 @@
 {
   "rewrites": [
     {
+      "source": "/api/expose-pdf-v1",
+      "destination": "/api/expose-pdf-v1.js"
+    },
+    {
+      "source": "/api/expose-html-v14",
+      "destination": "/api/expose-html-v14.js"
+    },
+    {
       "source": "/api/immobilien",
       "destination": "/api/immobilien.js"
     },
@@ -105,5 +113,10 @@
         }
       ]
     }
-  ]
+  ],
+  "functions": {
+    "api/expose-pdf-v1.js": {
+      "maxDuration": 30
+    }
+  }
 }
