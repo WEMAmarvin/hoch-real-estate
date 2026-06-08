@@ -1,0 +1,6 @@
+V28 / Expose V14 real fix
+- neuer Endpoint /api/expose-html-v14, damit keine alte Vercel/Browser-Cache-Version geladen wird
+- Beschreibung auf Seite 2: größerer Inhaltsbereich und stärkere automatische Skalierung gegen abgeschnittene Texte
+- Kontaktseite: rechte Spalte verbreitert, Name/Rolle/Kontaktzeilen neu ausgerichtet
+- Icons und Kontaktzeilen vergrößert und entzerrt
+- script.js Exposé-Download auf V14 umgestellt
