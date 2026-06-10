@@ -1,0 +1,9 @@
+V35 – Bildquellen und Datenschutz ergänzt
+
+Umgesetzt:
+- Bildquellen-Dokumentation für alle Fokusfeld-Bilder erstellt: BILDQUELLEN-FOKUSFELDER.md
+- Datenschutzerklärung um extern geladene Unsplash-Bilder ergänzt.
+- Lizenzstatus der Fokusfeld-Bilder projektintern dokumentiert.
+
+Hinweis:
+Die Bilder werden weiterhin extern von images.unsplash.com geladen. Eine lokale Speicherung der Originalbilder ist in dieser Version nicht erfolgt, da die Originaldateien nicht im Projekt enthalten waren.
