@@ -1443,3 +1443,82 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--gold);outline-offse
   .footer-top{align-items:flex-start !important;gap:1.25rem !important;padding:1.8rem 0 1.35rem !important;}
   .footer-legal-center{justify-content:flex-start;min-width:0;}
 }
+
+
+/* V39: Footer legal links final visible fix */
+footer .footer-top{
+  display:grid !important;
+  grid-template-columns:minmax(180px,1fr) auto minmax(220px,1fr) !important;
+  align-items:center !important;
+  column-gap:2.5rem !important;
+  padding:1.7rem 0 1.35rem !important;
+  border-bottom:1px solid rgba(255,255,255,0.08) !important;
+}
+footer .footer-top > div:first-child{
+  justify-self:start !important;
+  min-width:0 !important;
+}
+footer .footer-contact{
+  justify-self:end !important;
+  text-align:right !important;
+}
+footer .footer-legal-center{
+  display:flex !important;
+  visibility:visible !important;
+  opacity:1 !important;
+  position:static !important;
+  z-index:3 !important;
+  justify-self:center !important;
+  align-items:center !important;
+  justify-content:center !important;
+  gap:.9rem !important;
+  min-width:max-content !important;
+  white-space:nowrap !important;
+}
+footer .footer-legal-center a,
+footer .footer-legal-center span{
+  display:inline-block !important;
+  visibility:visible !important;
+  opacity:1 !important;
+  font-family:'Outfit',sans-serif !important;
+  font-size:.75rem !important;
+  line-height:1 !important;
+  font-weight:500 !important;
+  letter-spacing:.14em !important;
+  text-transform:uppercase !important;
+  color:rgba(247,244,239,.82) !important;
+  text-decoration:none !important;
+}
+footer .footer-legal-center a:hover,
+footer .footer-legal-center a:focus-visible{
+  color:var(--gold) !important;
+}
+footer .footer-bottom{
+  padding:.85rem 0 1rem !important;
+}
+footer .footer-legal-visible,
+footer .footer-legal-inline,
+footer .footer-claim{
+  display:none !important;
+}
+@media(max-width:900px){
+  footer .footer-top{
+    grid-template-columns:1fr !important;
+    row-gap:1.2rem !important;
+    padding:1.6rem 0 1.2rem !important;
+  }
+  footer .footer-top > div:first-child,
+  footer .footer-legal-center,
+  footer .footer-contact{
+    justify-self:start !important;
+    text-align:left !important;
+  }
+  footer .footer-contact{
+    align-items:flex-start !important;
+  }
+  footer .footer-legal-center{
+    justify-content:flex-start !important;
+    white-space:normal !important;
+    flex-wrap:wrap !important;
+  }
+}
