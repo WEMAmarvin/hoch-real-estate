@@ -1410,3 +1410,36 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--gold);outline-offse
     flex-wrap: wrap;
   }
 }
+
+
+/* V38: Kompakter Footer mit Rechtlichem in der Mittelspalte */
+.footer-top{
+  padding:2rem 0 1.6rem !important;
+  align-items:center !important;
+}
+.footer-legal-center{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:.85rem;
+  min-width:220px;
+}
+.footer-legal-center a,
+.footer-legal-center span{
+  font-family:'Outfit',sans-serif;
+  font-size:.72rem;
+  font-weight:500;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:rgba(255,255,255,.68);
+  text-decoration:none;
+}
+.footer-legal-center a{transition:color .25s ease;}
+.footer-legal-center a:hover,
+.footer-legal-center a:focus-visible{color:var(--gold);}
+.footer-legal-visible{display:none !important;}
+.footer-bottom{padding:.95rem 0 !important;}
+@media(max-width:900px){
+  .footer-top{align-items:flex-start !important;gap:1.25rem !important;padding:1.8rem 0 1.35rem !important;}
+  .footer-legal-center{justify-content:flex-start;min-width:0;}
+}
