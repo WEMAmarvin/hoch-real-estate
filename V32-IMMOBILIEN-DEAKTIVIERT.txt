@@ -1,0 +1,13 @@
+V32 – Immobilienbereich vorübergehend deaktiviert
+
+Umgesetzt:
+- Immobilienbereich auf der Startseite ausgeblendet.
+- Navigationspunkt „Immobilien“ im Desktop- und Mobile-Menü ausgeblendet.
+- Notion-/Immobilien-Code bleibt vollständig im Projekt enthalten.
+- API-Endpunkt /api/immobilien bleibt erhalten.
+- Exposé-Dateien bleiben erhalten.
+- Reaktivierung ist über index.html möglich:
+  body data-immobilien-active="false" auf "true" setzen.
+
+Hinweis:
+Diese Version ist für den aktuellen Launch ohne aktive Immobilienangebote gedacht.

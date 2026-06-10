@@ -1,10 +1,6 @@
 {
   "rewrites": [
     {
-      "source": "/api/expose-pdf-v2",
-      "destination": "/api/expose-pdf-v2.js"
-    },
-    {
       "source": "/api/expose-pdf-v1",
       "destination": "/api/expose-pdf-v1.js"
     },
@@ -121,10 +117,6 @@
   "functions": {
     "api/expose-pdf-v1.js": {
       "maxDuration": 30
-    },
-    "api/expose-pdf-v2.js": {
-      "maxDuration": 30,
-      "memory": 1024
     }
   }
 }

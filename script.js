@@ -48,6 +48,12 @@ if ('IntersectionObserver' in window) {
 
 // Immobilien aus Notion
 (function () {
+  // V32: Immobilienbereich ist vorübergehend deaktiviert.
+// Code und API-Anbindung bleiben erhalten; Reaktivierung über body[data-immobilien-active="true"].
+if (document.body?.dataset?.immobilienActive === 'false') {
+  return;
+}
+
   const apiUrl = '/api/immobilien';
   let items = [];
   let currentFilter = 'Alle';
@@ -325,41 +331,13 @@ if ('IntersectionObserver' in window) {
           ${description ? `<div class="immo-premium-description">${description}</div>` : ''}
           <div class="immo-premium-cta-wrap immo-premium-cta-actions">
             <a href="#kontakt" onclick="document.getElementById('immoModal').classList.remove('open');document.body.style.overflow='';" class="immo-modal-cta">Jetzt anfragen</a>
-            <button type="button" class="immo-modal-cta immo-modal-cta-secondary" onclick="window.downloadExposePdf('${encodeURIComponent(obj.notionId)}', '${esc(obj.titel).replace(/\\/g, '\\\\').replace(/'/g, '\\'')}')">Exposé herunterladen</button>
+            <a href="/api/expose-pdf-v1?id=${encodeURIComponent(obj.notionId)}" download class="immo-modal-cta immo-modal-cta-secondary">Exposé herunterladen</a>
           </div>
         </div>
       </div>`;
 
     modal.classList.add('open');
     document.body.style.overflow = 'hidden';
-  };
-
-
-  window.downloadExposePdf = async function(encodedId, rawTitle) {
-    const id = decodeURIComponent(String(encodedId || ''));
-    const title = String(rawTitle || 'Expose').replace(/[^a-zA-Z0-9äöüÄÖÜß\-\s_]/g, '').trim() || 'Expose';
-    const safeTitle = title.normalize('NFKD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-zA-Z0-9-_]+/g, '_').replace(/^_+|_+$/g, '').slice(0, 80) || 'Expose';
-    const filename = `HOCH_Expose_${safeTitle}.pdf`;
-    const url = `/api/expose-pdf-v2?id=${encodeURIComponent(id)}&t=${Date.now()}`;
-    try {
-      const response = await fetch(url, { method: 'GET', headers: { 'Accept': 'application/pdf' }, cache: 'no-store' });
-      const contentType = response.headers.get('content-type') || '';
-      if (!response.ok || !contentType.includes('application/pdf')) {
-        const message = await response.text().catch(() => 'PDF konnte nicht erstellt werden.');
-        throw new Error(message || 'PDF konnte nicht erstellt werden.');
-      }
-      const blob = await response.blob();
-      const objectUrl = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = objectUrl;
-      a.download = filename;
-      document.body.appendChild(a);
-      a.click();
-      a.remove();
-      setTimeout(() => URL.revokeObjectURL(objectUrl), 2000);
-    } catch (error) {
-      alert('Das Exposé konnte nicht als PDF heruntergeladen werden. Bitte versuchen Sie es erneut.\n\n' + (error?.message || error));
-    }
   };
 
   function updateCarouselButtons() {

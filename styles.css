@@ -1,3 +1,11 @@
+
+/* V32: Immobilienbereich vorübergehend deaktiviert
+   Reaktivierung: in index.html body data-immobilien-active="true" setzen. */
+body[data-immobilien-active="false"] #immobilien,
+body[data-immobilien-active="false"] a[href="#immobilien"] {
+  display: none !important;
+}
+
 :root{--green:#00424a;--green-light:#005560;--gold:#C8A46B;--gold-light:#d4b47e;--cream:#F7F4EF;--white:#ffffff;--anthracite:#2B2B2B;--gray:#6b7280;--gray-light:#f0ede8;}
 *{margin:0;padding:0;box-sizing:border-box;}
 html{scroll-behavior:smooth;}
@@ -1377,14 +1385,4 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--gold);outline-offse
     gap:.75rem;
     padding:1.05rem 0 .9rem;
   }
-}
-
-/* V31: Exposé Download Button als echter Button, optisch identisch zum Link */
-button.immo-modal-cta {
-  border: 0;
-  cursor: pointer;
-  font-family: inherit;
-}
-button.immo-modal-cta-secondary {
-  background: transparent;
 }
