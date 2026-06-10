@@ -1,0 +1,10 @@
+V34 – Impressum und Datenschutzerklärung finalisiert
+
+- Umsatzsteuer-ID DE325329395 im Impressum ergänzt
+- HOCH als Marke/Geschäftsbereich der WEMA Immobilien GmbH & Co. KG eingeordnet
+- Vertretung über WEMA Beteiligungs GmbH und Christian Hoch ergänzt
+- Datenschutzerklärung an aktuellen Website-Stand angepasst
+- Google Fonts als extern geladener Dienst aufgenommen
+- Klarstellung: kein Analytics, kein Tag Manager, kein Meta Pixel, kein LinkedIn Insight Tag, kein Hotjar, kein Microsoft Clarity, kein Google Maps, kein Kontaktformular
+- Footer-Jahresangabe auf 2026 korrigiert
+- Immobilien-Link aus der Navigation der Rechtseiten entfernt
