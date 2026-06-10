@@ -1,0 +1,10 @@
+V36 – Legal Navigation & Datenschutz Cleanup
+
+- Navigation auf impressum.html und datenschutz.html an die aktuelle Hauptnavigation angepasst.
+- Nicht vorhandene/unklare Menüpunkte auf den Rechteseiten entfernt.
+- Immobilien-Link entfernt, da Immobilienbereich aktuell deaktiviert ist.
+- Datenschutzerklärung bereinigt: Abschnitte zu nicht genutzten Tools/Google Maps/Kontaktformular entfernt.
+- Google Fonts bleibt enthalten, da extern geladen.
+- Unsplash bleibt enthalten, da Bilder extern über images.unsplash.com geladen werden.
+- Footer-Schlagworte „Deutschland · Diskretion · Kompetenz · Umsetzung“ durch Impressum/Datenschutz-Links ersetzt.
+- Version auf 1.0.36 gesetzt.

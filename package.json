@@ -1,6 +1,6 @@
 {
   "name": "hoch-real-estate-advisory",
-  "version": "1.0.34",
+  "version": "1.0.36",
   "private": true,
   "type": "module",
   "dependencies": {

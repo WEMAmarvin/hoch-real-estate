@@ -1386,3 +1386,27 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--gold);outline-offse
     padding:1.05rem 0 .9rem;
   }
 }
+
+/* V36 legal/navigation cleanup */
+.footer-bottom-links {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: rgba(247,244,239,0.7);
+  font-size: 12px;
+  letter-spacing: 0.04em;
+}
+.footer-bottom-links a {
+  color: rgba(247,244,239,0.7);
+  text-decoration: none;
+  transition: color .2s ease;
+}
+.footer-bottom-links a:hover {
+  color: #C8A46B;
+}
+@media (max-width: 760px) {
+  .footer-bottom-links {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+}
