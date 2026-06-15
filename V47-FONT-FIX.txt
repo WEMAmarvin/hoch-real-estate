@@ -1,0 +1,1 @@
+V47: Font-Fix. Lokale Font-Faces auf exakt die in V40 per Google Fonts geladenen Schnitte reduziert: Cormorant Garamond 400/600/700 normal; Outfit 300/400/500/600 normal. Keine Light-/Italic-Font-Faces mehr für Cormorant, damit das Rendering dem alten V40-Look entspricht. Google-Font-Aufrufe bleiben entfernt.

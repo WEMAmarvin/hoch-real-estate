@@ -1,0 +1,5 @@
+V45: Typografie aus V40 wiederhergestellt.
+Headlines: Cormorant Garamond wie V40.
+Body/Navigation: Outfit wie V40.
+Fokusfeld-Bilder bleiben lokal eingebunden.
+Hinweis: Für den exakten V40-Look werden Cormorant Garamond und Outfit über Google Fonts geladen.

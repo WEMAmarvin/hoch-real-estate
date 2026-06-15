@@ -1,0 +1,1 @@
+V46: Cormorant Garamond und Outfit lokal eingebunden. Google-Font-Aufrufe entfernt. Fokusfeld-Bilder bleiben lokal. Datenschutz um Google-Fonts-Abschnitt bereinigt.
