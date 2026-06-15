@@ -1,27 +1,16 @@
-# Bildquellen Fokusfelder – HOCH Real Estate Advisory
+# Bildquellen Fokusfelder
 
-Stand: V35
+Die Fokusfeld-Bilder sind ab dieser Version lokal im Projekt unter `/assets/fokus/` eingebunden.
 
-Diese Datei dokumentiert die aktuell im Abschnitt „Fokusfelder / Marktsegmente“ verwendeten externen Bildquellen. Die Bilder werden derzeit über `images.unsplash.com` geladen und stehen nach der Unsplash-Lizenz grundsätzlich für kostenlose kommerzielle Nutzung zur Verfügung. Attribution ist nach Unsplash nicht verpflichtend, aber freiwillig möglich.
+Die ursprünglichen Motive wurden aus den zuvor eingebundenen Unsplash-Bildquellen übernommen bzw. lokal ersetzt, damit beim Laden der Website keine externen Bildabrufe zu `images.unsplash.com` mehr stattfinden.
 
-Offizielle Lizenz-/Nutzungsbedingungen:
-- https://unsplash.com/license
-- https://unsplash.com/terms
+## Lokale Dateien
 
-## Verwendete Bilder
+- Office & Co-Work: `/assets/fokus/office-cowork.webp`
+- Hotel & Hospitality: `/assets/fokus/hospitality.webp`
+- Gastronomie & Retail: `/assets/fokus/gastronomie-retail.webp`
+- Industrie & Logistik: `/assets/fokus/industrie-logistik.webp`
+- Gesundheit & Praxen: `/assets/fokus/gesundheit-praxen.webp`
+- Exklusives Wohnen: `/assets/fokus/exklusives-wohnen.webp`
 
-| Bereich | Datei/Quelle im Code | Aktuelle URL | Lizenzstatus | Bewertung |
-|---|---|---|---|---|
-| Office & Co-Work | `index.html` | `https://images.unsplash.com/photo-1574958269340-fa927503f3dd?auto=format&fit=crop&w=1000&q=80` | Unsplash License | Kommerzielle Nutzung nach Unsplash-Lizenz grundsätzlich erlaubt. |
-| Hotel & Hospitality | `index.html` | `https://images.unsplash.com/photo-1757840352222-888ad67b77f6?auto=format&fit=crop&w=1000&q=80` | Unsplash License | Kommerzielle Nutzung nach Unsplash-Lizenz grundsätzlich erlaubt. |
-| Gastronomie & Retail | `index.html` | `https://images.unsplash.com/photo-1761517394803-aab6df3f9095?auto=format&fit=crop&w=1000&q=80` | Unsplash License | Kommerzielle Nutzung nach Unsplash-Lizenz grundsätzlich erlaubt. |
-| Industrie & Logistik | `index.html` | `https://images.unsplash.com/photo-1780367261654-45395777b560?auto=format&fit=crop&w=1000&q=80` | Unsplash License | Kommerzielle Nutzung nach Unsplash-Lizenz grundsätzlich erlaubt. |
-| Gesundheit & Praxen | `index.html` | `https://images.unsplash.com/photo-1764885517847-79d62138cc58?auto=format&fit=crop&w=800&q=80` | Unsplash License | Kommerzielle Nutzung nach Unsplash-Lizenz grundsätzlich erlaubt. |
-| Exklusives Wohnen | `index.html` | `https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&q=80` | Unsplash License | Kommerzielle Nutzung nach Unsplash-Lizenz grundsätzlich erlaubt. |
-
-## Hinweise
-
-- Die Bilder sollten vor finalem Launch idealerweise durch lokal gespeicherte, lizenzierte Bilder ersetzt werden, wenn eine vollständige Offline-Nachweiskette gewünscht ist.
-- Bei Unsplash bleibt ein allgemeines Restrisiko bezüglich abgebildeter Gebäude, Marken, Logos, Eigentumsrechte oder Persönlichkeitsrechte. In den aktuell verwendeten Fokusfeldbildern sind nach Sichtprüfung keine offensichtlichen problematischen Personen- oder Markenabbildungen erkennbar.
-- Da die Bilder derzeit extern geladen werden, wurde die Datenschutzerklärung um den Abschnitt „Bildmaterial von Unsplash“ ergänzt.
-- Für maximale Rechtssicherheit empfiehlt sich der Erwerb dokumentierter Stocklizenzen oder die Nutzung eigener Bilder.
+Hinweis: Für eine finale rechtliche Dokumentation sollte die ursprüngliche Lizenzquelle der jeweiligen Motive separat archiviert werden.
