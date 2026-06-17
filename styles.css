@@ -2,13 +2,20 @@
    Cormorant Garamond: 400/600/700 normal only
    Outfit: 300/400/500/600 normal only
    This preserves the previous headline rendering instead of using Light/Italic cuts. */
-@font-face{font-family:'Cormorant Garamond';src:url('assets/fonts/cormorant/CormorantGaramond-Regular.ttf') format('truetype');font-weight:400;font-style:normal;font-display:swap;}
-@font-face{font-family:'Cormorant Garamond';src:url('assets/fonts/cormorant/CormorantGaramond-SemiBold.ttf') format('truetype');font-weight:600;font-style:normal;font-display:swap;}
-@font-face{font-family:'Cormorant Garamond';src:url('assets/fonts/cormorant/CormorantGaramond-Bold.ttf') format('truetype');font-weight:700;font-style:normal;font-display:swap;}
-@font-face{font-family:'Outfit';src:url('assets/fonts/outfit/Outfit-Light.ttf') format('truetype');font-weight:300;font-style:normal;font-display:swap;}
-@font-face{font-family:'Outfit';src:url('assets/fonts/outfit/Outfit-Regular.ttf') format('truetype');font-weight:400;font-style:normal;font-display:swap;}
-@font-face{font-family:'Outfit';src:url('assets/fonts/outfit/Outfit-Medium.ttf') format('truetype');font-weight:500;font-style:normal;font-display:swap;}
-@font-face{font-family:'Outfit';src:url('assets/fonts/outfit/Outfit-SemiBold.ttf') format('truetype');font-weight:600;font-style:normal;font-display:swap;}
+@font-face{font-family:'Cormorant Garamond';src:url('assets/fonts/cormorant/CormorantGaramond-Regular.woff2') format('woff2');font-weight:400;font-style:normal;font-display:swap;
+}
+@font-face{font-family:'Cormorant Garamond';src:url('assets/fonts/cormorant/CormorantGaramond-SemiBold.woff2') format('woff2');font-weight:600;font-style:normal;font-display:swap;
+}
+@font-face{font-family:'Cormorant Garamond';src:url('assets/fonts/cormorant/CormorantGaramond-Bold.woff2') format('woff2');font-weight:700;font-style:normal;font-display:swap;
+}
+@font-face{font-family:'Outfit';src:url('assets/fonts/outfit/Outfit-Light.woff2') format('woff2');font-weight:300;font-style:normal;font-display:swap;
+}
+@font-face{font-family:'Outfit';src:url('assets/fonts/outfit/Outfit-Regular.woff2') format('woff2');font-weight:400;font-style:normal;font-display:swap;
+}
+@font-face{font-family:'Outfit';src:url('assets/fonts/outfit/Outfit-Medium.woff2') format('woff2');font-weight:500;font-style:normal;font-display:swap;
+}
+@font-face{font-family:'Outfit';src:url('assets/fonts/outfit/Outfit-SemiBold.woff2') format('woff2');font-weight:600;font-style:normal;font-display:swap;
+}
 :root{--green:#00424a;--green-light:#005560;--gold:#C8A46B;--gold-light:#d4b47e;--cream:#F7F4EF;--white:#ffffff;--anthracite:#2B2B2B;--gray:#6b7280;--gray-light:#f0ede8;}
 *{margin:0;padding:0;box-sizing:border-box;}
 html{scroll-behavior:smooth;}
@@ -1570,5 +1577,29 @@ body, button, input, textarea, select, .nav-links a, .btn-primary, .btn-ghost, .
 .hero-title, .section-title, .ueber-logo-main, .ueber-logo-tagline, .ueber-stat .num, .leistung-num, .leistung-title, .fokus-title, .step-number, .step-title, .wema-card-title, .wema-advantages-title, .netzwerk-card-title, .kontakt-photo-name, .footer-logo, .footer-claim, .legal-title, .legal-card h2 {font-family:'Cormorant Garamond',serif;}
 
 
-/* V49: Immobilienbereich deaktiviert, Code bleibt erhalten */
+/* V51: Immobilienbereich deaktiviert, Code bleibt erhalten */
 section#immobilien[hidden], section#immobilien[data-immobilien-active="false"] { display: none !important; }
+
+
+/* V52 performance refinements */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+section:not(:first-of-type) {
+  content-visibility: auto;
+  contain-intrinsic-size: 900px;
+}
+
+@media (max-width: 768px) {
+  .section-inner {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .fokus-card img {
+    height: 100%;
+    object-fit: cover;
+  }
+}
