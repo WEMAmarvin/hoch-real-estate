@@ -1568,3 +1568,7 @@ footer nav.footer-legal-center span{
 /* V47 font restoration safeguard: keep V40 typography. */
 body, button, input, textarea, select, .nav-links a, .btn-primary, .btn-ghost, .kontakt-cta, .footer-contact a, .footer-contact span, .footer-tagline, .section-lead, .leistung-text, .wema-card-text, .netzwerk-card-text, .kontakt-lead {font-family:'Outfit',sans-serif;}
 .hero-title, .section-title, .ueber-logo-main, .ueber-logo-tagline, .ueber-stat .num, .leistung-num, .leistung-title, .fokus-title, .step-number, .step-title, .wema-card-title, .wema-advantages-title, .netzwerk-card-title, .kontakt-photo-name, .footer-logo, .footer-claim, .legal-title, .legal-card h2 {font-family:'Cormorant Garamond',serif;}
+
+
+/* V49: Immobilienbereich deaktiviert, Code bleibt erhalten */
+section#immobilien[hidden], section#immobilien[data-immobilien-active="false"] { display: none !important; }
