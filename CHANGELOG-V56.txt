@@ -1,0 +1,1 @@
+V56: §34c-Aufsichtsbehörde als normaler Impressumsblock direkt nach Umsatzsteuer-ID und vor Handelsregister eingefügt. Falsch eingerückte section-Struktur entfernt.

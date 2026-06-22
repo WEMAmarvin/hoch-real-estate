@@ -1604,17 +1604,4 @@ section:not(:first-of-type) {
   }
 }
 
-/* V55 legal layout normalization */
-.legal-card > .legal-section,
-.legal-content > .legal-section,
-.legal-section {
-  max-width: none;
-}
 
-.legal-section h2 {
-  margin-left: 0;
-}
-
-.legal-section p {
-  margin-left: 0;
-}
