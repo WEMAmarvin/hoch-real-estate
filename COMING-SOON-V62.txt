@@ -1,0 +1,8 @@
+V62 Coming Soon Final
+
+- index.html durch die gewünschte Coming-Soon-Seite ersetzt.
+- Hintergrundbild: assets/expose-bg-cover.png
+- Logo: assets/hoch-logo-vertical.png
+- Claim: Gewerbeimmobilien. Beratung. Vermittlung.
+- Footer: Impressum | Datenschutz
+- Impressum/Datenschutz und übrige Projektdateien bleiben erhalten.
