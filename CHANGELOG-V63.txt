@@ -1,0 +1,2 @@
+V63: LinkedIn-Link auf https://www.linkedin.com/in/christian-hoch-7ab881a8/ korrigiert.
+Geänderte Dateien: index.html
