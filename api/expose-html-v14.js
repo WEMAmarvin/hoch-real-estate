@@ -160,9 +160,9 @@ export default async function handler(req, res) {
         ansprechpartner: plain(findProp(p, ["Ansprechpartner", "Makler", "Kontaktperson"])) || "Christian Hoch",
         rolle: plain(findProp(p, ["Rolle", "Position", "Funktion"])) || "Geschäftsführer",
         telefon: plain(findProp(p, ["Telefon", "Phone", "Tel."])) || "+49 (0) 171 5744 947",
-        email: plain(findProp(p, ["E-Mail", "Email", "Mail"])) || "christian@hoch-real-estate.de",
+        email: plain(findProp(p, ["E-Mail", "Email", "Mail"])) || "christian@hoch.real.estate",
         website: plain(findProp(p, ["Website", "Webseite", "URL"])) || "www.hoch-real-estate.de",
-        anschrift: plain(findProp(p, ["Anschrift", "Adresse Büro", "Büro", "Firma Adresse"])) || "Emsstraße 18, 26135 Oldenburg",
+        anschrift: plain(findProp(p, ["Anschrift", "Adresse Büro", "Büro", "Firma Adresse"])) || "Im Kleigrund 10, 26135 Oldenburg",
         bilder
       };
     }
